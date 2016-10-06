@@ -35,13 +35,6 @@ type Product(p, getProdType, getPgs, partyId) =
     override x.RaisePropertyChanged propertyName = 
         ViewModelBase.raisePropertyChanged x propertyName"""
 
-    for kef in Coef.coefs do
-        let k1 = sprintf "Coef.%A" kef
-        yield sprintf """
-    member x.%s
-        with get () = x.getKefUi %s
-        and set value = x.setKefUi %s value """  (Property.kef kef) k1 k1
-
     for f in Feature.values do
         for v in PhysVar.values do
             for gas in ScalePt.values do

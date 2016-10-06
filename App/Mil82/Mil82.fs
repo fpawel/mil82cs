@@ -164,11 +164,6 @@ type ReadContext =
 
 type Var = Feature * PhysVar * ScalePt * TermoPt
 
-type ProdDataCtx = 
-    | ProdVarCtx of Var
-    | ProdKefCtx of Coef
-
-
 type DelayContext = 
     | BlowDelay of ScalePt 
     | WarmDelay of TermoPt
@@ -225,8 +220,7 @@ module Vars =
             yield! trm Tex2 [TermoNorm] ]
         |> List.sortBy( fun (feat,var,gas,t) -> var, feat, t, gas)
 
-    let vars_kefs = 
-        (List.map ProdVarCtx vars)  @ (List.map ProdKefCtx Coef.coefs) 
+    
 
 module Property = 
     let concError scalePt = sprintf "ConcError_%s" (ScalePt.name scalePt)
@@ -235,17 +229,18 @@ module Property =
     let retNkuError scalePt = sprintf "RetNkuError_%s" (ScalePt.name scalePt)
     let termoError (scalePt,termoPt) = sprintf "TermoError_%s_%s" (ScalePt.name scalePt) (TermoPt.name termoPt)
     let var var = sprintf "Var_%s" (Vars.name var)
-    let kef (kef:Coef) = sprintf "%A" kef
-    let ctx = function
-        | ProdVarCtx v -> var v
-        | ProdKefCtx k -> kef k
+//    let ctx = function
+//        | ProdVarCtx v -> var v
+//        | ProdKefCtx k -> kef k
     
 type Product = 
     {   Id : Id
         IsChecked : bool
         Serial : int
         Addr : byte
-        ProdValue : Map<ProdDataCtx, decimal> }
+        VarValue : Map<Var, decimal> 
+        CoefValue : Map<Coef, decimal> 
+        }
 
     member x.What = Product.what x
     static member id x = x.Id
@@ -253,22 +248,28 @@ type Product =
     static member createNewId() = String.getUniqueKey 12
     static member what x = sprintf "№%d.#%d" x.Serial x.Addr 
 
-    static member getProdValue k p =p.ProdValue.TryFind k 
+    static member getVar k p =p.VarValue.TryFind k 
 
-    static member setProdValue k v =  state{                
+    static member setVar k v =  state{                
         let! p = getState 
         let m = 
             match v with
             | None -> Map.remove k
             | Some v -> Map.add k v
                
-        do! setState { p with ProdValue = m p.ProdValue   } }
+        do! setState { p with VarValue = m p.VarValue   } }
 
-    static member setVar var = Product.setProdValue (ProdVarCtx var)
-    static member setKef kef = Product.setProdValue (ProdKefCtx kef)
 
-    static member getVar var p = p.ProdValue.TryFind ( ProdVarCtx var)
-    static member getKef kef p = p.ProdValue.TryFind ( ProdKefCtx kef)
+    static member getKef k p =p.CoefValue.TryFind k 
+
+    static member setKef k v =  state{                
+        let! p = getState 
+        let m = 
+            match v with
+            | None -> Map.remove k
+            | Some v -> Map.add k v
+               
+        do! setState { p with CoefValue = m p.CoefValue   } }
 
     static member setVars varsValues =  state{ 
         for var,value in varsValues do
@@ -283,7 +284,9 @@ type Product =
             Addr = addy
             Serial = serial
             IsChecked = true
-            ProdValue = Map.empty }
+            VarValue = Map.empty 
+            CoefValue = Map.empty 
+            }
 
 type LoggingRecord = DateTime * Logging.Level * string
 

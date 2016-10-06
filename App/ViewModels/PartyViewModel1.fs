@@ -23,17 +23,14 @@ module private ViewModelPartyHelpers =
     let removeKefCol p =
         MainWindow.gridKefs.Columns.Remove (getKefCol p)
 
-    let kefsProps = 
-        Mil82.Coef.coefs |> List.map(fun kef -> Property.kef kef, kef ) |> Map.ofList
-    let (|KefProp|_|) s = 
-        kefsProps.TryFind s
-
     let updKef (p:P) (colIndex:int) (kef : Coef) = 
         let n = kef.Order
-        let cell = MainWindow.gridKefs.Rows.[n].Cells.[colIndex]
+        let row = MainWindow.getRowOfCoef kef
+
+        let cell = row.Cells.[colIndex]
         let value = p.getKefUi kef
         if cell.Value=null || (string) cell.Value <> value then
-            MainWindow.gridKefs.Rows.[n].Cells.[colIndex].Value <- value
+            row.Cells.[colIndex].Value <- value
 
     let createProductViewModel getPgs productType partyId p  = 
 
@@ -44,8 +41,11 @@ module private ViewModelPartyHelpers =
             match e.PropertyName with
             | "IsChecked" -> col.Visible <- x.IsChecked
             | "What" -> col.HeaderText <- x.What
-            | KefProp kef ->  updKef x col.Index kef
             | _ -> ()
+
+        x.CoefValueChanged.Add(fun (_, coef, _) -> 
+            updKef x col.Index coef
+            )
                 
         Mil82.Coef.coefs |> List.iter( updKef x col.Index )
         col.Tag <- x

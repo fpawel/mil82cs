@@ -124,6 +124,9 @@
     <None Include="Fsx\fsharp_code_dom.fsx" />
     <None Include="Fsx\test_product_view_model.fsx" />
     <None Include="Fsx\diap.fsx" />
+    <Content Include="coefs.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\report.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

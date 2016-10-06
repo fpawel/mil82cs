@@ -18,21 +18,30 @@ module private Helpers =
     let (~%%) x = x :> C
 
 module Columns =
+    let physVars = PhysVar.values|> List.map(fun physvar -> 
+        %% new TextColumn
+                (   DataPropertyName = PhysVar.name physvar, 
+                    HeaderText = PhysVar.what physvar,
+                    ReadOnly = true) )
 
     let interrogate =    
-        [   yield %% new TextColumn(DataPropertyName = "Connection", HeaderText = "Связь", Width = 80)
-            for physvar in PhysVar.values do
-                yield %% new TextColumn
-                    (   DataPropertyName = PhysVar.name physvar, 
-                        HeaderText = PhysVar.what physvar,
-                        ReadOnly = true) ]
+        %% new TextColumn(DataPropertyName = "Connection", HeaderText = "Связь", Width = 80)
+        :: physVars
 
 let updateCoefsGridRowsVisibility _ =   
-    let visCoefs = IntRanges.parseList AppConfig.config.View.VisibleCoefs |> IntRanges.listToSet
+    let v = AppConfig.config.View
+    let visCoefs = IntRanges.parseSet v.VisibleCoefs 
+    v.VisibleCoefs <- IntRanges.formatSet visCoefs
+
     gridKefs.Rows 
     |> Seq.cast<DataGridViewRow>
-    |> Seq.iteri(fun n row -> 
-        row.Visible <- visCoefs.Contains n )
+    |> Seq.iter(fun row -> 
+        row.Visible <- visCoefs.Contains (MainWindow.getCoefOfRow row).Order )
+
+let updatePhysVarsGridColsVisibility() =
+    List.zip PhysVar.values Columns.physVars
+    |> List.iter(fun (var,col) -> 
+        col.Visible <- Set.contains var AppConfig.config.View.VisiblePhysVars )
 
 let initialize = 
     gridProducts.DataSource <- party.Products
@@ -97,6 +106,14 @@ let initialize =
         |> Seq.toStr " " (fun (n,m) -> 
             if n=m then n.ToString() else sprintf "%d-%d" n m )
 
+    let updCheckRows() = 
+        let selectedKefs = 
+            getSelectedCoefsValue()
+            |> IntRanges.parseSet
+            |> IntRanges.formatSet
+        textboxSelectedCoefs.Text <- selectedKefs
+        AppConfig.config.View.SelectedCoefs <- selectedKefs
+
 
     let rec textChangedHandler = EventHandler(fun _ _ -> 
         gridKefs.CellValueChanged.RemoveHandler cellValueChanged
@@ -114,7 +131,7 @@ let initialize =
     and cellValueChanged = DataGridViewCellEventHandler(fun _ evt -> 
         if evt.ColumnIndex <> 0 then () else
         textboxSelectedCoefs.TextChanged.RemoveHandler textChangedHandler
-        textboxSelectedCoefs.Text <- getSelectedCoefsValue()
+        updCheckRows()
         textboxSelectedCoefs.TextChanged.AddHandler textChangedHandler )
 
     gridKefs.CellValueChanged.AddHandler cellValueChanged
@@ -138,6 +155,7 @@ let initialize =
         f false ) 
 
     updateCoefsGridRowsVisibility()
+    updatePhysVarsGridColsVisibility()
 
     let col = gridKefs.Columns.[0] :?> MyWinForms.GridViewCheckBoxColumn
     let cell = col.HeaderCell :?> MyWinForms.DatagridViewCheckBoxHeaderCell
@@ -147,8 +165,7 @@ let initialize =
         textboxSelectedCoefs.TextChanged.RemoveHandler textChangedHandler  ) )
 
     cell.add_AfterCheckBoxChanged( MyWinForms.CheckBoxClickedHandler(fun index _ -> 
-        textboxSelectedCoefs.Text <- getSelectedCoefsValue()
-
+        updCheckRows()
         gridKefs.CellValueChanged.AddHandler cellValueChanged
         textboxSelectedCoefs.TextChanged.AddHandler textChangedHandler ) )
     

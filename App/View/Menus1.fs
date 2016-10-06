@@ -128,13 +128,13 @@ let addProducts (b:Button) =
         match getValue() with
         | Some _ -> errorProvider.Clear()                
         | None ->
-            errorProvider.SetError(tb, sprintf "Введено не пралильное значение количества добавляемых в партию приборов %A. Пожалуйста, введите число от 1 до 20" tb.Text )
+            errorProvider.SetError(tb, "Введите число от 1 до 20" )
             e.Cancel <- true
 
     let dialog,validate  =             
         popupDialog
             { Dlg.def() with 
-                Dlg.Text = Some "Пожалуйста, введите количество добавляемых в партию приборов от 1 до 20" 
+                Dlg.Text = Some "Введите количество добавляемых в партию приборов от 1 до 20" 
                 Dlg.ButtonAcceptText = "Добавить" 
                 Dlg.Title = "Добавить приборы"
                 Width = 300
@@ -160,7 +160,7 @@ let deleteProducts (b:Button) =
                 Dlg.Text = 
                     getSelectedProducts() 
                     |> Seq.toStr ", " (fun x -> sprintf "#%d №%d" x.Addr x.Serial)
-                    |> sprintf "Пожалуйста, подтвердите необходимость удаления приборов %s" 
+                    |> sprintf "Подтвердите необходимость удаления приборов %s" 
                     |> Some
                 Dlg.ButtonAcceptText = "Удалить" 
                 Dlg.Title = "Удалить приборы" }
@@ -463,7 +463,10 @@ let initialize =
     buttonSettings.Click.Add <| fun _ ->            
         let popup = MyWinForms.Utils.popupConfig "Параметры" Mil82.AppContent.party PropertySort.CategorizedAlphabetical
         popup.Font <- form.Font        
-        popup.Closed.Add  Mil82.View.Products.updateCoefsGridRowsVisibility
+        popup.Closed.Add( fun _ ->
+            Mil82.View.Products.updateCoefsGridRowsVisibility()
+            Mil82.View.Products.updatePhysVarsGridColsVisibility()
+            )
         popup.Show(buttonSettings)
         
 

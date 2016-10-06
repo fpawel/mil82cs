@@ -13,6 +13,8 @@ open System.Globalization
 
 let flip f a b = f b a
 
+let revpair (a,b) = (b,a)
+
 let rec exnRoot (exn:System.Exception) = 
     if exn.InnerException=null then exn else exnRoot exn.InnerException
 

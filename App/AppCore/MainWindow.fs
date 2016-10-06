@@ -195,9 +195,28 @@ let gridKefs =
     Mil82.Coef.coefs |> List.iteri(fun n kef -> 
         x.Rows.Add() |> ignore
         let row = x.Rows.[x.Rows.Count-1]
+        row.Tag <- kef
         row.Cells.[1].Value <- kef.Order 
         row.Cells.[2].Value <- kef.Description)    
     x
+
+let getRowOfCoef  =
+    let xs =
+        gridKefs.Rows 
+        |> Seq.cast<DataGridViewRow>
+        |> Seq.map( fun row -> row.Tag :?> Mil82.Coef, row )
+        |> Map.ofSeq
+    fun coef -> xs.[coef]
+
+let getCoefOfRow  =
+    let xs =
+        gridKefs.Rows 
+        |> Seq.cast<DataGridViewRow>
+        |> Seq.map( fun row -> row.GetHashCode(), row.Tag :?> Mil82.Coef )
+        |> Map.ofSeq
+
+    fun (row:DataGridViewRow) -> xs.[row.GetHashCode()]
+
 
 module SelectedCoefsRows =
 
@@ -205,8 +224,10 @@ module SelectedCoefsRows =
         form.PerformThreadSafeAction <| fun () ->
             gridKefs.Rows 
             |> Seq.cast<DataGridViewRow>
-            |> Seq.mapi(fun n row -> 
-                n,  let x = row.Cells.[0].Value in
+            |> Seq.map(fun row ->
+                let coef = getCoefOfRow row
+                coef.Order,  
+                    let x = row.Cells.[0].Value in
                     if x = null then false else
                     x :?> bool)
             |> Seq.filter snd
@@ -217,8 +238,8 @@ module SelectedCoefsRows =
         form.PerformThreadSafeAction <| fun () ->
             gridKefs.Rows 
             |> Seq.cast<DataGridViewRow>
-            |> Seq.iteri(fun nCoef row -> 
-                row.Cells.[0].Value <- Set.contains nCoef coefs
+            |> Seq.iter(fun row -> 
+                row.Cells.[0].Value <- Set.contains (getCoefOfRow row).Order coefs
                 )
 
     

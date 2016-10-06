@@ -30,11 +30,22 @@ let coefs = File.ReadAllLines filename |> Array.mapi (fun n s ->
     let descr = (%% 3).Trim()
     coef, n, defVal, descr )
 
-for coef, n, _, _ in coefs do 
-    printfn "let %s = %d" coef n
+File.WriteAllLines
+    (   __SOURCE_DIRECTORY__ + "\\coefs.cfg", 
+        coefs |> Array.map(fun (coef, n, _, descr) -> sprintf "%d %s %s" n coef descr ) )
 
-for coef, n, defVal, descr in coefs do 
-    if String.IsNullOrEmpty descr then
-        printfn "%d, (%A, None)" n coef 
-    else
-        printfn "%d, (%A, Some %A)" n coef descr
+
+let customCoefs1 = 
+    File.ReadAllLines (__SOURCE_DIRECTORY__ + "\\coefs.cfg")
+    |> Array.map (fun s -> 
+        let m = Regex.Match(s, @"^(\d+)\s+(\w+)\s*([^$]*)$")
+        let (~%%) (n:int) = m.Groups.[n].Value
+        let n = Int32.Parse (%% 1)
+        let coef = %% 2
+        let descr = (%% 3).Trim()
+        let descr = if String.IsNullOrEmpty descr then None else Some descr
+        n, coef, descr ) 
+
+customCoefs1.Length
+coefs.Length
+

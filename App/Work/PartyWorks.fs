@@ -83,8 +83,12 @@ type Mil82.ViewModel.Product1 with
 
     
     member x.Interrogate() = maybeErr {
-        for var in PhysVar.values do 
-            let! _ = x.ReadModbus( ReadVar var)
+        let xs = 
+            let xs = AppConfig.config.View.VisiblePhysVars
+            if Set.isEmpty xs then [Conc] else
+            Set.toList xs
+        for var in xs do
+            let _ = x.ReadModbus( ReadVar var)
             () }
 
     member p.TestConc gas = maybeErr{
@@ -118,7 +122,7 @@ type Mil82.ViewModel.Party with
             do! Comport.testPort AppConfig.config.ComportProducts
             for p in xs do 
                 if isKeepRunning() && p.IsChecked then                         
-                    p.Interrogate() |> ignore }
+                    do! p.Interrogate() }
 
     member x.WriteModbus(cmd,value) = maybeErr{
         do! Comport.testPort appCfg.ComportProducts

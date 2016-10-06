@@ -68,26 +68,38 @@ module private PivateComputeProduct =
     let tup2 = function [x;y] -> Some(x,y) | _ -> None
     let tup3 = function [x;y;z] -> Some(x,y,z) | _ -> None
 
+    type C = 
+        | V of Var
+        | K of Coef
 
-    let getValues p valuesKeys =         
+    let getVarsValues p vars =         
         let oks, errs =
-            valuesKeys |> List.map( fun k ->
-                match Product.getProdValue k p with 
+            vars |> List.map( fun k ->
+                match Product.getVar k p with 
                 | None ->  Err k
                 | Some value -> Ok (k,value) )
             |> List.partition Result.isOk
         if List.isEmpty errs then 
             Ok ( oks |> List.map ( Result.Unwrap.ok >> snd) ) 
         else 
-            Err ( errs |> List.map Result.Unwrap.err  ) 
+            errs 
+            |> List.map ( Result.Unwrap.err  >> V)
+            |> Err
 
     let getKefsValues p kefs = 
-        kefs |> List.map ProdKefCtx
-        |> getValues p 
+        let oks, errs =
+            kefs |> List.map( fun k ->
+                match Product.getKef k p with 
+                | None ->  Err k
+                | Some value -> Ok (k,value) )
+            |> List.partition Result.isOk
+        if List.isEmpty errs then 
+            Ok ( oks |> List.map ( Result.Unwrap.ok >> snd) ) 
+        else 
+            errs 
+            |> List.map ( Result.Unwrap.err >> K )
+            |> Err  
 
-    let getVarsValues p vars = 
-        vars |> List.map ProdVarCtx
-        |> getValues p 
 
     let fmtErr<'a> (fmt : 'a -> string) = function
         | [x] -> sprintf "точке %A" (fmt x)
@@ -113,7 +125,7 @@ module private PivateComputeProduct =
             |> Result.map ( fun xs -> 
                 List.zip xs ( ScalePt.values |> List.map pgs  ) )
             |> Result.mapErr( 
-                fmtErr (function ProdVarCtx (_,_,gas,_) -> sprintf "%A" gas)
+                fmtErr (function  V(_,_,gas,_) -> sprintf "%A" gas)
                 >> sprintf "нет значения LIN в %s" )
         | KefTermo ScaleBeg -> 
             result {
@@ -121,7 +133,7 @@ module private PivateComputeProduct =
                 let! var = getTermoValues Var1 ScaleBeg p
                 return List.zip t ( List.map (fun var -> - var) var) }
             |> Result.mapErr( 
-                fmtErr (fun (ProdVarCtx (_,var,_,t)) -> 
+                fmtErr (function V(_,var,_,t) -> 
                         sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) )                
                 >> sprintf "нет значения T0 в %s" )
 
@@ -132,7 +144,7 @@ module private PivateComputeProduct =
                 let! var0 = getTermoValues Var1 ScaleBeg p
                 return List.zip3 t var0 var}
             |> Result.mapErr( 
-                fmtErr (fun (ProdVarCtx(_,var,_,t)) -> 
+                fmtErr (function V(_,var,_,t) -> 
                     sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) )
                 >> sprintf "нет значения TK в %s" )
             |> Result.bind(fun xs ->
@@ -176,8 +188,8 @@ module private PivateComputeProduct =
                 return [ t1, yLo; t2, 1m; t3, yHi ] }
             |> Result.mapErr( 
                 fmtErr ( function
-                    | ProdKefCtx kef -> sprintf "коэф.%d" kef.Order
-                    | ProdVarCtx (_,var, gas,t) -> sprintf "%A.%A.%A" (PhysVar.what var) (ScalePt.what gas) (TermoPt.what t) )
+                    | K kef -> sprintf "коэф.%d" kef.Order
+                    | V (_,var, gas,t) -> sprintf "%A.%A.%A" (PhysVar.what var) (ScalePt.what gas) (TermoPt.what t) )
                 >> sprintf "нет значения TM в %s" )
 
         

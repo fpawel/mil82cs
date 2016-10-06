@@ -37,12 +37,22 @@ type Product1(p : P, getProductType, getPgs, partyId) =
         |> List.map(fun var -> var, getTermoError var )
         |> Map.ofList
 
-    let getVarsKefsValues() = 
-        Vars.vars_kefs
-        |> List.map(fun ctx -> ctx, P.getProdValue ctx p )
+    let getVarsValues() = 
+        Vars.vars
+        |> List.map(fun ctx -> ctx, P.getVar ctx p )
+        |> Map.ofList
+
+    let getKefsValues() = 
+        Coef.coefs
+        |> List.map(fun ctx -> ctx, P.getKef ctx p )
         |> Map.ofList
 
     let mutable physVar = Map.empty
+
+    let coefValueChangedEvent = Event<Product1 * Coef * decimal option >()
+    
+    [<CLIEvent>]
+    member x.CoefValueChanged = coefValueChangedEvent.Publish
 
     member x.setKefsInitValues () = 
         let t = getProductType()    
@@ -130,13 +140,15 @@ type Product1(p : P, getProductType, getPgs, partyId) =
             if p = other then () else
             let prevConcErrors =  getConcErrors()                
             let prevTermoError = getTermoErrors()
-            let prevValues = getVarsKefsValues()
+            let prevVarsValues = getVarsValues()
+            let prevKefsValues = getKefsValues()
 
             p <- other
 
             let concErrors =  getConcErrors()
             let termoError = getTermoErrors()
-            let values = getVarsKefsValues()
+            let varsValues = getVarsValues()
+            let kefsValues = getKefsValues()
 
             ScalePt.values
             |> List.filter(fun gas -> prevConcErrors.[gas] <> concErrors.[gas] )
@@ -146,9 +158,14 @@ type Product1(p : P, getProductType, getPgs, partyId) =
             |> List.filter(fun var -> prevTermoError.[var] <> termoError.[var] )
             |> List.iter (Property.termoError >> x.RaisePropertyChanged) 
 
-            Vars.vars_kefs
-            |> List.filter(fun var -> prevValues.[var] <> values.[var] )
-            |> List.iter (Property.ctx >> x.RaisePropertyChanged) 
+            Vars.vars
+            |> List.filter(fun var -> prevVarsValues.[var] <> varsValues.[var] )
+            |> List.iter (Property.var >> x.RaisePropertyChanged) 
+
+            Coef.coefs
+            |> List.filter(fun coef -> prevKefsValues.[coef] <> kefsValues.[coef] )
+            |> List.iter (fun coef -> 
+                coefValueChangedEvent.Trigger(x, coef, kefsValues.[coef]) )
 
             x.RaisePropertyChanged "Product"
             x.RaisePropertyChanged "What"
@@ -160,7 +177,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
         if P.getKef kef p = value then () else
         let s = state{ do! P.setKef kef value}
         p <- runState s p |> snd
-        kef |> Property.kef |> x.RaisePropertyChanged
+        coefValueChangedEvent.Trigger(x,kef,value)
 
     member x.getVar var = P.getVar var p
     member x.setVar ( (feat, physVar, scalePt, termoPt) as var) value =
