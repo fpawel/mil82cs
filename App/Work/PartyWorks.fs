@@ -39,47 +39,51 @@ let doWithProducts f =
 
 type Mil82.ViewModel.Product1 with
     
-    member x.WriteKef (kef,value) = 
-        let r = x.WriteModbus( WriteKef kef, value )
-        match r with
-        | Ok () -> 
-            Logging.info "%s.коэф.%d <- %M" x.What kef.Order value
-            x.setKef kef (Some value)
-        | Err err -> Logging.error "%s.коэф.%d <- %M : %s" x.What kef.Order value err
-        r
-
-    member x.WriteKef1 kef  = 
-        match P.getKef kef x.Product with
-        | None ->  Logging.warn "%s, нет значения записываемого к-та %d, %s" x.What kef.Order kef.Description ; Ok()
-        | Some value -> x.WriteKef(kef,value) 
-       
-    
-    member x.WriteKefs kefsValues = 
-        kefsValues |> List.iter ( x.WriteKef >> ignore )
-        
-
-    member x.WriteKefs1 kefs = 
-        kefs |> List.iter ( x.WriteKef1 >> ignore )
+    member x.WriteKef (kef,value) =         
+        let value =
+            match value, P.getKef kef x.Product with
+            | Some value, _ -> Some value
+            | _, Some value -> Some  value            
+            | _ ->  None
+        match value with
+        | None -> 
+            Logging.warn "%s, нет значения записываемого к-та %d, %s" x.What kef.Order kef.Description 
+            Ok()
+        | Some value -> 
+            let r = x.WriteModbus( WriteKef kef, value )
+            match r with
+            | Ok () -> 
+                Logging.info "%s.коэф.%d <- %M" x.What kef.Order value
+                x.setKef kef (Some value)
+            | Err err -> Logging.error "%s.коэф.%d <- %M : %s" x.What kef.Order value err
+            r
 
     
-
+    member x.WriteKefs kefsValues  = maybeErr {
+        for kef,value in kefsValues do
+            let! _ = x.WriteKef(kef,value)
+            () }
+            
     member x.WriteKefsInitValues() = 
         let t = party.getProductType()        
         Coef.coefs 
         |> List.choose( fun kef -> 
             if notKeepRunning() then None else 
             Alchemy.initKefValue party.GetPgs t kef x.Product 
-            |> Option.map(fun v -> kef,v) )
+            |> Option.map(fun v -> kef, Some v) )
         |> x.WriteKefs
 
     member x.ReadKefs kefs = maybeErr {
         for kef in kefs do
-            match x.ReadModbus( ReadKef kef ) with
+            let r = x.ReadModbus( ReadKef kef )
+            match r with
             | Ok value -> 
                 Logging.info "%s.коэф.%d = %M" x.What kef.Order value
                 x.setKef kef (Some value) 
             | Err err ->
-                Logging.error "%s.коэф.%d : %s" x.What kef.Order err }
+                Logging.error "%s.коэф.%d : %s" x.What kef.Order err 
+            let! _ = r
+            () }
 
     
     member x.Interrogate() = maybeErr {
@@ -131,7 +135,7 @@ type Mil82.ViewModel.Party with
     member x.WriteKefs(kefs) = maybeErr{
         do! Comport.testPort appCfg.ComportProducts
         do! x.DoForEachProduct (fun p -> 
-            p.WriteKefs1 kefs |> ignore ) }
+            p.WriteKefs kefs |> ignore ) }
 
     member x.ReadKefs(kefs) = maybeErr{
         do! Comport.testPort appCfg.ComportProducts
@@ -141,7 +145,10 @@ type Mil82.ViewModel.Party with
     member x.ComputeAndWriteKefGroup (kefGroup) = 
         x.DoForEachProduct(fun p -> 
             p.ComputeKefGroup kefGroup
-            p.WriteKefs1 (KefGroup.kefs kefGroup) |> ignore )
+            KefGroup.kefs kefGroup
+            |> List.map (fun x -> x, None)
+            |> p.WriteKefs  
+            |> ignore )
    
 module Delay = 
     let onStart = Ref.Initializable<_>(sprintf "Delay.start %s:%s" __LINE__ __SOURCE_FILE__ )
@@ -188,18 +195,23 @@ module private Helpers1 =
 
     let computeGroup kefGroup = 
         sprintf "Расчёт %A" (KefGroup.what kefGroup) <|> fun () -> 
-            party.ComputeAndWriteKefGroup kefGroup
-            |> Result.someErr
+            party.ComputeKefGroup kefGroup
+            None
 
     let writeGroup kefGroup = 
         sprintf "Запись к-тов группы %A" (KefGroup.what kefGroup) <|> fun () -> 
-            party.WriteKefs ( KefGroup.kefs kefGroup)
+            KefGroup.kefs kefGroup
+            |> List.map(fun x -> x, None)
+            |> party.WriteKefs 
 
     let computeAndWriteGroup kefGroup = 
         [   "Расчёт" <|> fun () -> 
-                party.ComputeAndWriteKefGroup kefGroup
-                |> Result.someErr
-            "Запись" <|> fun () -> party.WriteKefs ( KefGroup.kefs kefGroup) ]
+                party.ComputeKefGroup kefGroup
+                None
+            "Запись" <|> fun () ->  
+                KefGroup.kefs kefGroup
+                |> List.map(fun x -> x, None)
+                |> party.WriteKefs ]
 
     type OpConfig = Config
     type Op = Operation
@@ -339,7 +351,8 @@ let reworkTermo =
 let productionWork = 
     [   "Установка к-тов исп." <|> fun () -> maybeErr{
             do! party.DoForEachProduct (fun p -> 
-                p.WriteKefsInitValues() ) }
+                p.WriteKefsInitValues()
+                |> ignore ) }
         goNku
         blowAir
         "Ноормировка" <|> fun () -> party.WriteModbus(Nommalize, 1000m)        
@@ -464,9 +477,10 @@ module Kefs =
                 |> Set.map Coef.tryGetByOrder  
                 |> Set.toList
                 |> List.choose id
+                
             if kefs.IsEmpty then Some "не выбрано ни одного коэффициента" else f kefs
 
-    let write() = run "Запись к-тов" party.WriteKefs 
+    let write() = run "Запись к-тов" ( List.map(fun x -> x, None) >> party.WriteKefs  )
     let read() = run "Считывание к-тов"  party.ReadKefs
 
 module TermoChamber =

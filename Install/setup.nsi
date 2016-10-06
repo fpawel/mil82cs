@@ -35,7 +35,7 @@ var ICONS_GROUP
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\MIL82_2016_WinForms.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\mil82.exe"
 !insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
@@ -113,6 +113,13 @@ ShowInstDetails show
 ShowUnInstDetails show
 
 Section "MainSection" SEC01
+
+  SetOutPath "$INSTDIR\Content"
+  File "..\App\Bin\Release\Content\*.*"
+
+  SetOutPath "$INSTDIR\ru"
+  File "..\App\Bin\Release\ru\*.*"
+  
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   File "..\App\Bin\Release\*.exe"
@@ -122,19 +129,12 @@ Section "MainSection" SEC01
   File "..\App\Bin\Release\*.config"
   File "..\App\Bin\Release\*.xml"
   
-  SetOutPath "$INSTDIR\Content"
-  File "..\App\Bin\Release\Content\*.*"
-
-  
-  SetOutPath "$INSTDIR\ru"
-  File "..\App\Bin\Release\ru\*.*"
-  
   
 ; Shortcuts
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
   CreateDirectory "$SMPROGRAMS\$ICONS_GROUP"
-  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\Ã»À-82.lnk" "$INSTDIR\MIL82_2016_WinForms.exe"
-  CreateShortCut "$DESKTOP\Ã»À-82.lnk" "$INSTDIR\MIL82_2016_WinForms.exe"
+  CreateShortCut "$SMPROGRAMS\$ICONS_GROUP\Ã»À-82.lnk" "$INSTDIR\mil82.exe"
+  CreateShortCut "$DESKTOP\Ã»À-82.lnk" "$INSTDIR\mil82.exe"
   !insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
@@ -146,10 +146,10 @@ SectionEnd
 
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\MIL82_2016_WinForms.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\mil82.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\MIL82_2016_WinForms.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\mil82.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
 SectionEnd
