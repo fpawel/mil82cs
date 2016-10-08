@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckBoxColumn.cs" />
+    <Compile Include="FlatComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PopupAnimations.cs" />
     <Compile Include="PopupComboBox.cs">
       <SubType>Component</SubType>

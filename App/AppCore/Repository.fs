@@ -131,7 +131,7 @@ module Party =
 
     let save (( head, data) as p:Party.Content) = 
         doWithFile (PartyPath.getFilePath(true, PartyPath.fromPartyHead head)) FileMode.Create <| fun stream -> 
-            let head = { head with Serials = data.Products |> List.map(fun x -> x.Serial) }
+            let head = { head with ProductsSerials = data.Products |> List.map Product.productSerial }
             binarySerializer.Serialize( stream, head, leaveOpen = true)
             binarySerializer.Serialize( stream, data)
             stream.Close()    

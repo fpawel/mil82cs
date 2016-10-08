@@ -25,7 +25,7 @@ let main () =
         Thread2.initialize()
         ChartDataBindings.initialize()
         Report.initialize()
-        Menus1.initialize()
+        Menus.initialize()
         Ref.``check referencies was initialized``()
         
         Application.Run MainWindow.form 

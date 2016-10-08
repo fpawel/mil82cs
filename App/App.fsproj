@@ -116,13 +116,17 @@
     <Compile Include="View\Thread2Views.fs" />
     <Compile Include="View\ReportView.fs" />
     <Compile Include="View\ViewChart.fs" />
-    <Compile Include="View\Menus1.fs" />
+    <Compile Include="View\OpenPartyDialog.fs" />
+    <Compile Include="View\SelectScenaryDialog.fs" />
+    <Compile Include="View\PartyProductsDialogs.fs" />
+    <Compile Include="View\Menus.fs" />
+    <Compile Include="Programm.fs" />
     <None Include="Fsx\untune.fsx" />
     <None Include="Fsx\tree_sample.fsx" />
     <None Include="Fsx\state_calculator.fsx" />
     <None Include="Fsx\emit_sample.fsx" />
     <None Include="Fsx\fsharp_code_dom.fsx" />
-    <None Include="Fsx\test_product_view_model.fsx" />
+    <None Include="Fsx\appl.fsx" />
     <None Include="Fsx\diap.fsx" />
     <Content Include="coefs.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -136,7 +140,6 @@
     <Content Include="Content\logging.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Compile Include="Programm.fs" />
     <None Include="src_select_pahys_vars_viewmodel.fsx" />
     <None Include="src_viewmodels.fsx" />
     <None Include="src_kefs.fsx" />

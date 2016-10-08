@@ -21,9 +21,11 @@ module TabsheetVars =
     let mutable private page = { PhysVar = Conc; Feature = Lin; TermoPt = TermoNorm}
     let update () = 
         setActivePageTitle <| sprintf "%s, %s, %s" page.Feature.What1 page.PhysVar.Dscr page.TermoPt.Dscr
-        gridProducts.Columns.``remove all but [n] first columns`` 3
+        gridProducts.Columns.``remove all columns but`` Columns.main
+        
         for gas in ScalePt.values do
             let s = Property.var (page.Feature, page.PhysVar, gas, page.TermoPt)
+            let col = new DataGridViewTextBoxColumn( DataPropertyName = s,  HeaderText = gas.What)
             gridProducts.Columns.AddColumn( new DataGridViewTextBoxColumn( DataPropertyName = s,  HeaderText = gas.What) )
 
     let private addp () =         
@@ -143,7 +145,7 @@ module TabsheetErrors =
     let mutable private page = Main
     let update () = 
         setActivePageTitle (page.What + " погрешность")
-        gridProducts.Columns.``remove all but [n] first columns`` 3
+        gridProducts.Columns.``remove all columns but`` Columns.main
         for h,s,p in K.props page do
             let col = new DataGridViewTextBoxColumn( DataPropertyName = p,  HeaderText = h)
             colsFns.[col.GetHashCode()] <- 
@@ -187,15 +189,15 @@ module TabsheetErrors =
 
 let private onSelect = function
     | TabsheetParty -> 
-        gridProducts.Columns.``remove all but [n] first columns`` 3
-        gridProducts.Columns.AddColumns  Products.Columns.interrogate
+        gridProducts.Columns.``remove all columns but`` Products.Columns.main
+        gridProducts.Columns.AddColumns <| Products.Columns.sets @ Products.Columns.interrogate 
         gridProducts.Parent <- TabsheetParty.RightTab
     | TabsheetVars ->
-        gridProducts.Columns.``remove all but [n] first columns`` 3
+        gridProducts.Columns.``remove all columns but`` Products.Columns.main
         gridProducts.Parent <- TabsheetVars.RightTab
         TabsheetVars.update()
     | TabsheetErrors ->
-        gridProducts.Columns.``remove all but [n] first columns`` 3
+        gridProducts.Columns.``remove all columns but`` Products.Columns.main
         gridProducts.Parent <- TabsheetErrors.RightTab
         TabsheetErrors.update()
         
@@ -205,6 +207,12 @@ let private onSelect = function
     | _ -> ()
         
 let getSelected, setSelected =
+    gridProducts.Columns.CollectionChanged.Add(fun _ ->
+        gridProducts.Columns.SetDisplayIndexByOrder()
+        )
+    gridProducts.Columns.AddColumns  Products.Columns.main
+    gridProducts.Columns.AddColumns  Products.Columns.sets
+    
     radioButtons 
         tabButtonsPlaceholder 
         Tabsheet.values

@@ -232,21 +232,24 @@ module Property =
 //    let ctx = function
 //        | ProdVarCtx v -> var v
 //        | ProdKefCtx k -> kef k
-    
+
+type ProductSerial = 
+    {   SerialNumber : uint16
+        ProdMonthYear : (byte * byte) option }
+
 type Product = 
     {   Id : Id
-        IsChecked : bool
-        Serial : int
+        IsChecked : bool        
+        ProductSerial : ProductSerial
         Addr : byte
         VarValue : Map<Var, decimal> 
-        CoefValue : Map<Coef, decimal> 
-        }
+        CoefValue : Map<Coef, decimal>  }
 
     member x.What = Product.what x
     static member id x = x.Id
-    static member serial x = x.Serial
+    static member productSerial x = x.ProductSerial
     static member createNewId() = String.getUniqueKey 12
-    static member what x = sprintf "№%d.#%d" x.Serial x.Addr 
+    static member what x = sprintf "№%d.#%d" x.ProductSerial.SerialNumber x.Addr 
 
     static member getVar k p =p.VarValue.TryFind k 
 
@@ -279,14 +282,29 @@ type Product =
         for kef,value in kefsVals do
             do! Product.setKef kef (Some value)  }
 
-    static member createNew addy serial = 
+    static member createNew addy = 
+        let now = DateTime.Now
         {   Id = Product.createNewId()
+            ProductSerial =
+                {   SerialNumber = 0us
+                    ProdMonthYear = None }
             Addr = addy
-            Serial = serial
             IsChecked = true
             VarValue = Map.empty 
-            CoefValue = Map.empty 
-            }
+            CoefValue = Map.empty }
+
+    static member tryParseSerailMonthYear s =
+        let m = Text.RegularExpressions.Regex.Match(s, @"(\d\d)\s*[\./\s]\s*(\d+)")
+        if not m.Success then None else
+        let y = Int32.Parse m.Groups.[2].Value - 2000
+        let mn = Byte.Parse m.Groups.[1].Value
+        if y >= 16 && mn > 0uy && mn < 13uy then 
+            Some ( mn, byte y )
+        else None
+
+    static member formatSerailMonthYear (m:byte, y:byte) =
+        let sm = if m<10uy then sprintf "0%d" m else m.ToString()
+        sprintf "%s.%d" sm (2000 + int y)
 
 type LoggingRecord = DateTime * Logging.Level * string
 
@@ -308,7 +326,7 @@ module Party =
             Date : DateTime
             ProductType : ProductType
             Name : string
-            Serials : int list   }
+            ProductsSerials : ProductSerial list   }
         static member id x = x.Id 
     type Data = {
         Products : Product list
@@ -329,9 +347,9 @@ module Party =
         //let products = [ Product.createNew 1uy 1 A00 ]
         let t = A00
         {   Id = Product.createNewId()
-            Serials = List.map Product.serial []
+            ProductsSerials = List.map Product.productSerial []
             Date=DateTime.Now 
-            Name = "Партия1"
+            Name = ""
             ProductType = A00 }, 
             {   Products = []
                 BallonConc = Map.empty

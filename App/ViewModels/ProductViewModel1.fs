@@ -1,6 +1,7 @@
 ﻿namespace  Mil82.ViewModel
 
 open System
+open System.Text.RegularExpressions
 
 open Mil82
 open Mil82.Alchemy
@@ -115,14 +116,35 @@ type Product1(p : P, getProductType, getPgs, partyId) =
                 x.RaisePropertyChanged "What"
                 Chart.setProductLegend p.Id x.What
 
-    member x.Serial 
-        with get () = p.Serial          
+    member x.SerialNumber
+        with get () = p.ProductSerial.SerialNumber
         and set v = 
-            if v <> p.Serial then
-                p <- { p with Serial = v}
+            if v <> p.ProductSerial.SerialNumber then
+                p <- { p with ProductSerial = {p.ProductSerial with SerialNumber = v} }
                 x.RaisePropertyChanged "What"
-                x.RaisePropertyChanged "Serial"
+                x.RaisePropertyChanged "SerialNumber"
                 Chart.setProductLegend p.Id x.What
+
+    member x.ProdReady
+        with get () = p.ProductSerial.ProdMonthYear.IsSome
+        and set v = 
+            if v <> x.ProdReady then
+                let ym =
+                    if v then 
+                        let now = DateTime.Now
+                        Some ( byte now.Month, byte (now.Year - 2000) )
+                    else None 
+                p <- { p with ProductSerial = {p.ProductSerial with ProdMonthYear = ym } }
+                x.RaisePropertyChanged "ProdReady"
+                x.RaisePropertyChanged "MonthYearStr"
+
+    member x.MonthYearStr
+        with get () = 
+            p.ProductSerial.ProdMonthYear
+            |> Option.map(fun (m,y) ->
+                let m = if m<10uy then sprintf "0%d" m else m.ToString()
+                sprintf "%s.20%d" m y )
+            |> Option.getWith ""
 
     member x.ForceCalculateErrors() =
         let (~%%) = x.RaisePropertyChanged

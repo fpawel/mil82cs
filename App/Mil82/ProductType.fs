@@ -22,6 +22,7 @@ type Scale =
     static member code = Scale.context >> fst
     static member value = Scale.context >> snd
 
+
     
 
 type ProductType =     
@@ -42,7 +43,7 @@ type ProductType =
         | A31 -> 3,1, C3H8, Sc100,  12.5m, 0.5m, 30m
         | A40 -> 4,0, CH4,  Sc100,  7.5m,  0.5m, 60m
     member x.What = ProductType.what x
-
+    
     static member gas x = let _,_,v,_,_,_,_ = ProductType.ctx x in v
     static member isCH = ProductType.gas >> function CO2 -> false | _ -> true
     static member scale x = let _,_,_,v,_,_,_ = ProductType.ctx x in v
@@ -58,4 +59,15 @@ type ProductType =
         let d1,d2,_,_,_,_,_ = ProductType.ctx x in
         sprintf "МИЛ.%d.%d" d1 d2
 
-    static member values = FSharpType.unionCasesList<ProductType> 
+
+[<AutoOpen>]
+module private Helpers =
+    let values = FSharpType.unionCasesList<ProductType> 
+    ()
+
+type ProductType with 
+
+    static member values = values
+
+    static member index x = 
+        List.findIndex ((=) x) values

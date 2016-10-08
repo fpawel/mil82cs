@@ -149,26 +149,22 @@ let gridScenary =
     x
 
 let gridProducts = 
-    let x = new DataGridView (                 
-              AutoGenerateColumns = false, 
-              Dock = DockStyle.Fill,
-              BackgroundColor = TabsheetScenary.RightTab.BackColor,
-              Name = "PartyDataGrid",
-              ColumnHeadersHeight = 40, //DataSource = party.Products, 
-              Parent = TabsheetParty.RightTab,
-              RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
-              RowHeadersWidth = 30,
-              AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
-              AllowUserToResizeRows = false,
-              AllowUserToAddRows = false,
-              AllowUserToDeleteRows = false,                                
-              BorderStyle = BorderStyle.None  )
+    new DataGridView (                 
+            AutoGenerateColumns = false, 
+            Dock = DockStyle.Fill,
+            BackgroundColor = TabsheetScenary.RightTab.BackColor,
+            Name = "PartyDataGrid",
+            ColumnHeadersHeight = 40, //DataSource = party.Products, 
+            Parent = TabsheetParty.RightTab,
+            RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
+            RowHeadersWidth = 30,
+            AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
+            AllowUserToResizeRows = false,
+            AllowUserToAddRows = false,
+            AllowUserToDeleteRows = false,                                
+            BorderStyle = BorderStyle.None  )
+
     
-    [   %% new CheckBoxColumn(DataPropertyName = "IsChecked", Width = 50) 
-        %% new TextColumn(DataPropertyName = "Addr", HeaderText = "#", Width = 50) 
-        %% new TextColumn(DataPropertyName = "Serial", HeaderText = "№", Width = 80)  ]
-    |> x.Columns.AddColumns
-    x
 
 let productsToolsLayer = new Panel(Parent = TabsheetParty.BottomTab, Dock = DockStyle.Left, Width = 40 ) 
 

@@ -42,9 +42,16 @@ type DataGridViewColumnCollection with
 
     member x.AddColumn(col) = DataGridViewColumnCollection.addColumn x col
     member x.AddColumns(cols) = DataGridViewColumnCollection.addColumns cols x
-    member x.``remove all but [n] first columns`` n = 
-        while x.Count > n do
-            x.RemoveAt(x.Count-1)
+
+    member x.SetDisplayIndexByOrder() = 
+        x |> Seq.cast |> Seq.iteri (fun n (col:DataGridViewColumn) -> 
+            col.DisplayIndex <- n )
+
+    member x.``remove all columns but``<'T when 'T :> DataGridViewColumn > (columns : 'T seq) = 
+        [   for y in x do 
+                if columns |> Seq.exists(fun c -> obj.ReferenceEquals(c,y) ) |> not then
+                    yield y]
+        |> List.iter x.Remove
 
 type DataGridView with
     static member updateBinding (g:DataGridView) = 

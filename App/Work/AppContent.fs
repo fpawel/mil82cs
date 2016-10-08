@@ -87,7 +87,26 @@ let load partyId =
         None
     
 
-let getParties() =
-    parties
-    |> Map.toList |> List.map snd
+let getParties prodType serial month year =
+    parties |> Map.toList |> List.map snd
+    |> List.filter( fun p ->
+        match prodType with 
+        | Some prodType -> p.ProductType = prodType
+        | _ -> true  )
+    |> List.filter( fun p ->
+        match serial with 
+        | Some serial -> p.ProductsSerials |> List.exists(fun y -> y.SerialNumber = serial)
+        | _ -> true  )
+    |> List.filter( fun p ->
+        match month with 
+        | Some month -> p.ProductsSerials |> List.exists(function 
+            | {ProdMonthYear = Some (month',_)} -> month'=month 
+            | _ -> false)
+        | _ -> true )
+    |> List.filter( fun p ->
+        match year with 
+        | Some year -> p.ProductsSerials |> List.exists(function  
+            | {ProdMonthYear = Some (_,y')} -> y'=year 
+            | _ -> false)
+        | _ -> true )
     |> Repository.partiesHeadersDateTree 
