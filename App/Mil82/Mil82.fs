@@ -202,7 +202,7 @@ module Vars =
 
     let gas_t_vars = 
         [   for gas in ScalePt.values do
-                for t in TermoPt.values @ [TermoPt.Termo90] do
+                for t in TermoPt.values  do
                     yield gas,t ]
 
     let vars = 
