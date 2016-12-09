@@ -123,8 +123,6 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   File "..\App\Bin\Release\*.exe"
-  File "..\App\Bin\Release\*.css"
-  File "..\App\Bin\Release\*.js"
   File "..\App\Bin\Release\*.dll"
   File "..\App\Bin\Release\*.config"
   File "..\App\Bin\Release\*.xml"
