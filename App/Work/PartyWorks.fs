@@ -363,7 +363,6 @@ let productionWork =
             yield!  computeAndWriteGroup KefLin ]
         warmAndRead Termo TermoLow 
         warmAndRead Termo TermoHigh 
-        warmAndRead Termo Termo90 
         warmAndRead Termo TermoNorm 
         "Термокомпенсация"  <||> [
             for gas in ScalePt.values ->

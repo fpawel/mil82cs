@@ -62,6 +62,10 @@ let bottomLayer =
     let _ = new Panel(Parent = mainLayer, Dock = DockStyle.Bottom, Height = 3)    
     x
 
+let labelPerformingInfo = 
+    new Label(Parent = bottomLayer, Dock = DockStyle.Fill, Text = "",
+                TextAlign = ContentAlignment.MiddleLeft )
+
 module HardwareInfo = 
     let private (~%%) x = MyWinForms.Components.LeftInfoBlock(bottomLayer, x)
     let oven = %% "Подогрев плат"

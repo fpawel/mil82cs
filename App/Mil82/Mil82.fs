@@ -83,12 +83,12 @@ type PhysVar =
     | Workk 
     | Refk
     static member context = function
-        | Conc  -> 0,  ("Конц.", "Концентрация")
-        | Temp  -> 2,  ("Т\"С",  "Температура")
-        | Curr  -> 4,  ("Iизл",  "Ток излучателя")
+        | Conc  -> 0,  ("C", "Концентрация")
+        | Temp  -> 2,  ("Т",  "Температура")
+        | Curr  -> 4,  ("I",  "Ток излучателя")
         | Var1  -> 16, ("Var1",  "Var1")
-        | Workk -> 12, ("Uраб",  "Рабочий канал")
-        | Refk  -> 14, ("Uоп",   "Опорный канал")
+        | Workk -> 12, ("Work",  "Рабочий канал")
+        | Refk  -> 14, ("Ref",   "Опорный канал")
     static member code = PhysVar.context >> fst
     static member what = PhysVar.context >> snd >> fst
     static member dscr = PhysVar.context >> snd >> snd

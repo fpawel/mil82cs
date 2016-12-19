@@ -17,8 +17,39 @@ type private VE = Mil82.Alchemy.ValueError
 
 
 module TabsheetVars =
+
+    type Page = 
+        | PageLin 
+        | PageT of TermoPt
+        | PageTest 
+        | PageTex
+
+        static member what = function
+            | PageLin -> "LIN"
+            | PageT t -> t.What
+            | PageTest -> "TEST"
+            | PageTex -> "TEX"
+
+        static member descr = function
+            | PageLin -> "Линейность"
+            | PageT t -> sprintf "Термокомпенсация %s" t.Dscr
+            | PageTest -> "Проверка"
+            | PageTex -> "Техпрогон"
+
+    let addcol dataPropertyName headerText = 
+        new DataGridViewTextBoxColumn( DataPropertyName = dataPropertyName, HeaderText = headerText)
+        |> gridProducts.Columns.AddColumn
+
+    let termoLeter = function
+        | TermoNorm -> ""
+        | TermoLow -> "-"
+        | TermoHigh -> "+"
+        | Termo90 -> "+90"
+        
     type Page = {PhysVar : PhysVar; Feature : Feature; TermoPt : TermoPt} 
+
     let mutable private page = { PhysVar = Conc; Feature = Lin; TermoPt = TermoNorm}
+
     let update () = 
         setActivePageTitle <| sprintf "%s, %s, %s" page.Feature.What1 page.PhysVar.Dscr page.TermoPt.Dscr
         gridProducts.Columns.``remove all columns but`` Columns.main
