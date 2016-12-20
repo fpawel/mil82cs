@@ -95,6 +95,7 @@ type PhysVar =
     static member values = FSharpType.unionCasesList<PhysVar>
     static member name (x:PhysVar) = FSharpValue.unionCaseName x
     member x.Dscr = PhysVar.dscr x
+    member x.What = PhysVar.what x
     
 type Id = string
 
@@ -229,27 +230,67 @@ module Property =
     let retNkuError scalePt = sprintf "RetNkuError_%s" (ScalePt.name scalePt)
     let termoError (scalePt,termoPt) = sprintf "TermoError_%s_%s" (ScalePt.name scalePt) (TermoPt.name termoPt)
     let var var = sprintf "Var_%s" (Vars.name var)
-//    let ctx = function
-//        | ProdVarCtx v -> var v
-//        | ProdKefCtx k -> kef k
+    
 
-type ProductSerial = 
-    {   SerialNumber : uint16
-        ProdMonthYear : (byte * byte) option }
+[<AutoOpen>]
+module ProductHelpers = 
+    let decode2 encodedValue = 
+        encodedValue / 10000, encodedValue % 10000
+
+    let encode2 value1 value2 = 
+        value1 * 10000 + value2
+        |> decimal
+        |> Some
 
 type Product = 
     {   Id : Id
         IsChecked : bool        
-        ProductSerial : ProductSerial
         Addr : byte
         VarValue : Map<Var, decimal> 
         CoefValue : Map<Coef, decimal>  }
 
     member x.What = Product.what x
     static member id x = x.Id
-    static member productSerial x = x.ProductSerial
+
+    static member getSerial x = 
+        x.CoefValue.TryFind CoefSerialYearMil82
+        |> Option.map( int >> decode2 >> snd)
+        |> Option.getWith 0
+
+    static member getYear x = 
+        x.CoefValue.TryFind CoefSerialYearMil82
+        |> Option.map( int >> decode2 >> fst )
+        |> Option.getWith 0
+
+    static member getType x = 
+        x.CoefValue.TryFind CoefPriborTypeMonthMil82
+        |> Option.map(int >> decode2 >> snd)
+        |> Option.getWith 0
+
+    static member getMonth x = 
+        x.CoefValue.TryFind CoefPriborTypeMonthMil82
+        |> Option.map( int >> decode2 >> fst )
+        |> Option.getWith 0
+
+    static member setSerial serial x =    
+        let year = Product.getYear x    
+            
+        Product.setKef CoefSerialYearMil82 <|  encode2 year serial
+
+    static member setYear year x =        
+        let serial = Product.getSerial x
+        Product.setKef CoefSerialYearMil82 <| encode2 year serial
+
+    static member setType type_ x =    
+        let month = Product.getMonth x    
+        Product.setKef CoefPriborTypeMonthMil82 <| encode2 month type_
+
+    static member setMonth month x =        
+        let type_ = Product.getType x
+        Product.setKef CoefSerialYearMil82 <| encode2 month type_
+        
     static member createNewId() = String.getUniqueKey 12
-    static member what x = sprintf "№%d.#%d" x.ProductSerial.SerialNumber x.Addr 
+    static member what x = sprintf "№%d.#%d" (Product.getSerial x) x.Addr 
 
     static member getVar k p =p.VarValue.TryFind k 
 
@@ -265,7 +306,7 @@ type Product =
 
     static member getKef k p =p.CoefValue.TryFind k 
 
-    static member setKef k v =  state{                
+    static member setKef k (v:decimal option) =  state{                
         let! p = getState 
         let m = 
             match v with
@@ -285,9 +326,6 @@ type Product =
     static member createNew addy = 
         let now = DateTime.Now
         {   Id = Product.createNewId()
-            ProductSerial =
-                {   SerialNumber = 0us
-                    ProdMonthYear = None }
             Addr = addy
             IsChecked = true
             VarValue = Map.empty 

@@ -255,9 +255,6 @@ type Product1(p : P, getProductType, getPgs, partyId) =
     member x.WriteModbus (ctx,value) = 
         let what = WriteContext.what ctx
         let r = Mdbs.write appCfg.ComportProducts x.Addr (WriteContext.code ctx) what value
-        match r with 
-        | Err e -> Logging.error "%s, %s : %s" x.What what e
-        | Ok () -> Logging.info "%s, %s" x.What what
         x.Connection <- 
             r 
             |> Result.map(fun v -> sprintf "%s <-- %s" (WriteContext.what ctx) (Decimal.toStr6 value))

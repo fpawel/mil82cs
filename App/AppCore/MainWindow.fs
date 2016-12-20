@@ -88,6 +88,7 @@ type Tabsheet =
     | TabsheetErrors
     member x.Title = Tabsheet.title x
     static member values = FSharpType.unionCasesList<Tabsheet>
+    
     static member title = function
         | TabsheetParty ->   "Партия"
         | TabsheetChart ->   "График"
@@ -95,6 +96,14 @@ type Tabsheet =
         | TabsheetScenary -> "Сценарий"
         | TabsheetVars ->    "Данные"
         | TabsheetErrors ->  "Погрешность"   
+
+    static member descr = function
+        | TabsheetParty ->   "Партия настраиваемых приборов"
+        | TabsheetChart ->   "Графики измеряемых параметров приборов партии"
+        | TabsheetKefs ->    "Коэффициенты приборов партии"
+        | TabsheetScenary -> "Сценарий настройки приборов партии"
+        | TabsheetVars ->    "Данные приборов партии"
+        | TabsheetErrors ->  "Измеренная погрешность концентрации приборов партии"   
 
 module private TabPagesHelp =
     let content = 

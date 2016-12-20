@@ -19,46 +19,33 @@ let encodeDate (date : DateTime) =
     let day = decimal date.Day
     year * 10000m + month * 100m + day
 
-let initKefValue pgs productType kef p = 
+let initKefsValues pgs productType = 
     let _,_, gas, scale, kef4, kef14, kef45 = ProductType.ctx productType
     let now = DateTime.Now
-    match kef with
-    | CoefYear          -> Some <| decimal now.Year
-    | CoefPgsChNull     -> Some <| pgs ScaleBeg
-    | CoefPgsChSens     -> Some <| pgs ScaleEnd 
-    | CoefShkala1       -> Some <| decimal ( Scale.code scale)
-    | CoefPredelLo1     -> Some <| 0m
-    | CoefPredelHi1     -> Some <| Scale.value scale
-    | CoefEdIzmer1      -> Some <| decimal ( Gas.unitsCode gas)
-    | CoefGasType1      -> Some <| decimal ( Gas.code gas)
-    | CoefMaxCountReg   -> Some <| kef4
-    | CoefKyskch        -> Some <| kef14
-    | CoefCb            -> Some <| kef45  
+    [   CoefYear, decimal now.Year
+        CoefPgsChNull, pgs ScaleBeg
+        CoefPgsChSens, pgs ScaleEnd 
+        CoefShkala1  , decimal ( Scale.code scale)
+        CoefPredelLo1, 0m
+        CoefPredelHi1, Scale.value scale
+        CoefEdIzmer1 , decimal ( Gas.unitsCode gas)
+        CoefGasType1 , decimal ( Gas.code gas)
+        CoefMaxCountReg, kef4
+        CoefKyskch, kef14
+        CoefCb, kef45  
 
-    | CoefCchlin0 ->    Some <| 0m
-    | CoefCchlin1 ->    Some <| 1m
-    | CoefCchlin2 ->    Some <| 0m
-    | CoefCchlin3 ->    Some <| 0m
+        CoefCchlin0, 0m
+        CoefCchlin1, 1m
+        CoefCchlin2, 0m
+        CoefCchlin3, 0m
 
-    | CoefChtNull0 ->     Some <| 0m
-    | CoefChtNull1 ->     Some <| 0m
-    | CoefChtNull2 ->     Some <| 0m
-    | CoefKChtSens0 ->     Some <| 1m
-    | CoefKChtSens1 ->     Some <| 0m
-    | CoefKChtSens2 ->     Some <| 0m
+        CoefChtNull0,  0m
+        CoefChtNull1,  0m
+        CoefChtNull2,  0m
+        CoefKChtSens0, 1m
+        CoefKChtSens1, 0m
+        CoefKChtSens2, 0m ]
 
-    | CoefSelfaddr      -> Some <| decimal p.Addr
-
-    | _ -> None
-
-let initializeKefsValues kefs pgs productType = state{ 
-    //let _,_, gas, scale, kef4, kef14, kef45 = ProductType.ctx productType    
-    for kef in kefs do
-        let! p = getState
-        match initKefValue pgs productType kef p with
-        | None -> ()
-        | Some value -> 
-            do! P.setKef kef (Some value) }
     
 [<AutoOpen>]
 module private PivateComputeProduct = 
@@ -239,11 +226,16 @@ let concErrorlimit productType concValue =
     elif scale=Sc20 then 1.0m else 0.m
 
 
-let termoErrorlimit productType pgs (gas,t) product =
+let termoErrorlimit productType pgs (gas,termoPt) product =
     if ProductType.isCH productType |> not then 
-        (Product.getVar (Test,Conc, gas,t) product, Product.getVar (Test, Temp, gas, t) product) 
-        |> Option.map2(fun(c,t) -> 
-            let dt = t - 20m     
+        let t0 = 
+            match termoPt with
+            | Termo90 -> 80m
+            | _ -> 20m
+        (Product.getVar (Test,Conc, gas, termoPt) product, 
+            Product.getVar (Test, Temp, gas, termoPt) product) 
+        |> Option.map2(fun(c,t) ->             
+            let dt = t - t0     
             let maxc = concErrorlimit productType pgs
             0.5m * abs( maxc*dt ) / 10.0m )
     else
@@ -285,12 +277,21 @@ type Product with
         |> Option.map(fun conc ->                 
             { Value = conc; Nominal = pgs; Limit = concErrorlimit productType pgs } ) 
 
+    
     static member termoError productType pgs (gas,t) p = 
+        let termo0pt = 
+            match t with
+            | Termo90 -> TermoHigh
+            | _ -> TermoNorm 
+
+
         (   Product.getVar (Test,Conc,gas,t) p,
-            Product.getVar (Test,Conc,gas,TermoNorm) p,
+            Product.getVar (Test,Conc,gas,termo0pt) p,
             termoErrorlimit productType pgs (gas,t) p )
-        |> Option.map3( fun (c,c20,limit) -> 
-            { Value = c; Nominal = c20; Limit = limit } )
+        |> Option.map3( fun (c,c0,limit) -> 
+            {   Value = c
+                Nominal = c0
+                Limit = limit } )
 
 let createNewProduct addr getPgs productType =
     runState 

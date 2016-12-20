@@ -128,26 +128,53 @@ let popupConfig title selectedObject propertySort =
             e.Cancel <- true
     popup
 
-let radioButtons<'a when 'a : equality> parent (items : 'a list) (what : 'a -> string ) (handler : 'a -> unit ) = 
+let radioButtons<'a when 'a : comparison> 
+        parent (items : 'a list) 
+        (what : 'a -> string ) 
+        (descr : 'a -> string ) 
+        (handler : 'a -> unit ) = 
     let mutable activeItem = items.Head
+    let tooltip = new ToolTip(AutoPopDelay = 5000, InitialDelay = 1000,  ReshowDelay = 500, ShowAlways = true)
     let buttons = items |> List.rev |> List.mapi ( fun n item -> 
         let b = new RadioButton( Parent = parent, Dock = DockStyle.Top,
                                     TextAlign = ContentAlignment.MiddleLeft,
                                     Text = what item, AutoSize=true, Appearance = Appearance.Button)
-        let _ = new Panel(Parent = parent, Dock = DockStyle.Top, Height = 3)
+        tooltip.SetToolTip(b, descr item)
+        let bPanel = new Panel(Parent = parent, Dock = DockStyle.Top, Height = 3)
         b.CheckedChanged.Add <| fun _ ->                
             if b.Checked then 
                 handler item
+            activeItem <- item
         b.FlatStyle <- FlatStyle.Flat
-        activeItem <- item
-        b )
-    let b = buttons.Head
+        b,bPanel )
+    let b = fst buttons.Head 
     parent.Height <- b.Top + b.Height + 3
     let get () = activeItem
-    let set x =
+
+    let btn x =
         let n = items  |> List.findIndex ( (=) x) 
-        buttons.[ items.Length - n - 1].Checked <- true
-    get, set
+        buttons.[ items.Length - n - 1]
+    let (~%%) = btn
+
+    let set x =
+        (fst <| %% x).Checked <- true
+        activeItem <- x
+
+    let setVisibility visibleItems =
+        let visibleItemsSet = Set.ofList visibleItems
+        parent.Height <-
+            items |> List.choose ( fun x -> 
+                let b,p = %% x
+                let visible = visibleItemsSet.Contains x
+                b.Visible <- visible
+                p.Visible <- visible
+                if visible then Some  (b.Height + 3) else None)            
+            |> List.fold (+) 0
+        if visibleItemsSet.Contains  activeItem then () else
+            visibleItems 
+            |> List.maybeHead
+            |> Option.iter set
+    get, set, setVisibility
 
 
 let colorFromString x = ColorTranslator.FromHtml(x)

@@ -26,7 +26,13 @@ let labelScenaryName =
 
 let panelDelay = new Panel (Parent = TopBar.thread2, Dock = DockStyle.Fill, Visible = false)
 
-let panelDelay1 = new Panel (Parent = panelDelay, Dock = DockStyle.Fill)
+let panelDelay1 = 
+    let x = new Panel (Parent = panelDelay, Dock = DockStyle.Fill)
+    let _ = new Panel(Parent = panelDelay, Width = 3, Dock = DockStyle.Left )
+    let _ = new Panel(Parent = panelDelay, Width = 3, Dock = DockStyle.Right )
+    let _ = new Panel(Parent = panelDelay, Height = 3, Dock = DockStyle.Top )
+    let _ = new Panel(Parent = panelDelay, Height = 3, Dock = DockStyle.Bottom )
+    x
 
 let panelClosing = 
     TopmostBar( form, Visible = false, Width = 400, Font = new Font("Consolas", 12.f),
@@ -40,12 +46,16 @@ let btnStop =
                FlatStyle = FlatStyle.Flat,
                Dock = DockStyle.Left, ImageKey = "close")
 
-let btnSkipDelay = new Button(Parent = panelDelay, Height = 40, Width = 40,
+let btnSkipDelay = 
+    let _ = new Panel(Parent = panelDelay, Width = 3, Dock = DockStyle.Left )
+    let x = new Button(Parent = panelDelay, Height = 40, Width = 40,
                             ImageList = Widgets.Icons.instance.imageList1, 
                             FlatStyle = FlatStyle.Flat, Dock = DockStyle.Left,
                             ImageKey = "skip")
+    let _ = new Panel(Parent = panelDelay, Width = 3, Dock = DockStyle.Left )
+    x
 
-let labelDelay = 
+let labelDelay =     
     new Label(  Parent = panelDelay1, 
                         TextAlign = ContentAlignment.MiddleLeft, 
                         Dock = DockStyle.Fill, 
@@ -156,6 +166,7 @@ let initialize =
     Thread2.IsRunningChangedEvent.addHandler <| fun (_,v) ->
         MainWindow.form.PerformThreadSafeAction <| fun () ->
             panelPerformingInfo.Visible <- v
+            
             labelScenaryName.Text <- sprintf "Выполняется сценарий %A"  Thread2.scenary.Value.FullName
 
     Thread2.IsRunningChangedEvent.addHandler <| function
@@ -165,8 +176,6 @@ let initialize =
         
     btnStop.Click.Add <| fun _ ->
         Thread2.forceStop()
-        Mil82.PartyWorks.Delay.cancel()
-        btnStop.Visible <- false
         Logging.warn "выполнение сценария %A было прервано пользователем" Thread2.scenary.Value.FullName
         panelClosing.DoUpdate <| fun () ->
             panelClosing.Title <- Thread2.scenary.Value.Name
@@ -174,9 +183,8 @@ let initialize =
     Thread2.add'keep'running <| fun (_,keep'running) ->
         form.PerformThreadSafeAction <| fun () ->
             btnStop.Visible <- keep'running 
-
-    btnStop.Click.Add <| fun _ -> 
-        panelDelay.Visible <- false
-        Mil82.PartyWorks.Delay.cancel()
+            if not keep'running then
+                Mil82.PartyWorks.Delay.cancel()
+                panelDelay.Visible <- false
 
     fun () -> ()

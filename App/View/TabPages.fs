@@ -18,67 +18,80 @@ type private VE = Mil82.Alchemy.ValueError
 
 module TabsheetVars =
 
-    type Page = 
-        | PageLin 
-        | PageT of TermoPt
-        | PageTest 
-        | PageTex
+    type Sheet = 
+        | SheetLin 
+        | SheetT of TermoPt
+        | SheetTest of TermoPt
+        | SheetTex
 
         static member what = function
-            | PageLin -> "LIN"
-            | PageT t -> t.What
-            | PageTest -> "TEST"
-            | PageTex -> "TEX"
+            | SheetLin -> "Лин.", "Линейность"
+            | SheetT t -> "Т.комп. " + t.What, sprintf "Термокомпенсация %s" t.Dscr
+            | SheetTest t-> "Проверка " + t.What, sprintf "Проверка %s" t.Dscr 
+            | SheetTex -> "Техпрогон", "Техпрогон"
 
-        static member descr = function
-            | PageLin -> "Линейность"
-            | PageT t -> sprintf "Термокомпенсация %s" t.Dscr
-            | PageTest -> "Проверка"
-            | PageTex -> "Техпрогон"
+        static member values = 
+            [   yield SheetLin
+                yield! List.map SheetT TermoPt.values
+                yield! List.map SheetTest [TermoLow; TermoNorm; TermoHigh]
+                yield SheetTex
+            ]
 
     let addcol dataPropertyName headerText = 
         new DataGridViewTextBoxColumn( DataPropertyName = dataPropertyName, HeaderText = headerText)
         |> gridProducts.Columns.AddColumn
 
-    let termoLeter = function
-        | TermoNorm -> ""
-        | TermoLow -> "-"
-        | TermoHigh -> "+"
-        | Termo90 -> "+90"
-        
-    type Page = {PhysVar : PhysVar; Feature : Feature; TermoPt : TermoPt} 
+    type Page = {PhysVar : PhysVar; sheet : Sheet} 
 
-    let mutable private page = { PhysVar = Conc; Feature = Lin; TermoPt = TermoNorm}
+    let mutable private page = { PhysVar = Conc; sheet = SheetLin}
 
     let update () = 
-        setActivePageTitle <| sprintf "%s, %s, %s" page.Feature.What1 page.PhysVar.Dscr page.TermoPt.Dscr
+        let what, descr = Sheet.what page.sheet
+        setActivePageTitle <| sprintf "%s, %s, %s" what descr page.PhysVar.Dscr 
         gridProducts.Columns.``remove all columns but`` Columns.main
-        
-        for gas in ScalePt.values do
-            let s = Property.var (page.Feature, page.PhysVar, gas, page.TermoPt)
-            let col = new DataGridViewTextBoxColumn( DataPropertyName = s,  HeaderText = gas.What)
-            gridProducts.Columns.AddColumn( new DataGridViewTextBoxColumn( DataPropertyName = s,  HeaderText = gas.What) )
+        match page.sheet with
+        | SheetLin ->
+            ScalePt.values |> List.iter(fun gas -> 
+                addcol (Property.var (Lin, page.PhysVar, gas, TermoNorm)) gas.What
+                )
+        | SheetT t ->
+            ScalePt.values |> List.iter(fun gas -> 
+                addcol (Property.var (Termo , page.PhysVar, gas, t)) gas.What
+                )
+        | SheetTest t ->
+            ScalePt.values |> List.iter(fun gas -> 
+                addcol (Property.var (Test , page.PhysVar, gas, t)) gas.What
+                )
+            if t = TermoNorm then
+                ScalePt.values |> List.iter(fun gas -> 
+                    addcol (Property.var (RetNku , page.PhysVar, gas, TermoNorm)) gas.What
+                )
+        | SheetTex ->
+            ScalePt.values |> List.iter(fun gas -> 
+                addcol (Property.var (Tex1 , page.PhysVar, gas, TermoNorm)) gas.What
+                )
+            ScalePt.values |> List.iter(fun gas -> 
+                addcol (Property.var (Tex2 , page.PhysVar, gas, TermoNorm)) gas.What
+                )
 
     let private addp () =         
         let p = new Panel(Parent = TabsheetVars.BottomTab, Dock = DockStyle.Top)
         let _ = new Panel(Parent = TabsheetVars.BottomTab, Dock = DockStyle.Top, Height = 10)
         p
 
-    module Termo =
-        let get,set = 
-            radioButtons (addp ()) TermoPt.values TermoPt.what <| fun x -> 
-                page <- {page with TermoPt = x }
-                update()
-    module Feat =
-        let get,set = 
-            radioButtons (addp ()) Feature.values Feature.what1 <| fun x -> 
-                page <- {page with Feature = x }
-                update()
     module PhysVar =
-        let get,set = 
-            radioButtons (addp ()) PhysVar.values PhysVar.what <| fun x -> 
+        let get,set,_ = 
+            radioButtons (addp ()) PhysVar.values PhysVar.what PhysVar.dscr <| fun x -> 
                 page <- {page with PhysVar = x }
                 update()
+
+    module Feat =
+        let get,set,_ = 
+            radioButtons (addp ()) Sheet.values (Sheet.what >> fst) (Sheet.what >> snd) <| fun x -> 
+                page <- {page with sheet = x }
+                update()
+   
+    
 
 module TabsheetChart = 
     
@@ -92,11 +105,11 @@ module TabsheetChart =
         m.MaxY <- None
     
     module PhysVar =
-        let get,set = 
+        let get,set,_ = 
             let panelSelectVar = new Panel(Parent = TabsheetChart.BottomTab, Dock = DockStyle.Top)
             let _ = new Panel(Parent = TabsheetChart.BottomTab, Dock = DockStyle.Top, Height = 10)
         
-            radioButtons panelSelectVar PhysVar.values PhysVar.what <| fun x -> 
+            radioButtons panelSelectVar PhysVar.values PhysVar.what PhysVar.dscr <| fun x -> 
                 Chart.physVar <- x
                 update()
 
@@ -104,7 +117,13 @@ module TabsheetErrors =
     type K = 
         | Main | Termo | Tex
         member x.What = K.what x
+        
         static member what = function
+            | Main  -> "Основная"
+            | Termo -> "Температурная"
+            | Tex   -> "Техпрогон"
+
+        static member descr = function
             | Main  -> "Основная"
             | Termo -> "Температурная"
             | Tex   -> "Техпрогон"
@@ -160,9 +179,11 @@ module TabsheetErrors =
                 [|  yield "Снятое значение", decToStr ve.Value                     
                     yield "Номинал", decToStr ve.Nominal
                     yield "Предел погрешности", decToStr ve.Limit  |]
-                |> Array.map( fun (p,v) -> sprintf "%s = %s" p v)
-                |> fun v -> String.Join("\n", v)                
-            ve.Value, foreColor, backColor, toolTip  )
+                |> Array.map( fun (p,v) -> sprintf "%s : %s" p v)
+                |> fun v -> String.Join("\n", v)   
+            let value = 100m * ( ve.Nominal - ve.Value ) / ve.Limit 
+                             
+            value, foreColor, backColor, toolTip  )
         |> function
         | None -> cell.ToolTipText <- sprintf "%s - нет данных" what
         | Some (value, foreColor, backColor, text) ->
@@ -189,7 +210,7 @@ module TabsheetErrors =
 
     
     
-    let get,set = 
+    let get,set,_ = 
         let p1 = new Panel(Parent = TabsheetErrors.BottomTab, Dock = DockStyle.Top)
         let _ = new Panel(Parent = TabsheetErrors.BottomTab, Dock = DockStyle.Top, Height = 10)
 
@@ -213,7 +234,7 @@ module TabsheetErrors =
                     formatCell page gridProducts e f.s (f.f p)
             
 
-        radioButtons p1 [Main; Termo; Tex] K.what <| fun x -> 
+        radioButtons p1 [Main; Termo; Tex] K.what K.descr <| fun x -> 
             page <- x
             update()
     
@@ -237,7 +258,7 @@ let private onSelect = function
         TabsheetChart.update()
     | _ -> ()
         
-let getSelected, setSelected =
+let getSelected, setSelected,_ =
     gridProducts.Columns.CollectionChanged.Add(fun _ ->
         gridProducts.Columns.SetDisplayIndexByOrder()
         )
@@ -248,6 +269,7 @@ let getSelected, setSelected =
         tabButtonsPlaceholder 
         Tabsheet.values
         Tabsheet.title
+        Tabsheet.descr
         (fun tabPage -> 
             setActivePageTitle tabPage.Title
             onSelect tabPage

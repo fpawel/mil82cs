@@ -140,7 +140,7 @@
     <Content Include="Content\logging.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="src_select_pahys_vars_viewmodel.fsx" />
+    <None Include="src_select_phys_vars_viewmodel.fsx" />
     <None Include="src_viewmodels.fsx" />
     <None Include="src_kefs.fsx" />
     <None Include="App.config" />
