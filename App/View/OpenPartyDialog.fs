@@ -48,7 +48,7 @@ module private Helpers =
                     xmonth.Nodes.Add xday |> ignore
                     xs |> Seq.iter( fun b -> 
                         let node = 
-                            TreeNode(Text = sprintf "%s, %A, %d" b.ProductType.What b.Name b.ProductsSerials.Length )
+                            TreeNode(Text = sprintf "%s, %A, %d" b.ProductType.What b.Name b.ProductInfo.Length )
                         
                         if b.Id = (fst party.Party).Id  then
                             selectedNode <- node
@@ -158,14 +158,14 @@ module private Helpers =
                 let n = cbType.SelectedIndex - 1
                 if n>(-1) && n<ProductType.values.Length then Some ProductType.values.[n] else None
             let serial = 
-                let b,v = UInt16.TryParse tbSerialNumber.Text
+                let b,v = Int32.TryParse tbSerialNumber.Text
                 if b then Some v else None
             let month = 
                 let n = cbMonth.SelectedIndex
-                if n>0 && n<13 then Some (byte n) else None
+                if n>0 && n<13 then Some n else None
             let year = 
                 let b,v = Int32.TryParse tbYear.Text
-                if b then (v - 2000) |> byte |> Some  else None
+                if b then Some v else None
             updateTreeView treeview nodes prodType serial month year
             buttonAccept.Enabled <- getBatch().IsSome
 

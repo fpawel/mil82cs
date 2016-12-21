@@ -15,16 +15,6 @@ module private Helpers =
     let viewCfg = appCfg.View
 
 
-    let writeInitKefs write = state{ 
-        for kef in Coef.coefs do
-            if notKeepRunning() then () else
-            let! p = getState
-            match initKefValue party.GetPgs (party.getProductType()) kef p with
-            | None -> ()
-            | Some value -> 
-                do! P.setKef kef (Some value) 
-                write kef value }
-
 let checkedProducts() = 
     party.Products
     |> Seq.filter( fun p -> p.IsChecked )
@@ -63,10 +53,13 @@ type Mil82.ViewModel.Product1 with
     member x.WriteKefsInitValues() = 
         let t = party.getProductType()        
 
-        [   //yield CoefSerialYearMil82, decimal x.Product.SerialNumber
-            yield! Alchemy.initKefsValues party.GetPgs t  ]
+        [   yield CoefSerialYearMil82, x.getKef CoefSerialYearMil82
+            yield CoefPriborTypeMonthMil82, x.getKef CoefPriborTypeMonthMil82
+            yield! 
+                Alchemy.initKefsValues party.GetPgs t  
+                |> List.map( fun (coef,value) -> coef, Some value )
+        ]
         |> List.sortBy fst
-        |> List.map( fun (coef,value) -> coef, Some value )
         |> x.WriteKefs
 
         
@@ -285,7 +278,7 @@ module private Helpers1 =
             | Some error -> Logging.error "%s" error
             | _ -> () ) }
 
-let blowAir = 
+let blowAir() = 
     "Продувка воздухом" <||> [   
         blow 1 ScaleBeg "Продуть воздух"
         "Закрыть пневмоблок" <|> fun () -> switchPneumo None
@@ -295,7 +288,7 @@ let blowAndRead feat t =
             gas.What <||> [
                 yield blow 3 gas "Продувка"
                 yield "Считывание" <|> readVarsValues feat gas t  ] 
-        yield blowAir ]
+        yield blowAir() ]
 
 let warmAndRead feat t =
     sprintf "Cнятие %A %A" (Feature.what1 feat) (TermoPt.what t) <||> 
@@ -311,7 +304,7 @@ let test =
     
     [   adjust false
         adjust true 
-        blowAir
+        blowAir()
         "Cнятие НКУ" <||> ( blowAndRead Test TermoNorm  )
         warmAndRead Test TermoLow 
         warmAndRead Test TermoHigh 
@@ -323,7 +316,7 @@ let texprogon =
     "Техпрогон" <||> [   
         adjust false
         adjust true 
-        blowAir
+        blowAir()
         "Снятие перед техпрогоном" <||> blowAndRead Tex1 TermoNorm 
         ("Выдержка на техпрогоне", TimeSpan.FromHours 16., TexprogonDelay) <-|-> fun gettime ->
             Delay.perform "Техпрогон" gettime true
@@ -334,7 +327,7 @@ let reworkTermo =
     [   goNku
         adjust false
         adjust true
-        blowAir
+        blowAir()
         "Снятие НКУ для перевода климатики" <||> blowAndRead Termo TermoNorm 
         "Переcчёт" <|> fun () ->
             party.DoForEachProduct(fun p -> 
@@ -355,7 +348,7 @@ let productionWork =
                 p.WriteKefsInitValues()
                 |> ignore ) }
         goNku
-        blowAir
+        blowAir()
         "Ноормировка" <|> fun () -> party.WriteModbus(Nommalize, 1000m)        
         adjust false
         adjust true 

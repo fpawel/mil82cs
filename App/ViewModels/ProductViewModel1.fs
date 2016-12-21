@@ -55,14 +55,6 @@ type Product1(p : P, getProductType, getPgs, partyId) =
     [<CLIEvent>]
     member x.CoefValueChanged = coefValueChangedEvent.Publish
 
-    member x.setKefsInitValues () = 
-        let t = getProductType()    
-        x.Product <-
-            runState 
-                ( Alchemy.initializeKefsValues coefs getPgs t )
-                x.Product
-            |> snd
-
     member x.setPhysVarValue var value =        
         PhysVarValues.addValue {K.Party = partyId; K.Product = p.Id; K.Var = var } value
         MainWindow.form.PerformThreadSafeAction <| fun () ->
@@ -105,7 +97,8 @@ type Product1(p : P, getProductType, getPgs, partyId) =
                     Chart.addProductSeries
                         {   PSr.Product = p.Id
                             PSr.Party = partyId
-                            PSr.Name = p.What}                else 
+                            PSr.Name = p.What}                
+                else 
                     Chart.removeProductSeries p.Id |> ignore
     member x.Addr
         with get () = p.Addr          
@@ -116,35 +109,43 @@ type Product1(p : P, getProductType, getPgs, partyId) =
                 x.RaisePropertyChanged "What"
                 Chart.setProductLegend p.Id x.What
 
-    member x.SerialNumber
-        with get () = p.ProductSerial.SerialNumber
+    member x.ProdReady
+        with get() =
+            let i = p.ProductInfo
+            i.month <> 0 && i.year <> 0 && i.kind <> 0
+        and set v =
+            if v<> x.ProdReady then
+                let st = state { 
+                    let year, month, kind = 
+                        if v then 
+                            let prodt =  getProductType() |> ProductType.index |> (+) 1 
+                            let now = DateTime.Now in
+                            now.Year - 2000, now.Month, prodt
+                        else
+                            0,0,0                    
+                    do! { p.ProductInfo with 
+                            year = year
+                            month = month
+                            kind = kind}
+                        |> P.setProductInfo  } 
+                in x.Product <- snd <| runState st p    
+                x.RaisePropertyChanged "KindMonthYear"
+                x.RaisePropertyChanged "ProdReady"
+
+                
+        
+
+    member x.Serial
+        with get () = p.ProductInfo.serial
         and set v = 
-            if v <> p.ProductSerial.SerialNumber then
-                p <- { p with ProductSerial = {p.ProductSerial with SerialNumber = v} }
-                x.RaisePropertyChanged "What"
-                x.RaisePropertyChanged "SerialNumber"
+            if v <> p.ProductInfo.serial then
+                let st = state { do! P.setProductInfo {p.ProductInfo with serial = v}} in
+                    x.Product <- snd <| runState st p    
                 Chart.setProductLegend p.Id x.What
 
-    member x.ProdReady
-        with get () = p.ProductSerial.ProdMonthYear.IsSome
-        and set v = 
-            if v <> x.ProdReady then
-                let ym =
-                    if v then 
-                        let now = DateTime.Now
-                        Some ( byte now.Month, byte (now.Year - 2000) )
-                    else None 
-                p <- { p with ProductSerial = {p.ProductSerial with ProdMonthYear = ym } }
-                x.RaisePropertyChanged "ProdReady"
-                x.RaisePropertyChanged "MonthYearStr"
-
-    member x.MonthYearStr
-        with get () = 
-            p.ProductSerial.ProdMonthYear
-            |> Option.map(fun (m,y) ->
-                let m = if m<10uy then sprintf "0%d" m else m.ToString()
-                sprintf "%s.20%d" m y )
-            |> Option.getWith ""
+    member x.KindMonthYear = 
+        let i = p.ProductInfo
+        sprintf "%d.%d.%d" i.kind i.month i.year 
 
     member x.ForceCalculateErrors() =
         let (~%%) = x.RaisePropertyChanged
@@ -156,6 +157,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
             for t in TermoPt.values do
                 %% Property.termoError (gas,t) 
 
+    
     member x.Product 
         with get () = p
         and set other =
@@ -164,7 +166,8 @@ type Product1(p : P, getProductType, getPgs, partyId) =
             let prevTermoError = getTermoErrors()
             let prevVarsValues = getVarsValues()
             let prevKefsValues = getKefsValues()
-
+            
+            
             p <- other
 
             let concErrors =  getConcErrors()
@@ -191,6 +194,9 @@ type Product1(p : P, getProductType, getPgs, partyId) =
 
             x.RaisePropertyChanged "Product"
             x.RaisePropertyChanged "What"
+            x.RaisePropertyChanged "Serial"
+            x.RaisePropertyChanged "KindMonthYear"
+            x.RaisePropertyChanged "ProdReady"
 
     member x.What = P.what p
 
@@ -200,6 +206,13 @@ type Product1(p : P, getProductType, getPgs, partyId) =
         let s = state{ do! P.setKef kef value}
         p <- runState s p |> snd
         coefValueChangedEvent.Trigger(x,kef,value)
+        match kef with
+        | CoefPriborTypeMonthMil82
+        | CoefSerialYearMil82 -> 
+            x.RaisePropertyChanged "Serial"
+            x.RaisePropertyChanged "KindMonthYear"
+            x.RaisePropertyChanged "ProdReady"
+        | _ -> ()
 
     member x.getVar var = P.getVar var p
     member x.setVar ( (feat, physVar, scalePt, termoPt) as var) value =

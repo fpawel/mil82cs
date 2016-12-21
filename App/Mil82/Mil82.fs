@@ -242,6 +242,14 @@ module ProductHelpers =
         |> decimal
         |> Some
 
+
+type ProductInfo =
+    {   serial : int
+        year : int
+        month : int
+        kind : int
+    } 
+
 type Product = 
     {   Id : Id
         IsChecked : bool        
@@ -250,47 +258,32 @@ type Product =
         CoefValue : Map<Coef, decimal>  }
 
     member x.What = Product.what x
+
+    member x.ProductInfo = Product.getProductInfo x
+
     static member id x = x.Id
 
-    static member getSerial x = 
-        x.CoefValue.TryFind CoefSerialYearMil82
-        |> Option.map( int >> decode2 >> snd)
-        |> Option.getWith 0
+    static member getProductInfo x = 
+        let year,serial = 
+            x.CoefValue.TryFind CoefSerialYearMil82
+            |> Option.map( int >> decode2 )
+            |> Option.getWith (0,0)
+        let month, kind = 
+            x.CoefValue.TryFind CoefPriborTypeMonthMil82
+            |> Option.map(int >> decode2 )
+            |> Option.getWith (0,0)
+        {   serial = serial
+            year  = year
+            month = month
+            kind = kind } 
 
-    static member getYear x = 
-        x.CoefValue.TryFind CoefSerialYearMil82
-        |> Option.map( int >> decode2 >> fst )
-        |> Option.getWith 0
+    static member setProductInfo i = state{
+        do! Product.setKef CoefSerialYearMil82 <|  encode2 i.year i.serial
+        do! Product.setKef CoefPriborTypeMonthMil82 <|  encode2 i.month i.kind        
+    }
 
-    static member getType x = 
-        x.CoefValue.TryFind CoefPriborTypeMonthMil82
-        |> Option.map(int >> decode2 >> snd)
-        |> Option.getWith 0
-
-    static member getMonth x = 
-        x.CoefValue.TryFind CoefPriborTypeMonthMil82
-        |> Option.map( int >> decode2 >> fst )
-        |> Option.getWith 0
-
-    static member setSerial serial x =    
-        let year = Product.getYear x    
-            
-        Product.setKef CoefSerialYearMil82 <|  encode2 year serial
-
-    static member setYear year x =        
-        let serial = Product.getSerial x
-        Product.setKef CoefSerialYearMil82 <| encode2 year serial
-
-    static member setType type_ x =    
-        let month = Product.getMonth x    
-        Product.setKef CoefPriborTypeMonthMil82 <| encode2 month type_
-
-    static member setMonth month x =        
-        let type_ = Product.getType x
-        Product.setKef CoefSerialYearMil82 <| encode2 month type_
-        
     static member createNewId() = String.getUniqueKey 12
-    static member what x = sprintf "№%d.#%d" (Product.getSerial x) x.Addr 
+    static member what x = sprintf "№%d.#%d" (Product.getProductInfo x).serial x.Addr 
 
     static member getVar k p =p.VarValue.TryFind k 
 
@@ -323,13 +316,13 @@ type Product =
         for kef,value in kefsVals do
             do! Product.setKef kef (Some value)  }
 
-    static member createNew addy = 
+    static member createNew addy kefs = 
         let now = DateTime.Now
         {   Id = Product.createNewId()
             Addr = addy
             IsChecked = true
             VarValue = Map.empty 
-            CoefValue = Map.empty }
+            CoefValue = kefs }
 
     static member tryParseSerailMonthYear s =
         let m = Text.RegularExpressions.Regex.Match(s, @"(\d\d)\s*[\./\s]\s*(\d+)")
@@ -364,7 +357,7 @@ module Party =
             Date : DateTime
             ProductType : ProductType
             Name : string
-            ProductsSerials : ProductSerial list   }
+            ProductInfo : ProductInfo list   }
         static member id x = x.Id 
     type Data = {
         Products : Product list
@@ -385,7 +378,7 @@ module Party =
         //let products = [ Product.createNew 1uy 1 A00 ]
         let t = A00
         {   Id = Product.createNewId()
-            ProductsSerials = List.map Product.productSerial []
+            ProductInfo = List.map Product.getProductInfo []
             Date=DateTime.Now 
             Name = ""
             ProductType = A00 }, 

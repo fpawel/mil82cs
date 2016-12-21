@@ -151,8 +151,13 @@ module Termo =
                     yield! sprintf "%s\r\n" scmd |> Text.Encoding.ASCII.GetBytes |]    
                 |> Comport.getResponse port
                 |> Result.map bytesToAscii
-            let level = if Result.isOk result then Logging.Info else Logging.Error
-            Logging.write level "Термокамера, %s, %s, %s : %A" (Request.what req) port.PortName scmd result
+            match req with
+            | Write _ ->                
+                Logging.write 
+                    (if Result.isOk result then Logging.Info else Logging.Error) 
+                    "Термокамера, %s, %s, %s : %A" (Request.what req) 
+                    port.PortName scmd result
+            | _ -> ()
 
             result
 

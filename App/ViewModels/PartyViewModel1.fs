@@ -122,7 +122,11 @@ type Party1
     member x.Party 
         with get() = 
             let partyData = { partyData with Products = getProducts() }
-            let partyHeader = { partyHeader with ProductsSerials = partyData.Products |> List.map(fun x -> x.ProductSerial) }
+            let partyHeader = 
+                {   partyHeader with 
+                        ProductInfo = 
+                            partyData.Products 
+                            |> List.map Product.getProductInfo }
             partyHeader, partyData
         and set ( otherHeader, otherPartyData) = 
             partyHeader <- otherHeader

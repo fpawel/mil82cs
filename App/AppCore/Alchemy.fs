@@ -187,8 +187,14 @@ let compute group pgs productType = state {
     let skefs = Seq.toStr ", " (Coef.order >> string) kefs    
     Logging.info "%s : расчёт коэффициентов %A, %s" (Product.what product) (KefGroup.what group) skefs
 
-    do! kefs |> List.choose(fun kef -> 
-            initKefValue pgs productType kef product
+    let initKefsValues = 
+        initKefsValues pgs productType 
+        |> Map.ofList
+
+
+    do! kefs 
+        |> List.choose(fun kef ->         
+            initKefsValues.TryFind kef
             |> Option.map(fun v -> kef,v) )
         |> Product.setKefs 
     let result = getGaussXY product pgs group
@@ -294,10 +300,7 @@ type Product with
                 Limit = limit } )
 
 let createNewProduct addr getPgs productType =
-    runState 
-        ( initializeKefsValues Coef.coefs getPgs productType )
-        ( Product.createNew addr )
-    |> snd
+    Product.createNew addr ( Map.ofList (initKefsValues getPgs productType) )
 
 
 let createNewParty() = 
@@ -306,7 +309,7 @@ let createNewParty() =
     let productType = h.ProductType
     let product = createNewProduct 1uy getPgs productType
     let products = [ product ]
-    {h with ProductsSerials = [product.ProductSerial] }, { d with Products = products }
+    {h with ProductInfo = [product.ProductInfo] }, { d with Products = products }
 
 let createNewParty1( name, productType, pgs1, pgs2, pgs3, count) : Party.Content = 
         let pgs = Map.ofList <| List.zip ScalePt.values [pgs1; pgs2; pgs3]
@@ -316,7 +319,7 @@ let createNewParty1( name, productType, pgs1, pgs2, pgs3, count) : Party.Content
             |> List.map( fun addr ->  createNewProduct addr getPgs productType )
         
         {   Id = Product.createNewId()
-            ProductsSerials = List.map Product.productSerial products
+            ProductInfo = List.map Product.getProductInfo products
             Date=DateTime.Now 
             Name = name
             ProductType = productType }, 

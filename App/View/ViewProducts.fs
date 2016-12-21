@@ -23,9 +23,9 @@ module Columns =
         %% new TextColumn(DataPropertyName = "Addr", HeaderText = "#", Width = 50) ]
 
     let sets = [
-        %% new TextColumn(DataPropertyName = "SerialNumber", HeaderText = "№", Width = 80)  
+        %% new TextColumn(DataPropertyName = "Serial", HeaderText = "№", Width = 80)  
         %% new DataGridViewCheckBoxColumn (DataPropertyName = "ProdReady", HeaderText = "Выпуск", Width = 50)  
-        %% new TextColumn(DataPropertyName = "MonthYearStr", HeaderText = "Дата", Width = 80)  ]
+        %% new TextColumn(DataPropertyName = "KindMonthYear", HeaderText = "Дата", Width = 80)  ]
         
 
     let physVars = PhysVar.values|> List.map(fun physvar -> 
