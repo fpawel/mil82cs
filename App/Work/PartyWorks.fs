@@ -62,8 +62,6 @@ type Mil82.ViewModel.Product1 with
         |> List.sortBy fst
         |> x.WriteKefs
 
-        
-
     member x.ReadKefs kefs = maybeErr {
         for kef in kefs do
             let r = x.ReadModbus( ReadKef kef )
@@ -75,7 +73,6 @@ type Mil82.ViewModel.Product1 with
                 Logging.error "%s.коэф.%d : %s" x.What kef.Order err 
             let! _ = r
             () }
-
     
     member x.Interrogate() = maybeErr {
         let xs = 
@@ -114,22 +111,22 @@ type Mil82.ViewModel.Party with
         if Seq.isEmpty xs then
             return "приборы не отмечены"
         else
-            do! Comport.testPort AppConfig.config.ComportProducts
+            do! Comport.testPort appCfg.Hardware.ComportProducts
             for p in xs do 
                 if isKeepRunning() && p.IsChecked then                         
                     do! p.Interrogate() }
 
     member x.WriteModbus(cmd,value) = maybeErr{
-        do! Comport.testPort appCfg.ComportProducts
+        do! Comport.testPort appCfg.Hardware.ComportProducts
         do! x.DoForEachProduct (fun p -> p.WriteModbus(SendCommand cmd,value) |> ignore  ) }
 
     member x.WriteKefs(kefs) = maybeErr{
-        do! Comport.testPort appCfg.ComportProducts
+        do! Comport.testPort appCfg.Hardware.ComportProducts
         do! x.DoForEachProduct (fun p -> 
             p.WriteKefs kefs |> ignore ) }
 
     member x.ReadKefs(kefs) = maybeErr{
-        do! Comport.testPort appCfg.ComportProducts
+        do! Comport.testPort appCfg.Hardware.ComportProducts
         do! x.DoForEachProduct (fun p -> 
             p.ReadKefs kefs |> ignore ) }
 
@@ -178,8 +175,7 @@ module ModalMessage =
         onClose.Value()    
 
 [<AutoOpen>]
-module private Helpers1 = 
-    
+module private Helpers1 =     
     let none _ = None
     let (<|>) what f = 
         Operation.CreateSingle (what, none) f 
@@ -218,7 +214,7 @@ module private Helpers1 =
                 ScalePt.code gas |> byte, "Продувка " + s, "Подайте " + s
             | _ -> 0uy, "Выключить пневмоблок", "Отключите газ"
 
-        if appCfg.UsePneumoblock then
+        if appCfg.Hardware.Pneumoblock.Enabled then
             do! Hardware.Pneumo.switch code
         else            
             ModalMessage.show Logging.Info  title text 
@@ -236,11 +232,11 @@ module private Helpers1 =
             do! Delay.perform title gettime true }
 
     let warm t = maybeErr{    
-        if appCfg.UsePneumoblock && Hardware.Pneumo.isOpened()  then
+        if appCfg.Hardware.Pneumoblock.Enabled && Hardware.Pneumo.isOpened()  then
             do! switchPneumo None
         let value = party.GetTermoTemperature t
         Logging.info "Установка температуры %A %M\"C" (TermoPt.what t) value
-        if not appCfg.UseTermochamber then             
+        if not appCfg.Hardware.Termochamber.Enabled then             
             ModalMessage.show Logging.Info
                 "Уставка термокамеры" (sprintf "Установите в термокамере температуру %M\"C" value) 
             if isKeepRunning() then
@@ -268,7 +264,7 @@ module private Helpers1 =
     let goNku = "Установка НКУ" <|> fun () -> warm TermoNorm
 
     let readVarsValues feat gas t wht = maybeErr{
-        do! Comport.testPort appCfg.ComportProducts
+        do! Comport.testPort appCfg.Hardware.ComportProducts
         do! party.DoForEachProduct(fun p -> 
             maybeErr{
                 for var in PhysVar.values do
@@ -434,15 +430,15 @@ module private Helpers3 =
 
     
 let runInterrogate() = "Опрос" -->> fun () -> maybeErr{ 
-    do! Comport.testPort appCfg.ComportProducts
+    do! Comport.testPort appCfg.Hardware.ComportProducts
     while Thread2.isKeepRunning() do
         do! party.Interrogate() }
 
 
 let setAddr addr = sprintf "Установка адреса %A" addr -->> fun () -> maybeErr{ 
     
-    do! Mdbs.write appCfg.ComportProducts 0uy ResetAddy.Code "установка адреса" addr
-    let! _ =  Mdbs.read3decimal appCfg.ComportProducts (byte addr) 0 "проверка установки адреса"
+    do! Mdbs.write appCfg.Hardware.ComportProducts 0uy ResetAddy.Code "установка адреса" addr
+    let! _ =  Mdbs.read3decimal appCfg.Hardware.ComportProducts (byte addr) 0 "проверка установки адреса"
     () }
 
 let sendCommand (cmd,value as x) = 

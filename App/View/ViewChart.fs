@@ -62,7 +62,7 @@ module private Helpers =
 
         and onTextChanged = EventHandler(fun _ _ ->  
             
-            textToValue t.Text |> updSubj              
+            updSubj (textToValue t.Text)
             let error, color = 
                 if not <| eq (getSubjValue()) (textToValue t.Text) then "не правильный ввод", Color.Red
                 else "", Color.Black
@@ -222,13 +222,30 @@ module private Helpers =
 
         p1
 
-    
-    let btnAxis text dock popupWidth popupHeight ctrMin ctrMax = 
-        let b = new Button( Text = text, Width = 59, Dock = dock, FlatStyle = FlatStyle.Flat)
-        let popupP = popupAxis popupWidth popupHeight ctrMin ctrMax 
-        b.Click.Add( fun _ ->             
-            let popup = new MyWinForms.Popup(popupP :> Control)    
-            popup.Show(b) )
+
+    let imgbtn1 left top key tooltip  = 
+        let x = 
+            new Button( Left = left, Top = top,
+                        ImageKey = key, Width = 40, Height = 40,
+                        FlatStyle = FlatStyle.Flat,
+                        ImageList = Widgets.Icons.instance.imageList1)
+        MainWindow.setTooltip x tooltip
+        
+        x
+
+    let imgbtn left top key tooltip f = 
+        let x = imgbtn1 left top key tooltip
+        x.Click.Add <| fun _ ->  
+            f x
+        x
+
+   
+    let btnAxis left top key tooltip popupWidth popupHeight ctrMin ctrMax = 
+        
+        let b = imgbtn left top key tooltip <| fun button ->            
+                let popupP = popupAxis popupWidth popupHeight ctrMin ctrMax          
+                let popup = new MyWinForms.Popup(popupP :> Control)    
+                popup.Show(button) 
         b
 
     // Прокрутка оси X при нажатии левой кнопки мыши
@@ -263,9 +280,10 @@ module private Helpers =
     module OrigZoomStore =
         let mutable oldSelStart = -1.
         let mutable oldSelEnd = -1.
-        let button = new Button( Text = "Исх. размер", Width = 120, FlatStyle = FlatStyle.Flat,
-                                 Visible = false)
+        let button = imgbtn1 46 46 "orig_zoom" "Вернуть исходный размер графика"
+
         let initialize = 
+            button.Visible <- false
             let chart = Mil82.Chart.chart
             let ar = chart.ChartAreas.[0]
             chart.AxisViewChanged.Add(fun evt -> 
@@ -275,11 +293,15 @@ module private Helpers =
                     oldSelStart <- newSelStart
                     oldSelEnd <- newSelEnd
                     button.Visible <- true )
+             
             button.Click.Add(fun _ ->
                 ar.AxisX.ScaleView.ZoomReset(Int32.MaxValue);
                 ar.AxisY.ScaleView.ZoomReset(Int32.MaxValue);
                 button.Visible <- false )
             fun () -> ()
+
+    
+        
     
 
 [<AutoOpen>]
@@ -298,40 +320,71 @@ module private Helpers1 =
 
 let initialize =
     
-    asvm.InitializeAxisTimer()    
-    let p = new Panel( Height = 25)
+    
+
+    
+    let placeholder = new Panel( Height = 90)
     let separator() = addtop TabsheetChart.BottomTab <| new Panel( Height = 3)
     separator()    
-    addtop TabsheetChart.BottomTab p 
+    addtop TabsheetChart.BottomTab placeholder
     separator()
+    
     btnAxis 
-        "X" DockStyle.Left 230 130 
+        3 3 "X" "X" 230 130 
         (dateTimeEditBox "MinDateTime" "scaleMinX")
         (dateTimeEditBox "MaxDateTime" "scaleMaxX")
-    |> addctrl p
+    |> addctrl placeholder
+
     btnAxis 
-        "Y" DockStyle.Right 200 130 
+        46 3 "Y" "Y" 200 130 
         (floatEditBox "MinY" "scaleMinY")
         (floatEditBox "MaxY" "scaleMaxY")
-    |> addctrl p
-    addtop TabsheetChart.BottomTab p 
-    separator()
-    let b = new Button( Text = "Очистить", Width = 120, FlatStyle = FlatStyle.Flat)    
-    addtop TabsheetChart.BottomTab b 
-    separator()    
+    |> addctrl placeholder
 
     let chart = Mil82.Chart.chart
     
-    b.Click.Add( fun _ ->
-        MyWinForms.ChartUtils.erraseVisiblePoints chart )
 
-    addtop TabsheetChart.BottomTab OrigZoomStore.button 
-    separator()
+    imgbtn 89 3 "clear" "Удалить все видимые точки графика" <| fun _ ->
+        MyWinForms.ChartUtils.erraseVisiblePoints chart
+    |> addctrl placeholder
 
-    invertChildrenOrder TabsheetChart.BottomTab
+    addctrl placeholder OrigZoomStore.button 
+    imgbtn 3 46 "sets" "Выбор видимых графиков" <| fun b -> 
+        let pan = new Panel (Font = MainWindow.form.Font, BorderStyle = BorderStyle.FixedSingle)
+        
+        chart.ApplyPaletteColors()
+        let mutable x = 3
+        let mutable y = 0
+        for series in chart.Series do
+            let add (c:Control) = 
+                c.Parent <- pan
+                c.Top <- x
+            
+            let cb = new CheckBox(Left = 10, Width = 20, Height = 20  )
+            add cb
+            let p = new Panel(Parent = pan, BackColor = series.Color, Left = cb.Width + cb.Left + 5, 
+                                Top = x + 8, Width = 20, Height = 3)            
+            
+            let l = new Label(Left = p.Width + p.Left + 5, AutoSize = true, Text = series.LegendText)
+            add l
+            x <- x + cb.Height + 3
+            let rtxt = TextRenderer.MeasureText( series.LegendText, pan.Font )
+            y <- max y (l.Left + rtxt.Width)
+            cb.Checked <- series.Enabled
+            cb.CheckedChanged.Add( fun _ -> 
+                series.Enabled <- cb.Checked )
 
+        pan.Height <- x
+        pan.Width  <- y + 10
+        let popup = new MyWinForms.Popup(pan)
+        popup.Show(b)
+
+    |> addctrl placeholder
+
+    
     DragAxisXOnMouseLeft.initialize()
     OrigZoomStore.initialize()    
     initChart1 chart
+    asvm.InitializeAxisTimer()    
 
     fun () -> () 

@@ -49,17 +49,24 @@
             this.imageList1.Images.SetKeyName(9, "removeitem");
             this.imageList1.Images.SetKeyName(10, "doc");
             this.imageList1.Images.SetKeyName(11, "folder");
-            this.imageList1.Images.SetKeyName(12, "run");
-            this.imageList1.Images.SetKeyName(13, "three_lines");
-            this.imageList1.Images.SetKeyName(14, "upload");
-            this.imageList1.Images.SetKeyName(15, "installing_updates");
-            this.imageList1.Images.SetKeyName(16, "serial");
-            this.imageList1.Images.SetKeyName(17, "pressure");
-            this.imageList1.Images.SetKeyName(18, "save");
-            this.imageList1.Images.SetKeyName(19, "open");
-            this.imageList1.Images.SetKeyName(20, "clear");
-            this.imageList1.Images.SetKeyName(21, "add");
-            this.imageList1.Images.SetKeyName(22, "tools");
+            this.imageList1.Images.SetKeyName(12, "three_lines");
+            this.imageList1.Images.SetKeyName(13, "upload");
+            this.imageList1.Images.SetKeyName(14, "installing_updates");
+            this.imageList1.Images.SetKeyName(15, "serial");
+            this.imageList1.Images.SetKeyName(16, "pressure");
+            this.imageList1.Images.SetKeyName(17, "save");
+            this.imageList1.Images.SetKeyName(18, "open");
+            this.imageList1.Images.SetKeyName(19, "clear");
+            this.imageList1.Images.SetKeyName(20, "add");
+            this.imageList1.Images.SetKeyName(21, "tools");
+            this.imageList1.Images.SetKeyName(22, "about");
+            this.imageList1.Images.SetKeyName(23, "todo");
+            this.imageList1.Images.SetKeyName(24, "termochamber");
+            this.imageList1.Images.SetKeyName(25, "pneumo");
+            this.imageList1.Images.SetKeyName(26, "loop");
+            this.imageList1.Images.SetKeyName(27, "run");
+            this.imageList1.Images.SetKeyName(28, "script");
+            this.imageList1.Images.SetKeyName(29, "network");
             // 
             // Icons
             // 

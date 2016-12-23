@@ -122,7 +122,7 @@ let popupConfig title selectedObject propertySort =
                              PropertySort = propertySort)
     let l = new Label(Parent = p,  Dock = DockStyle.Top, Text = title, TextAlign = ContentAlignment.MiddleLeft)
     l.SetInfoStyle()
-    let popup = new MyWinForms.Popup(p, Resizable = true)
+    let popup = new MyWinForms.Popup(p, Resizable = true, Font = Application.OpenForms.[0].Font)
     popup.Closing.Add <| fun e ->
         if isPropGridEditing g then
             e.Cancel <- true

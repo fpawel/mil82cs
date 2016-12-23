@@ -252,7 +252,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
 
     
     member x.ReadModbus(ctx) = 
-        let r = Mdbs.read3decimal appCfg.ComportProducts x.Addr (ReadContext.code ctx) (ReadContext.what ctx)
+        let r = Mdbs.read3decimal appCfg.Hardware.ComportProducts x.Addr (ReadContext.code ctx) (ReadContext.what ctx)
         match r, ctx with
         | Ok value, ReadVar var -> 
             x.setPhysVarValue var value
@@ -267,7 +267,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
 
     member x.WriteModbus (ctx,value) = 
         let what = WriteContext.what ctx
-        let r = Mdbs.write appCfg.ComportProducts x.Addr (WriteContext.code ctx) what value
+        let r = Mdbs.write appCfg.Hardware.ComportProducts x.Addr (WriteContext.code ctx) what value
         x.Connection <- 
             r 
             |> Result.map(fun v -> sprintf "%s <-- %s" (WriteContext.what ctx) (Decimal.toStr6 value))

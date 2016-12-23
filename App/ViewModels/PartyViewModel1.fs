@@ -66,7 +66,7 @@ type ProductTypesConverter() =
 type Party1
         (   partyHeader:Mil82.Party.Head, 
             partyData : Mil82.Party.Data ) =
-    inherit AppConfigViewModel() 
+    inherit ViewModelBase() 
 
     let mutable partyHeader = partyHeader
     let mutable partyData = partyData
@@ -228,7 +228,6 @@ type Party1
             if value <> partyData.PerformingJournal then
                 partyData <- { partyData with PerformingJournal =  value }
                 x.RaisePropertyChanged "Journal"
-
     
 [<AutoOpen>]
 module private RunInfoHelpers =

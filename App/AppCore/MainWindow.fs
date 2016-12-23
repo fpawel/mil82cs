@@ -49,7 +49,7 @@ let rightTabContentPlaceholder,setActivePageTitle =
 
 let tabButtonsPlaceholder, leftBottomTabContentPlaceHolder = 
     let _ = new Panel(Parent = mainLayer, Dock = DockStyle.Left, Width = 3)
-    let x = new Panel(Parent = mainLayer, Dock = DockStyle.Left, Width = 120)
+    let x = new Panel(Parent = mainLayer, Dock = DockStyle.Left, Width = 135)
 
     let left_bottom_TabContentPlaceHolder = new Panel(Parent = x, Dock = DockStyle.Fill)        
     let left_top_TabButtonsPlaceholder = new Panel(Parent = x, Dock = DockStyle.Top)

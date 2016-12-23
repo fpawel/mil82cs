@@ -28,6 +28,17 @@ module private Helpers =
         |> Map.toList
         |> List.map( fun (_,x) -> x.DataBoundItem :?> P )
 
+
+type ProductTypesConverter() = 
+    inherit StringConverter()
+    override this.GetStandardValuesSupported _ = true
+    override this.GetStandardValuesExclusive _ = true
+    override this.GetStandardValues _ =       
+        ProductType.values
+        |> Seq.toArray
+        |> Array.map( fun x -> x.What)
+        |> TypeConverter.StandardValuesCollection
+
     
 [<TypeConverter(typeof<ExpandableObjectConverter>)>]
 type PartyInfo = 

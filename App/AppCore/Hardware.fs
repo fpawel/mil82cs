@@ -25,9 +25,9 @@ module Pneumo =
     
     let switch (code:byte)  = 
         
-        let port = cfg.ComportPneumo
+        let port = cfg.Hardware.Pneumoblock.Comport
         let req = 
-            {   R.addy = cfg.PneumoAddy
+            {   R.addy = cfg.Hardware.Pneumoblock.Addr
                 R.cmd = 0x10uy
                 R.data = [| 0uy; 0x10uy; 0uy; 1uy; 2uy; 0uy; code |]
                 R.what = codeToString code |> sprintf "пневмоблок - %s" }
@@ -65,14 +65,14 @@ module WarmingBoard =
 
     let switch newstate =
         let request = 
-            {   R.addy = cfg.WarmDeviceAddr
+            {   R.addy = cfg.Hardware.WarmDevice.Addr
                 R.cmd = 0x10uy
                 R.data = 
                     [   yield! [0uy;0uy;0uy;1uy;2uy ] 
                         yield! WarmingBoardState.d newstate ]
                 R.what = WarmingBoardState.what newstate }
         let r =
-            Mdbs.getResponse cfg.ComportOven request (fun _ -> "Ok") <| function
+            Mdbs.getResponse cfg.Hardware.WarmDevice.Comport request (fun _ -> "Ok") <| function
                 | [  0x00uy; 0x00uy; 0x00uy; 0x01uy ] -> Ok ()
                 | xs -> bytesToStr xs |> sprintf "не соответствие формата ответа : %A"  |> Err
         state.Value <- Some ( r |> Result.map(fun _ -> newstate) ) 
@@ -90,8 +90,8 @@ module WarmingBoard =
     let on() = switch On
     let off() = switch Off
 
-    let private (|LessOn|) t = t < cfg.TemperatureWarmBoardOn 
-    let private (|GreatOff|) t = t > cfg.TemperatureWarmBoardOff
+    let private (|LessOn|) t = t < cfg.Hardware.WarmDevice.TempOn 
+    let private (|GreatOff|) t = t > cfg.Hardware.WarmDevice.TempOff
 
     let private (|InOnOff|) = function
         | LessOn false & GreatOff false -> true
@@ -145,7 +145,7 @@ module Termo =
         let config = AppConfig.config
         let getResponse1 req = 
             let scmd = Request.requestString req
-            let port = config.ComportTermo
+            let port = config.Hardware.Termochamber.Comport
             let result = 
                 [|  yield 2uy
                     yield! sprintf "%s\r\n" scmd |> Text.Encoding.ASCII.GetBytes |]    
@@ -235,15 +235,15 @@ module Warm =
         if (not <| isKeepRunning()) then return! Err "прервано" else
         let! (temperature,setPointTemperature) = Termo.read()
         do!
-            if cfg.UseWarmBoard then
+            if cfg.Hardware.WarmDevice.Enabled then
                 WarmingBoard.update temperature
             else 
                 Ok ()
-        if abs( s.destT - temperature ) < cfg.TermoWarmError then
+        if abs( s.destT - temperature ) < cfg.Hardware.Termochamber.SetpointErrorLimit then
             return temperature 
         else
-            if DateTime.Now - s.startTime > cfg.TermoWarmTimeOut then
-                return! Err <| sprintf "таймаут %A" cfg.TermoWarmTimeOut
+            if DateTime.Now - s.startTime > cfg.Hardware.Termochamber.SetpointTimeOut then
+                return! Err <| sprintf "таймаут %A" cfg.Hardware.Termochamber.SetpointTimeOut
             else
                 do! work()
                 return! loopWarm s isKeepRunning work }
