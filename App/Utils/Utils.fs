@@ -125,6 +125,16 @@ module Option =
         | Some x -> Err x
         | _ -> Ok()
 
+    type Builder() = 
+        member x.Bind(v,f) = Option.bind f v    
+        member x.Return v = Some v
+        member x.ReturnFrom o = o
+        member b.Combine( v, f) = Option.bind f v
+        member b.Delay(f ) = f
+        member x.Run(f) = Option.bind f (Some ())
+
+let maybe = Option.Builder()
+
 let createDirectory x = 
     if not <| Directory.Exists x then
         let x = Directory.CreateDirectory x

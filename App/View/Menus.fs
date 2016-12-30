@@ -34,26 +34,79 @@ module private Helpers =
     let simpleMenu = MyWinForms.Utils.buttonsMenu (new Font("Consolas", 12.f)) ( Some 300 ) 
 
 
-let popupNumberDialog<'a>     
-    prompt title tryParse work 
-    (btn : Button) 
-    (parentPopup : MyWinForms.Popup) =
-    let tb = new TextBox(Width = 290, Text = (party.NewValidAddr() |> string) )                    
-    let dialog,validate  = 
-        popupDialog 
-            { Dlg.def() with 
-                Text = Some prompt
-                ButtonAcceptText = "Применить" 
-                Title = title
-                Width = 300
-                Content = tb }
-            ( fun () -> 
-                tryParse tb.Text)
-            ( fun (value : 'a) ->  
-                parentPopup.Hide()
-                work value ) 
-    tb.TextChanged.Add <| fun _ -> validate()                        
-    dialog.Show btn
+    let popupNumberDialog<'a>     
+        prompt title tryParse work 
+        (btn : Button) 
+        (parentPopup : MyWinForms.Popup) =
+        let tb = new TextBox(Width = 290, Text = (party.NewValidAddr() |> string) )                    
+        let dialog,validate  = 
+            popupDialog 
+                { Dlg.def() with 
+                    Text = Some prompt
+                    ButtonAcceptText = "Применить" 
+                    Title = title
+                    Width = 300
+                    Content = tb }
+                ( fun () -> 
+                    tryParse tb.Text)
+                ( fun (value : 'a) ->  
+                    parentPopup.Hide()
+                    work value ) 
+        tb.TextChanged.Add <| fun _ -> validate()                        
+        dialog.Show btn
+
+
+    let popupTermociclingDialog  
+        (btn : Button) 
+        (parentPopup : MyWinForms.Popup) =
+        let ph = new Panel(Width = 290)
+        let addctrl (c:Control) = 
+            c.Parent <- ph
+            c.Dock <- DockStyle.Top
+        let tb caption text =
+            addctrl (new Label(Text = caption, AutoSize = true) )
+            let tb = new TextBox(Text = text)           
+            addctrl tb
+            tb
+        let tbCount = tb "Количество термоциклов" "3"
+        let tbTempMin = tb "Нижняя температура, \"С" (string <| party.GetTermoTemperature TermoLow)
+        let tbTempMax = tb "Верхняя температура, \"С" (string <| party.GetTermoTemperature TermoHigh)
+        let tbTime = tb "Время прогрева, час:мин" "1:00"
+        
+        ph.stretchHeightToContent 50
+        ph.InvertChildrenOrder()
+
+        let tryGetData() = 
+            maybe {
+                let! count = 
+                    let b, count = Int32.TryParse tbCount.Text
+                    if not b || count < 1 || count > 10 then None else Some count
+                let! tempMin  = String.tryParseDecimal tbTempMin.Text
+                let! tempMax  = String.tryParseDecimal tbTempMax.Text
+                let! time  = 
+                    let b,v = TimeSpan.TryParse tbTime.Text
+                    if not b || v < TimeSpan.FromMinutes 1. || v > TimeSpan.FromHours 24. 
+                    then None 
+                    else Some v
+                return!
+                    if tempMax <= tempMin then None else
+                    Some( count, tempMin, tempMax, time )
+            }
+                 
+        let dialog,validate  = 
+            popupDialog 
+                { Dlg.def() with 
+                    ButtonAcceptText = "Старт" 
+                    Title = "Термоциклирование"
+                    Width = 300
+                    Content = ph }
+                tryGetData
+                ( fun x ->  
+                    parentPopup.Hide()
+                    PartyWorks.TermoChamber.termocicling x ) 
+        for tb in [tbCount; tbTempMin; tbTempMax; tbTime] do
+            tb.TextChanged.Add <| fun _ -> validate()                        
+        dialog.Show btn
 
 let modbusToolsPopup = 
     let setAddr = 
@@ -92,9 +145,15 @@ let termoToolsPopup =
             "Задать уставку термокамеры"
             String.tryParseDecimal
             PartyWorks.TermoChamber.setSetpoint
-    [   yield "Старт", fun _ _ -> PartyWorks.TermoChamber.start()
-        yield "Стоп", fun _ _ -> PartyWorks.TermoChamber.stop()
-        yield "Уставка", setpoint  ]
+    let do' f _  (x : MyWinForms.Popup) = 
+        x.Close()
+        f()
+
+    [   yield "Термоциклирование", popupTermociclingDialog
+        yield "Старт", do' PartyWorks.TermoChamber.start
+        yield "Стоп", do' PartyWorks.TermoChamber.stop
+        yield "Уставка", setpoint  
+        yield "Температура", do' PartyWorks.TermoChamber.read ]
     |> simpleMenu
 
 let private initButtons1 = 
@@ -195,6 +254,9 @@ let initialize =
 
     imgBtn  ("termochamber", "Управление термокамерой") <| fun x ->
         termoToolsPopup.Show x   
+
+    imgBtn  ("testconn", "Проверка связи с приборами и оборудованием") 
+        PartyWorks.testConnect
 
     do
         let x = 

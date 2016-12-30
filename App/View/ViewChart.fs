@@ -10,12 +10,7 @@ open MainWindow
 [<AutoOpen>]
 module private Helpers =
 
-    let invertChildrenOrder<'a when 'a :> Control> (c:'a) =
-        let xs = 
-            [ for x in c.Controls -> x ]
-            |> List.rev
-        c.Controls.Clear()
-        xs |> List.iter c.Controls.Add 
+    
 
     let addctrl1<'a,'b when 'a :> Control and 'b :> Control> (x:'a) (y:'b) f =
         f y
@@ -215,7 +210,7 @@ module private Helpers =
         addtop p ctrMax
         separator()
 
-        invertChildrenOrder p
+        p.InvertChildrenOrder()
 
         addctrl p1 (new Panel(Width = 5, Dock = DockStyle.Left ))
         addctrl p1 (new Panel(Width = 5, Dock = DockStyle.Right ))
@@ -241,12 +236,18 @@ module private Helpers =
 
    
     let btnAxis left top key tooltip popupWidth popupHeight ctrMin ctrMax = 
-        
-        let b = imgbtn left top key tooltip <| fun button ->            
-                let popupP = popupAxis popupWidth popupHeight ctrMin ctrMax          
-                let popup = new MyWinForms.Popup(popupP :> Control)    
-                popup.Show(button) 
-        b
+
+        let button = 
+            new Button( Left = left, Top = top,
+                        Text = key, Width = 40, Height = 40,
+                        FlatStyle = FlatStyle.Flat )
+        MainWindow.setTooltip button tooltip
+        button.Click.Add <| fun _ ->  
+            let popupP = popupAxis popupWidth popupHeight ctrMin ctrMax          
+            let popup = new MyWinForms.Popup(popupP :> Control)    
+            popup.Show(button) 
+               
+        button
 
     // Прокрутка оси X при нажатии левой кнопки мыши
     module DragAxisXOnMouseLeft =
@@ -280,7 +281,7 @@ module private Helpers =
     module OrigZoomStore =
         let mutable oldSelStart = -1.
         let mutable oldSelEnd = -1.
-        let button = imgbtn1 46 46 "orig_zoom" "Вернуть исходный размер графика"
+        let button = imgbtn1 46 46 "zoom-out" "Вернуть исходный размер графика"
 
         let initialize = 
             button.Visible <- false
@@ -318,25 +319,49 @@ module private Helpers1 =
         c.Interval <- 0.001
         c.IsUserSelectionEnabled <- true
 
-let initialize =
-    
-    
+    let comboBoxVars = 
+        let x =
+            new MyWinForms.FlatComboBox( DropDownStyle = ComboBoxStyle.DropDownList,
+                                        DisplayMember = "What", FlatStyle = FlatStyle.Flat)
+        x.Items.AddRange ( Mil82.PhysVar.values |> List.map box |> List.toArray)    
 
-    
+        let update _ =            
+            Mil82.Chart.physVar <- x.SelectedItem :?> Mil82.PhysVar
+            MainWindow.setActivePageTitle <| sprintf "График. %s" Mil82.Chart.physVar.Dscr 
+            Mil82.AppContent.updateChartSeriesList ()
+            let m = Mil82.Chart.axisScalingViewModel
+            m.MaxDateTime <- None
+            m.MinDateTime <- None
+            m.MinY <- None
+            m.MaxY <- None
+        x.SelectedIndexChanged.Add update
+        x.SelectedItem <- Mil82.Conc
+        MainWindow.setTooltip x "Выбрать параметр прибора, отображаемый на графике"
+        x
+
+let initialize =
+        
     let placeholder = new Panel( Height = 90)
     let separator() = addtop TabsheetChart.BottomTab <| new Panel( Height = 3)
+
+    addtop TabsheetChart.BottomTab ( new Label (Text = "Отображаемая") ) 
+    addtop TabsheetChart.BottomTab ( new Label (Text = "величина") ) 
+
+    separator()    
+    addtop TabsheetChart.BottomTab comboBoxVars
+
     separator()    
     addtop TabsheetChart.BottomTab placeholder
     separator()
     
     btnAxis 
-        3 3 "X" "X" 230 130 
+        3 3 "X" "настройка координат горизонтальной оси" 230 130 
         (dateTimeEditBox "MinDateTime" "scaleMinX")
         (dateTimeEditBox "MaxDateTime" "scaleMaxX")
     |> addctrl placeholder
 
     btnAxis 
-        46 3 "Y" "Y" 200 130 
+        46 3 "Y" "настройка координат вертикальной оси"  200 130 
         (floatEditBox "MinY" "scaleMinY")
         (floatEditBox "MaxY" "scaleMaxY")
     |> addctrl placeholder
@@ -344,12 +369,12 @@ let initialize =
     let chart = Mil82.Chart.chart
     
 
-    imgbtn 89 3 "clear" "Удалить все видимые точки графика" <| fun _ ->
+    imgbtn 89 3 "clean" "Удалить все видимые точки графика" <| fun _ ->
         MyWinForms.ChartUtils.erraseVisiblePoints chart
     |> addctrl placeholder
 
     addctrl placeholder OrigZoomStore.button 
-    imgbtn 3 46 "sets" "Выбор видимых графиков" <| fun b -> 
+    imgbtn 3 46 "list" "Выбор видимых графиков" <| fun b -> 
         let pan = new Panel (Font = MainWindow.form.Font, BorderStyle = BorderStyle.FixedSingle)
         
         chart.ApplyPaletteColors()
@@ -381,6 +406,7 @@ let initialize =
 
     |> addctrl placeholder
 
+    TabsheetChart.BottomTab.InvertChildrenOrder()
     
     DragAxisXOnMouseLeft.initialize()
     OrigZoomStore.initialize()    

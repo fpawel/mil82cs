@@ -93,25 +93,25 @@ module TabsheetVars =
    
     
 
-module TabsheetChart = 
-    
-    let update() =
-        setActivePageTitle <| sprintf "График. %s" Chart.physVar.Dscr 
-        AppContent.updateChartSeriesList ()
-        let m =Chart.axisScalingViewModel
-        m.MaxDateTime <- None
-        m.MinDateTime <- None
-        m.MinY <- None
-        m.MaxY <- None
-    
-    module PhysVar =
-        let get,set,_ = 
-            let panelSelectVar = new Panel(Parent = TabsheetChart.BottomTab, Dock = DockStyle.Top)
-            let _ = new Panel(Parent = TabsheetChart.BottomTab, Dock = DockStyle.Top, Height = 10)
-        
-            radioButtons panelSelectVar PhysVar.values PhysVar.what PhysVar.dscr <| fun x -> 
-                Chart.physVar <- x
-                update()
+//module TabsheetChart = 
+//    
+//    let update() =
+//        setActivePageTitle <| sprintf "График. %s" Chart.physVar.Dscr 
+//        AppContent.updateChartSeriesList ()
+//        let m =Chart.axisScalingViewModel
+//        m.MaxDateTime <- None
+//        m.MinDateTime <- None
+//        m.MinY <- None
+//        m.MaxY <- None
+//    
+//    module PhysVar =
+//        let get,set,_ = 
+//            let panelSelectVar = new Panel(Parent = TabsheetChart.BottomTab, Dock = DockStyle.Top)
+//            let _ = new Panel(Parent = TabsheetChart.BottomTab, Dock = DockStyle.Top, Height = 10)
+//        
+//            radioButtons panelSelectVar PhysVar.values PhysVar.what PhysVar.dscr <| fun x -> 
+//                Chart.physVar <- x
+//                update()
 
 module TabsheetErrors =
     type K = 
@@ -255,7 +255,7 @@ let private onSelect = function
         
     | TabsheetChart ->
         gridProducts.Parent <- null
-        TabsheetChart.update()
+        ///TabsheetChart.update()
     | _ -> ()
         
 let getSelected, setSelected,_ =

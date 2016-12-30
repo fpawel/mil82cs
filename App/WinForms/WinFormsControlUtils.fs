@@ -33,6 +33,18 @@ type Control with
         x.MouseEnter.Add <| fun _ ->  x.BackColor <- Color.DodgerBlue
         x.MouseLeave.Add <| fun _ ->  x.BackColor <- Color.Navy
 
+    member c.InvertChildrenOrder() =
+        let xs = 
+            [ for x in c.Controls -> x ]
+            |> List.rev
+        c.Controls.Clear()
+        xs |> List.iter c.Controls.Add 
+
+    member c.stretchHeightToContent height =
+        c.Height <-
+            [ for x in c.Controls -> x.Height ]
+            |> List.fold (+) height
+
 type DataGridViewColumnCollection with 
     static member addColumn<'a when 'a :> DataGridViewColumn > (cols:DataGridViewColumnCollection) (col:'a)  =
         cols.Add col |> ignore

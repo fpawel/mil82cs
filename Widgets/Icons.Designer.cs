@@ -67,6 +67,10 @@
             this.imageList1.Images.SetKeyName(27, "run");
             this.imageList1.Images.SetKeyName(28, "script");
             this.imageList1.Images.SetKeyName(29, "network");
+            this.imageList1.Images.SetKeyName(30, "zoom-out");
+            this.imageList1.Images.SetKeyName(31, "clean");
+            this.imageList1.Images.SetKeyName(32, "list");
+            this.imageList1.Images.SetKeyName(33, "testconn");
             // 
             // Icons
             // 

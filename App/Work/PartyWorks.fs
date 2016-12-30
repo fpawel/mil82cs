@@ -231,18 +231,25 @@ module private Helpers1 =
             do! switchPneumo <| Some gas
             do! Delay.perform title gettime true }
 
-    let warm t = maybeErr{    
+
+    let warm tempValue = maybeErr{    
         if appCfg.Hardware.Pneumoblock.Enabled && Hardware.Pneumo.isOpened()  then
             do! switchPneumo None
-        let value = party.GetTermoTemperature t
-        Logging.info "Установка температуры %A %M\"C" (TermoPt.what t) value
+        Logging.info "Установка температуры %M\"C" tempValue
         if not appCfg.Hardware.Termochamber.Enabled then             
             ModalMessage.show Logging.Info
-                "Уставка термокамеры" (sprintf "Установите в термокамере температуру %M\"C" value) 
+                "Уставка термокамеры" (sprintf "Установите в термокамере температуру %M\"C" tempValue) 
             if isKeepRunning() then
-                Logging.info "температура %s установлена вручную" t.What
+                Logging.info "температура %M\"C установлена вручную" tempValue
         else 
-            do! Hardware.Warm.warm value Thread2.isKeepRunning party.Interrogate  }
+            do! Hardware.Warm.warm tempValue Thread2.isKeepRunning party.Interrogate  
+    }
+
+    type TermoPt with
+        member x.Warm() = 
+            TermoPt.warm x
+        static member warm t =
+            warm (party.GetTermoTemperature t)
 
     let adjust isScaleEnd = 
         let cmd, gas, wht = 
@@ -261,7 +268,7 @@ module private Helpers1 =
             do! Delay.perform (sprintf  "Выдержка после калибровки %A" gas.What) (fun () -> TimeSpan.FromSeconds 10.) true
             }
 
-    let goNku = "Установка НКУ" <|> fun () -> warm TermoNorm
+    let goNku = "Установка НКУ" <|> TermoNorm.Warm
 
     let readVarsValues feat gas t wht = maybeErr{
         do! Comport.testPort appCfg.Hardware.ComportProducts
@@ -289,7 +296,7 @@ let blowAndRead feat t =
 let warmAndRead feat t =
     sprintf "Cнятие %A %A" (Feature.what1 feat) (TermoPt.what t) <||> 
         [   yield sprintf "Температура %A" (TermoPt.what t) <||> [
-                yield "Установка"  <|> fun () -> warm t
+                yield "Установка"  <|> t.Warm
                 yield ("Выдержка", TimeSpan.FromHours 1., WarmDelay t) <-|-> fun gettime -> maybeErr{    
                     do! switchPneumo None    
                     do! Delay.perform ( sprintf "Выдержка термокамеры %A" (TermoPt.what t) ) gettime true } ]
@@ -405,6 +412,7 @@ let mil82 =
 
     mil82
 
+
 module Works =
     let all = Op.MapReduce Some mil82 
 
@@ -426,7 +434,7 @@ module Works =
 module private Helpers3 =
     let ( -->> ) s f =
         s <|> f
-        |> Thread2.run (false)
+        |> Thread2.run false
 
     
 let runInterrogate() = "Опрос" -->> fun () -> maybeErr{ 
@@ -473,15 +481,57 @@ module Kefs =
     let read() = run "Считывание к-тов"  party.ReadKefs
 
 module TermoChamber =
+    let termocicling (count,  tempMin, tempMax, warmTime)  =         
+        "Термоциклирование" -->> fun () -> maybeErr {
+            let warmTime _ = warmTime
+            let mutable n = 0
+            for n = 1 to count do
+                let what = sprintf "Термоцикл %d из %d" n count
+                Logging.info "%s начат" what
+                for temp in [tempMin; tempMax] do
+                    Logging.info "%s, уставка %M\"C" what temp
+                    do! warm temp
+                    do! Delay.perform 
+                            (sprintf "%s, выдержка при %M\"C" what temp)
+                            warmTime true 
+                Logging.info "%s завершён" what
+            Logging.info "Термоциклирование : перевод термокамеры в НКУ"
+            do! TermoNorm.Warm()  
+            do! Delay.perform "выдержка НКУ после термоциклирования" warmTime true                 
+        }
+
+    let read () = "Считывание температуры" -->> fun () -> maybeErr{        
+        let! (t,stp) = Hardware.Termo.read ()
+        ModalMessage.show Logging.Info 
+            (sprintf "Температура %M\"C\nУставка %M\"C" t stp)
+            "Температура термокамеры" 
+        return! None }
+
     let private (-->>) s f = 
         s -->> fun () ->
             f () |> Result.someErr
 
     let start() = "Старт" -->> Hardware.Termo.start
+    
     let stop() = "Стоп" -->> Hardware.Termo.stop
+    
     let setSetpoint value = "Уставка" -->> fun () -> 
         Hardware.Termo.setSetpoint value
-    let read () = "Замер" -->> fun () -> 
-        let r = Hardware.Termo.read ()
-        Logging.write (Result.level r) "%A" r
-        Result.map (fun _ -> () ) r
+
+let testConnect _ = 
+    "Проверка связи" <|> fun () -> 
+        let oks, errs =
+            [   if appCfg.Hardware.Pneumoblock.Enabled then
+                    yield "Пневмоблок", Hardware.Pneumo.switch 0uy
+                if appCfg.Hardware.Termochamber.Enabled then
+                    yield "Термокамера", Hardware.Termo.stop() 
+                if appCfg.Hardware.WarmDevice.Enabled then
+                    yield "Устройство подогрева плат", Hardware.WarmingBoard.off()
+                for p in party.Products do
+                    yield p.What, p.ReadModbus(ReadVar Conc) |> Result.map(fun _ -> () ) ]
+            |> List.partition (snd >> Result.isOk)
+        if errs.IsEmpty then None else
+        errs 
+        |> Seq.toStr "\n" (fun (what, err) -> sprintf "%s : %s" what (Result.Unwrap.err err) )
+        |> Some
+    |> Thread2.run false     

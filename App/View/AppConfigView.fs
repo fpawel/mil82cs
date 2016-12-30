@@ -88,6 +88,15 @@ type PartyConfigView() =
     [<Description("Значения температур уставки термокамеры в температурных точках термокомпенсации приборов")>]
     member val  Temperature = TemperatureConfigView() with get,set
 
+    [<DisplayName("Середина шкалы")>]
+    [<Description("Выполнять снятие данных в середине шкалы при автоматической настройке термокомпенсации")>]
+    [<TypeConverter(typeof<MyWinForms.Converters.YesNoConverter>)>]
+    member x.UseMidleScale 
+        with get() = config.UseMidleScale
+        and set v = 
+            if v <> config.UseMidleScale then
+                config.UseMidleScale <- v
+
     override __.ToString() = ""
 
 
@@ -95,6 +104,15 @@ type AppConfigView() =
     
     [<DisplayName("Партия")>]    
     member val  Party = PartyConfigView() with get,set
+
+    [<DisplayName("СОМ приборы")>]
+    [<Description("Имя СОМ порта, к которому подключены настраиваемые приборы")>]
+    [<TypeConverter (typeof<ComportConfig.ComPortNamesConverter>) >]
+    member x.ComportProducts
+        with get() = config.Hardware.ComportProducts.PortName
+        and set v = 
+            if v <> config.Hardware.ComportProducts.PortName then
+                config.Hardware.ComportProducts.PortName <- v
 
     [<DisplayName("СОМ пневмоблок")>]
     [<Description("Имя СОМ порта, к которому подключен пневмоблок")>]
@@ -140,14 +158,7 @@ type AppConfigView() =
             if v <> config.View.VisibleCoefs then
                 config.View.VisibleCoefs <- v
 
-    [<DisplayName("Середина шкалы")>]
-    [<Description("Выполнять снятие данных в середине шкалы при автоматической настройке термокомпенсации")>]
-    [<TypeConverter(typeof<MyWinForms.Converters.YesNoConverter>)>]
-    member x.UseMidleScale 
-        with get() = config.UseMidleScale
-        and set v = 
-            if v <> config.UseMidleScale then
-                config.UseMidleScale <- v
+    
         
 
     override __.ToString() = ""

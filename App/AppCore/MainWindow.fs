@@ -52,7 +52,12 @@ let tabButtonsPlaceholder, leftBottomTabContentPlaceHolder =
     let x = new Panel(Parent = mainLayer, Dock = DockStyle.Left, Width = 135)
 
     let left_bottom_TabContentPlaceHolder = new Panel(Parent = x, Dock = DockStyle.Fill)        
+    
+    
+    let _ = new Panel(Parent = x, Dock = DockStyle.Top, Height = 30)
     let left_top_TabButtonsPlaceholder = new Panel(Parent = x, Dock = DockStyle.Top)
+    
+
     let _ = new Panel(Parent = mainLayer, Dock = DockStyle.Left, Width = 3)
     left_top_TabButtonsPlaceholder, left_bottom_TabContentPlaceHolder
 
