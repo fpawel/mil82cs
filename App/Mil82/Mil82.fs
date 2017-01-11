@@ -255,23 +255,23 @@ type Product =
         IsChecked : bool        
         Addr : byte
         VarValue : Map<Var, decimal> 
-        CoefValue : Map<Coef, decimal>  }
+        CoefValue : Map<Coef, decimal> }
 
     member x.What = Product.what x
 
     member x.ProductInfo = Product.getProductInfo x
-
+    
     static member id x = x.Id
 
     static member getProductInfo x = 
         let year,serial = 
             x.CoefValue.TryFind CoefSerialYearMil82
             |> Option.map( int >> decode2 )
-            |> Option.getWith (0,0)
+            |> Option.withDefault (0,0)
         let month, kind = 
             x.CoefValue.TryFind CoefPriborTypeMonthMil82
             |> Option.map(int >> decode2 )
-            |> Option.getWith (0,0)
+            |> Option.withDefault (0,0)
         {   serial = serial
             year  = year
             month = month
@@ -298,6 +298,11 @@ type Product =
 
 
     static member getKef k p =p.CoefValue.TryFind k 
+
+    static member getKefs kefs p =
+        kefs 
+        |> List.map p.CoefValue.TryFind 
+        |> List.choose id
 
     static member setKef k (v:decimal option) =  state{                
         let! p = getState 
@@ -393,4 +398,10 @@ module Party =
         match Map.tryFind gas m with
         | Some x -> x
         | _ -> ScalePt.defaultBallonConc gas
+
+
+    let getTermoTemperature partyData t = 
+        partyData.TermoTemperature
+        |> Map.tryFind t
+        |> Option.withDefault (TermoPt.defaultTermoTemperature t)
 

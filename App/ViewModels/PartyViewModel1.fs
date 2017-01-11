@@ -72,10 +72,7 @@ type Party1
     let mutable partyData = partyData
     let productType() = partyHeader.ProductType 
     let getPgs gas = Party.ballonConc gas partyData.BallonConc
-    let getTermoTemperature t = 
-        partyData.TermoTemperature
-        |> Map.tryFind t
-        |> Option.getWith (TermoPt.defaultTermoTemperature t)
+    
     let products, setProducts = 
         let x = BindingList<P>()
         let setProducts xs = 
@@ -181,7 +178,8 @@ type Party1
 
     member __.GetPgs pgs = getPgs pgs
     
-    member __.GetTermoTemperature t = getTermoTemperature t
+    member __.GetTermoTemperature t = 
+        Party.getTermoTemperature partyData t
 
     member x.ComputeKefGroup (kefGroup) = 
         products 
@@ -204,7 +202,7 @@ type Party1
                 let t = 
                     ProductType.values 
                     |> List.tryFind( ProductType.what >> (=) v)
-                    |> Option.getWith A00
+                    |> Option.withDefault A00
                 partyHeader <- { partyHeader with ProductType = t}
                 x.RaisePropertyChanged "ProductType"
                 setMainWindowTitle()

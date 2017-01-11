@@ -305,7 +305,7 @@ let createNewProduct addr getPgs productType =
 
 let createNewParty() = 
     let h,d = Party.createNewEmpty()
-    let getPgs = d.BallonConc.TryFind >> Option.getWith 0m
+    let getPgs = d.BallonConc.TryFind >> Option.withDefault 0m
     let productType = h.ProductType
     let product = createNewProduct 1uy getPgs productType
     let products = [ product ]
@@ -313,7 +313,7 @@ let createNewParty() =
 
 let createNewParty1( name, productType, pgs1, pgs2, pgs3, count) : Party.Content = 
         let pgs = Map.ofList <| List.zip ScalePt.values [pgs1; pgs2; pgs3]
-        let getPgs = pgs.TryFind >> Option.getWith 0m
+        let getPgs = pgs.TryFind >> Option.withDefault 0m
         let products = 
             [1uy..count] 
             |> List.map( fun addr ->  createNewProduct addr getPgs productType )

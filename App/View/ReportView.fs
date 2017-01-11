@@ -11,7 +11,7 @@ type private Dck = DockStyle
 
 let placeHolder = new Panel(Dock = Dck.Fill)
 
-let ie = 
+let webBrowser = 
     let x = 
         new WebBrowser(Parent = placeHolder, Dock = Dck.Fill, Url = null,
                        IsWebBrowserContextMenuEnabled = false, AllowWebBrowserDrop = false)
@@ -42,7 +42,9 @@ let initialize =
 
 
     TopBar.buttonReport.Click.Add <| fun _ ->  
-        //ie.DocumentText <- ViewModels.Party.party.GetReport()
+        
+        webBrowser.DocumentText <- 
+            Mil82.Pasp.party AppContent.party.Party
         MainWindow.mainLayer.Visible <- false
         TopBar.placeHolder.Visible <- false
         placeHolder.Parent <- MainWindow.form
@@ -55,28 +57,11 @@ let initialize =
                  FilterIndex = 1, RestoreDirectory = true )
         if dlg.ShowDialog() <> DialogResult.OK then () else
         IO.File.WriteAllText
-            (dlg.FileName, ie.Document.Body.Parent.OuterHtml, 
-                Text.Encoding.GetEncoding(ie.Document.Encoding))
+            (dlg.FileName, webBrowser.Document.Body.Parent.OuterHtml, 
+                Text.Encoding.GetEncoding(webBrowser.Document.Encoding))
 
-        (*
-        Stream myStream ;
-     SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-     saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"  ;
-     saveFileDialog1.FilterIndex = 2 ;
-     saveFileDialog1.RestoreDirectory = true ;
-
-     if(saveFileDialog1.ShowDialog() == DialogResult.OK)
-     {
-         if((myStream = saveFileDialog1.OpenFile()) != null)
-         {
-             // Code to write the stream goes here.
-             myStream.Close();
-         }
-     }
-        *)
-
+    btnPrint.Click.Add <| fun _ ->
+        webBrowser.ShowPrintDialog()
 
         
-
     fun () -> ()

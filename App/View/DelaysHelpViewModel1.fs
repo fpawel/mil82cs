@@ -25,7 +25,7 @@ type DelaysHelperViewModel1() =
         DelayContext.getWorks ctx
         |> List.maybeHead
         |> Option.map( fun (_,d) -> d.Time )
-        |> Option.getWith (TimeSpan.FromMinutes 3.)
+        |> Option.withDefault (TimeSpan.FromMinutes 3.)
         
     member x.SetDelay ctx value = 
         if x.GetDelay ctx <> value then            

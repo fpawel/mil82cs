@@ -158,7 +158,7 @@ module private Helpers =
         let valueToText (value : float option) =            
                 value
                 |> Option.map string
-                |> Option.getWith ""
+                |> Option.withDefault ""
         
         let updSubj, updCtrl, getSubjValue = binding t textToValue valueToText (=) asvm prop scalingMeth
         b3.Click.Add(fun _ -> 
@@ -179,7 +179,7 @@ module private Helpers =
         let valueToText (value : DateTime option) =            
             value
             |> Option.map (fun x -> x.ToString "dd.MM.yy HH:mm:ss")
-            |> Option.getWith ""
+            |> Option.withDefault ""
         let updSubj, updCtrl, getSubjValue = 
             binding t textToValue valueToText (fun x y -> DateTime.Equals(x,y) ) asvm prop scalingMeth
         

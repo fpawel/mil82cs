@@ -95,6 +95,8 @@ type Mil82.ViewModel.Product1 with
             "%s, проверка погрешности %s=%M - конц.=%M, погр.=%M, макс.погр.=%M" 
                 p.What (ScalePt.what gas) pgs conc d concErrorlimit }
 
+  
+
 type Mil82.ViewModel.Party with
     member x.DoForEachProduct f = 
         let xs = x.Products |> Seq.filter(fun p -> p.IsChecked)
@@ -315,6 +317,7 @@ let test =
         warmAndRead RetNku TermoNorm  ]
     |> (<||>) "Проверка"
 
+
 let texprogon = 
     "Техпрогон" <||> [   
         adjust false
@@ -365,6 +368,12 @@ let productionWork =
             for gas in ScalePt.values ->
                  gas.What <||> computeAndWriteGroup  (KefTermo gas) ]
         test
+        "Сигналы каналов"  <|> fun () -> 
+            party.DoForEachProduct (fun p -> 
+                p.ReadKefs [Coef21; Coef22; CoefKw; CoefKr]
+                |> ignore )
+            |> Result.someErr
+
         texprogon ]
     |> (<||>) "Осн."
 

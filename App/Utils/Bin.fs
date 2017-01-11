@@ -33,7 +33,7 @@ module private Helpers =
         let absX = abs x
         decn |> Seq.tryFind( fun (m,min,max) -> absX >= min && absX < max )
         |> Option.map(fun (n,_,_) -> n)
-        |> Option.getWith 0
+        |> Option.withDefault 0
 
 
 let decimalToAnalitBCD6 (x:decimal) =        

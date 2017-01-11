@@ -67,7 +67,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
     member x.getPhysVarValueUi var =
         Map.tryFind var physVar
         |> Option.map Decimal.toStr6
-        |> Option.getWith ""
+        |> Option.withDefault ""
 
     member x.GetConcError = getConcError        
 
@@ -235,7 +235,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
     member x.getKefUi kef = 
         P.getKef kef p 
         |> Option.map Decimal.toStr6
-        |> Option.getWith ""
+        |> Option.withDefault ""
 
     member x.setKefUi kef value = 
         String.tryParseDecimal value
@@ -244,7 +244,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
     member x.getVarUi var = 
         P.getVar var p 
         |> Option.map Decimal.toStr6
-        |> Option.getWith ""
+        |> Option.withDefault ""
 
     member x.setVarUi var value = 
         String.tryParseDecimal value

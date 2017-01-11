@@ -2,17 +2,35 @@
 
 type Gas =
     | CO2 | CH4 | C3H8
+
+    member x.What = Gas.what x
+    member x.Units = Gas.units x
+
     static member context = function
         | CO2 -> 4, 7 
         | CH4 -> 5, 14 
         | C3H8 -> 7, 14
+    static member what = function
+        | CO2 -> "CO₂"
+        | CH4 -> "CH₄"
+        | C3H8 -> "C₃H₈"
+
+    static member units = function
+        | CO2 -> "% об.д."
+        | _ -> "% НКПР"
+
     static member code = Gas.context >> fst
     static member unitsCode = Gas.context >> snd
     static member isCH = function  CO2 -> false | _ -> true 
+
     
 
 type Scale =     
+    
     | Sc4 | Sc10 | Sc20 | Sc50 | Sc100 
+    
+    member x.Value = Scale.value x
+
     static member context = function
         | Sc4   -> 57, 4m
         | Sc10  -> 7,  10m
@@ -21,6 +39,8 @@ type Scale =
         | Sc100 -> 21, 100m 
     static member code = Scale.context >> fst
     static member value = Scale.context >> snd
+
+    
 
 
     
@@ -43,6 +63,9 @@ type ProductType =
         | A31 -> 3,1, C3H8, Sc100,  12.5m, 0.5m, 30m
         | A40 -> 4,0, CH4,  Sc100,  7.5m,  0.5m, 60m
     member x.What = ProductType.what x
+
+    member x.Gas = ProductType.gas x 
+    member x.Scale = ProductType.scale x 
     
     static member gas x = let _,_,v,_,_,_,_ = ProductType.ctx x in v
     static member isCH = ProductType.gas >> function CO2 -> false | _ -> true
@@ -57,7 +80,10 @@ type ProductType =
 
     static member what x = 
         let d1,d2,_,_,_,_,_ = ProductType.ctx x in
-        sprintf "МИЛ.%d.%d" d1 d2
+        sprintf "%d.%d" d1 d2
+
+
+    
 
 
 [<AutoOpen>]

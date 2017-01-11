@@ -95,6 +95,7 @@
     <Compile Include="AppCore\PhysVarValues.fs" />
     <Compile Include="AppCore\Chart.fs" />
     <Compile Include="AppCore\Alchemy.fs" />
+    <Compile Include="AppCore\Pasp.fs" />
     <Compile Include="ViewModels\ViewModel.fs" />
     <Compile Include="ViewModels\ProductViewModel1.fs" />
     <Compile Include="ViewModels\ProductViewModel.fs" />

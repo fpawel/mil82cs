@@ -102,7 +102,7 @@ type Result<'T, 'E> with
 
 module Option = 
 
-    let getWith x = function
+    let withDefault x = function
         | None -> x
         | Some x' -> x'
 
@@ -170,6 +170,19 @@ module List =
 
     let (|Rev|) = List.rev
 
+    let window = 
+        let rec window acc m xs =
+            let ( xs1_, xs2_ ) =
+                xs  |> List.mapi (fun n x -> ( n, x ))
+                    |> List.partition (fun ( n, _ ) -> n < m)
+            let xs1 = List.map snd xs1_
+            let xs2 = List.map snd xs2_
+            match xs1 with
+            | [] -> acc
+            | _ -> window (xs1 :: acc) m xs2
+        fun m xs -> 
+            window [] m xs
+            |> List.rev
 
 type Double with
     static member toNullable (x:float) =        
@@ -182,6 +195,3 @@ type Double with
         | None -> Double.NaN
         | Some x -> x
 
-
-
-        

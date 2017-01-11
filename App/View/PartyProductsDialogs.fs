@@ -151,7 +151,7 @@ let createNewParty (b:Button) =
                 let prodType = 
                     ProductType.values 
                     |> List.tryFind ( ProductType.what >> (=) d.ProductType)
-                    |> Option.getWith A00
+                    |> Option.withDefault A00
                 let b = Alchemy.createNewParty1 (d.Name, prodType, d.Pgs1, d.Pgs2, d.Pgs3, d.Count)
                 party.Party <- b
                 AppContent.save()

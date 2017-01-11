@@ -191,7 +191,7 @@ and Operation =
                         | dt, Logging.Error,_ when dt > starttime ->  true
                         | _ -> false ) ) 
             | _ -> false )
-        |> Option.getWith false
+        |> Option.withDefault false
 
     static member Choose1 f = function        
         | Scenary (i,items) as x -> 

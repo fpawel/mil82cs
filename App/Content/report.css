@@ -9,68 +9,35 @@ html, body {
     font-size: 20px;
 }
 body{
-    background-color : MintCream  ;
+    background-color:MintCream  ;
 }
 
-
-#left {
-    width: 150px;
-	height: 100%;
-    position: fixed;
-    outline: 1px solid;
-    background-color: #f1f1f1;
-	
-	overflow: auto;
-	float: left;
-	
-}
-#right {
-    margin: 0 0 0 150px;
-	
+td{
+    padding : 2px;
 }
 
-h1 {
-    background-color:CornflowerBlue;
-    color:white;
-    text-align:center;
-    padding:5px;	 
+.pasport-block{
+    padding: 10px 
 }
 
-a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
+.header1{
+    font-size: 130%;
+    font-weight: bold;
+    padding-bottom: 10px;
+    margin: auto;
+    width: 40%;
 }
 
-
-a:hover {
-    background-color: #555;
-    color: white;
+.product-type{
+    font-size: 110%; 
+    font-style: italic;
 }
 
-table{
-    border-collapse:collapse;
-    border: 1px solid #ddd;
-    margin-bottom : 10px;
+.product-type-1{
+    font-weight: bold; 
+    font-style: normal;    
 }
 
-th, td {
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-}
-
-.invalid-error-value, .failed-test-row {
-    color:red;
-    background-color: lightgray;
-}
-
-.valid-error-value, .successful-test-row {
-    color:navy;
-    background-color: azure;
-}
-
-.not-performed-test-row {
-    color:maroon;
-    background-color: aliceblue;
+.value {
+    font-weight: bold; 
 }

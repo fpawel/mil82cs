@@ -27,11 +27,15 @@ let tag tag items ={   RootLabel = Tag (tag); SubForest = items }
 let id' x = "id" <! x
 let class' x = "class" <! x
 let colspan n = "colspan" <! sprintf "%d" n
+let rowspan n = "rowspan" <! sprintf "%d" n
+let valign s = "valign" <! s
 
 
 let script x = tag "script" [ "type" <! "text/javascript"; %% x]
 let h1 = tag "h1"
 let h2 = tag "h2"
+let h3 = tag "h3"
+let h4 = tag "h4"
 let p = tag "p"
 let div = tag "div"
 let span = tag "span"
@@ -46,6 +50,8 @@ let td = tag "td"
 let tbody = tag "tbody"
 let thead = tag "thead"
 let caption = tag "caption"
+let sub = tag "sub"
+
 
 let header = tag "header"
 let nav = tag "nav"
