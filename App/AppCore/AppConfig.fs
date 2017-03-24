@@ -53,8 +53,8 @@ type Termochamber =
 
 [<TypeConverter(typeof<ExpandableObjectConverter>)>]
 type Pneumoblock = 
-    {   [<DisplayName("Адрес MODBUS")>]
-        [<Description("MODBUS адрес пневмоблока")>]
+    {   [<DisplayName("Сетевой адрес")>]
+        [<Description("Сетвой адрес пневмоблока")>]
         mutable Addr : byte
     
         [<DisplayName("СОМ порт")>]
@@ -74,8 +74,8 @@ type WarmDevice =
         [<Description("Параметры приёмопередачи СОМ порта, к которому подключено устройство подогрева плат")>]
         Comport : ComportConfig.Config
 
-        [<DisplayName("Адрес MODBUS")>]
-        [<Description("MODBUS адрес устройства подогрева плат")>]
+        [<DisplayName("Адрес сетевой")>]
+        [<Description("Сетевой адрес устройства подогрева плат")>]
         mutable Addr : byte
 
         [<DisplayName("Использовать")>]
@@ -143,13 +143,10 @@ type Hardware =
 type ApplicatioConfig = 
     {   mutable Hardware : Hardware
         
-        View : View.Config
-
-        mutable UseMidleScale : bool }
+        View : View.Config }
     
     static member create() = {   
         View = View.Config.create()
-        Hardware = Hardware.create()
-        UseMidleScale = false }
+        Hardware = Hardware.create() }
 
 let config, save = Json.Config.create "app.config.json" ApplicatioConfig.create

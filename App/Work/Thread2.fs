@@ -8,8 +8,8 @@ open Mil82.ViewModel.Operations
 open MainWindow
 
 let operations = BindingList<RunOperationInfo>()
-let showScenaryReport = Ref.Initializable<_>(sprintf "show'performing'report %s:%s" __LINE__ __SOURCE_FILE__ )
-let show'performing'message = Ref.Initializable<_>(sprintf "show'performing'message %s:%s" __LINE__ __SOURCE_FILE__ )
+let showScenaryReport = Ref.Initializable<_>(sprintf "showScenaryReport %s:%s" __LINE__ __SOURCE_FILE__ )
+let showPerformingMessage = Ref.Initializable<_>(sprintf "showPerformingMessage %s:%s" __LINE__ __SOURCE_FILE__ )
 
 [<AutoOpen>]
 module private Helpers1 =
@@ -48,8 +48,8 @@ module private Helpers2 =
         Logging.addLogger <| fun l s ->        
             match  x.Value with
             | Some (op:Operation) -> 
-                op.RunInfo.AddLogging l s                 
-                show'performing'message.Value l s
+                op.RunInfo.AddLogging l s  
+                showPerformingMessage.Value l s
             | _ -> ()
             
         |> ignore
@@ -187,7 +187,7 @@ let run =
     let do'beg op = 
         let prev'op = operation.Get()
         operation.Set (Some op)
-        show'performing'message.Value Logging.Info ""
+        showPerformingMessage.Value Logging.Info ""
         perfomOperationEvent.Trigger(op,true)
         fun () -> 
             operation.Set prev'op
@@ -209,7 +209,7 @@ let run =
 
         async{
             let r = Operation.Perform do'beg isKeepRunning x
-            let scenaryWasBreakedByUser = (scenaryKeepRunning.Value = false)
+            let scenaryWasBreakedByUser = not scenaryKeepRunning.Value
             scenaryKeepRunning.Value <- false
             
             let level,message = 

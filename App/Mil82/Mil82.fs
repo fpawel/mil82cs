@@ -63,7 +63,7 @@ type Feature =
     | Tex2
     static member what = function
         | Lin -> "Линейность", "лин"            
-        | Termo ->  "Термокомпенсация","t"            
+        | Termo ->  "Компенсация","t"            
         | Test -> "Проверка","main"            
         | RetNku -> "Возврат-НКУ", "nku2"            
         | Tex1 -> "Техпрогон1", "tex1"            
@@ -221,8 +221,6 @@ module Vars =
             yield! trm Tex2 [TermoNorm] ]
         |> List.sortBy( fun (feat,var,gas,t) -> var, feat, t, gas)
 
-    
-
 module Property = 
     let concError scalePt = sprintf "ConcError_%s" (ScalePt.name scalePt)
     let tex1Error scalePt = sprintf "Tex1Error_%s" (ScalePt.name scalePt)
@@ -241,7 +239,6 @@ module ProductHelpers =
         value1 * 10000 + value2
         |> decimal
         |> Some
-
 
 type ProductInfo =
     {   serial : int

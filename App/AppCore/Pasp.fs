@@ -72,6 +72,12 @@ let private product ((h,d):Party.Content) (p:Product) =
             td [%% "Заводской номер:"]
             td [value'; %% string p.ProductInfo.serial ]
         ]
+
+        tr[
+            td [%% "Сетевой адрес:"]
+            td [value'; %% string p.Addr ]
+        ]
+
         tr[
             td [%% "Дата изготовления:"]
             td [value'; %% DateTime.Now.ToString("dd.MM.yyyy") ]

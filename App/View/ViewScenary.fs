@@ -65,9 +65,8 @@ module private SelectedOperation =
             LoggingHtml.set webbJournal x.Operation.FullName x.Operation.RunInfo.LoggingRecords )
 
     
-
-    
 let initialize =
+    Thread2.scenary.Set Mil82.PartyWorks.mil82
     gridScenary.DataSource <- Thread2.operations 
     gridScenary.SelectionChanged.Add <| fun _ ->
         SelectedOperation.showLoggigng()

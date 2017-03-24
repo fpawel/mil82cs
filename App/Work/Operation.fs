@@ -21,7 +21,7 @@ type OperationInfo =
 and Delay =
     {   mutable Time : TimeSpan 
         DelayContext : DelayContext }
-    static member create time delayContext =
+    static member Create time delayContext =
         {   Time  = time
             DelayContext = delayContext }
 
@@ -91,7 +91,7 @@ and Operation =
     static member tree = function
         | Single _ as x -> [x]
         | Timed _ as x -> [x]
-        | Scenary (_,items) as x -> x::(items |> List.map Operation.tree  |> List.concat)
+        | Scenary (_,items) as x -> x::(List.collect Operation.tree items)
 
     static member GetRoot x =
         let rec loop x = 
@@ -217,6 +217,8 @@ and Operation =
             yield! items |> List.map (Operation.MapReduce f) |> Seq.concat
         | _ -> ()  ]
 
+    
+
 
 and Config = 
     {   Name : string
@@ -226,6 +228,8 @@ and Config =
         {   Time  = None
             Items = None
             Name = ""  }
+
+    
 
 and RunOperationInfo( operation : Operation) = 
     inherit ViewModelBase() 
@@ -242,7 +246,7 @@ and RunOperationInfo( operation : Operation) =
     override x.RaisePropertyChanged propertyName = 
         ViewModelBase.raisePropertyChanged x propertyName
 
-    member private x.updateView() = 
+    member private x.UpdateView() = 
         [   "Status"            
             "Name"
             "DelayTime" ]
@@ -263,13 +267,13 @@ and RunOperationInfo( operation : Operation) =
 
     member x.AddLogging l s = 
         party.WriteJournal operation.FullName l s  
-        x.updateView()
+        x.UpdateView()
     
     member x.Root 
         with get() = root
         and set v = 
             root <- v
-            x.updateView()
+            x.UpdateView()
 
     member x.Level = Operation.GetRelativeLevel (getRoot()) operation
             
@@ -281,7 +285,7 @@ and RunOperationInfo( operation : Operation) =
         match operation with
         | Timed (_,t,_) ->            
             t.Time <- value
-            x.updateView()
+            x.UpdateView()
         | _ -> ()
     
     member x.DelayTime 
@@ -299,11 +303,11 @@ and RunOperationInfo( operation : Operation) =
 
     member x.SetStart() =
         party.LogStartOperation operation.FullName
-        x.updateView()
+        x.UpdateView()
 
     member x.SetEnd() =
         party.LogStopOperation operation.FullName
-        x.updateView()
+        x.UpdateView()
 
     member __.IsPerforming = 
         let i = nfo()
@@ -325,4 +329,34 @@ and RunOperationInfo( operation : Operation) =
         | Dt t, Dt t2 when t <> t2 -> sprintf "%s - %s" t t2
         | Dt t, Some _ -> t
         | _ -> ""
+
+
+type Operation with
+    static member ApplyRootConfig x = 
+        let dummy msg = 
+            Logging.debug "%s" msg
+            Config.CreateNew()
+        let fileName = IO.Path.Combine(IO.Path.ofExe, "scenary.json")
+        let config = 
+            if IO.File.Exists fileName |> not then                
+                dummy <| sprintf "не найден файл сценария %A" fileName 
+            else                
+                try
+                    match Json.Serialization.parse<Config> (IO.File.ReadAllText(fileName)) with
+                    | Ok x -> x
+                    | Err error ->
+                        dummy <| sprintf "ошибла файла сценария %s\n%s" fileName error                    
+                with e ->             
+                    dummy <| sprintf "ошибла файла сценария %s\n%A" fileName e 
+        Operation.SetConfig (x,config)
+
+        MainWindow.form.Closing.Add <| fun _ ->
+            let config = Operation.GetConfig x
+            try
+                IO.File.WriteAllText(fileName, Json.Serialization.stringify config ) 
+            with e ->             
+                Logging.error "ошибла сохранения файла сценария %s\n%A" fileName e 
+
+        x
+        
 

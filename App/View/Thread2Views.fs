@@ -143,7 +143,7 @@ let initialize =
     Mil82.PartyWorks.ModalMessage.getIsVivisble.Value <- fun () ->
         panelModalMessage.Visible
 
-    Thread2.show'performing'message.Value <- fun level text -> 
+    Thread2.showPerformingMessage.Value <- fun level text -> 
         if TabPages.getSelected() <> TabsheetScenary then
             form.PerformThreadSafeAction <| fun () ->
                 let x = MainWindow.labelPerformingInfo

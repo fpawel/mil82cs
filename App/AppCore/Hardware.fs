@@ -101,8 +101,11 @@ module WarmingBoard =
         match state.Value, currentTemperature with
         | Some (Ok On), InOnOff true -> Ok ()
         | Some (Ok Off), InOnOff false -> Ok ()
-        | _, InOnOff (OvenStateFromBool value) -> 
-            switch value 
+        | _, InOnOff value -> 
+            value
+            |> not
+            |> WarmingBoardState.fromBool 
+            |> switch  
 
 module Termo =   
 
@@ -224,13 +227,13 @@ module Termo =
         do! write (Setpoint setpoint)
         return! start() }
    
-module Warm =
+module private SetupTermoHelpers =
     
     type S = {
         destT : decimal
         startTime : DateTime }
 
-    let rec private loopWarm s isKeepRunning work = result {
+    let rec loop s isKeepRunning work = result {
     
         if (not <| isKeepRunning()) then return! Err "прервано" else
         let! (temperature,setPointTemperature) = Termo.read()
@@ -246,16 +249,21 @@ module Warm =
                 return! Err <| sprintf "таймаут %A" cfg.Hardware.Termochamber.SetpointTimeOut
             else
                 do! work()
-                return! loopWarm s isKeepRunning work }
+                return! loop s isKeepRunning work }
 
-    let warm destTemperature isKeepRunning work = 
-        result {
-            Logging.info "Начало прогрева %M\"C" destTemperature
-            do! Termo.setSetpoint destTemperature
-            let! resTemp = loopWarm {destT = destTemperature; startTime = DateTime.Now} isKeepRunning work        
-            Logging.info "Прогрев %M\"C завершён с температурой %M\"C" destTemperature resTemp 
-            return () } 
-        |> Result.mapErr(fun err -> 
-            Logging.error "Прогрев %M\"C завершён с ошибкой : %s" destTemperature err
-            err )
+let setupTermo destTemperature isKeepRunning work = 
+    result {
+        Logging.info "Начало прогрева %M\"C" destTemperature
+        do! Termo.setSetpoint destTemperature
+        let! resTemp = 
+            SetupTermoHelpers.loop 
+                {   destT = destTemperature
+                    startTime = DateTime.Now } 
+                isKeepRunning 
+                work        
+        Logging.info "Прогрев %M\"C завершён с температурой %M\"C" destTemperature resTemp 
+        return () } 
+    |> Result.mapErr(fun err -> 
+        Logging.error "Прогрев %M\"C завершён с ошибкой : %s" destTemperature err
+        err )
         

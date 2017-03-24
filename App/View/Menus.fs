@@ -108,11 +108,11 @@ module private Helpers =
             tb.TextChanged.Add <| fun _ -> validate()                        
         dialog.Show btn
 
-let modbusToolsPopup = 
+let productToolsPopup = 
     let setAddr = 
         popupNumberDialog 
-            "Ведите адрес MODBUS от 1 до 127" 
-            "Установка адреса MODBUS"
+            "Ведите сетевой адрес от 1 до 127" 
+            "Установка сетевого адреса"
             ( fun s ->
                 let b,v = Byte.TryParse s
                 if b  && v > 0uy && v<128uy then Some v else None)
@@ -123,12 +123,20 @@ let modbusToolsPopup =
             Command.values
             |> List.filter( (<>) ResetAddy ) 
             |> List.map( fun cmd -> 
-                (sprintf "MDBUS: %s" cmd.What), 
+                cmd.What, 
                     popupNumberDialog 
                         (sprintf "Введите значение аргумента команды %A" cmd.What)
                         cmd.What
                         String.tryParseDecimal
-                        (fun value -> sendCommand (cmd,value) ) ) ]
+                        (fun value -> sendCommand (cmd,value) ) ) 
+        yield "Перевод климатики", fun _ popup -> 
+            popup.Close()
+            PartyWorks.reworkTermo()
+        yield "Выпуск в эксплуатацию", fun _ popup -> 
+            popup.Close()
+            PartyWorks.sendProduction() 
+    
+    ]
     |> simpleMenu
     
 let pneumoToolsPopup =         
@@ -246,14 +254,14 @@ let initialize =
     imgBtn ( "loop","Опрос выбранных параметров приборов партии" ) <| fun _ ->
         runInterrogate()
     
-    imgBtn ("network", "Управление приборами по Modbus") <| fun x ->
-        modbusToolsPopup.Show x
+    imgBtn ("network", "Управление приборами по Modbus") 
+        productToolsPopup.Show 
 
-    imgBtn ("pneumo", "Управление пневмоблоком") <| fun x ->
-        pneumoToolsPopup.Show x   
+    imgBtn ("pneumo", "Управление пневмоблоком") 
+        pneumoToolsPopup.Show 
 
-    imgBtn  ("termochamber", "Управление термокамерой") <| fun x ->
-        termoToolsPopup.Show x   
+    imgBtn  ("termochamber", "Управление термокамерой")
+        termoToolsPopup.Show 
 
     imgBtn  ("testconn", "Проверка связи с приборами и оборудованием") 
         PartyWorks.testConnect

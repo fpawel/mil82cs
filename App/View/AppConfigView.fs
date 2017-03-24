@@ -88,15 +88,6 @@ type PartyConfigView() =
     [<Description("Значения температур уставки термокамеры в температурных точках термокомпенсации приборов")>]
     member val  Temperature = TemperatureConfigView() with get,set
 
-    [<DisplayName("Середина шкалы")>]
-    [<Description("Выполнять снятие данных в середине шкалы при автоматической настройке термокомпенсации")>]
-    [<TypeConverter(typeof<MyWinForms.Converters.YesNoConverter>)>]
-    member x.UseMidleScale 
-        with get() = config.UseMidleScale
-        and set v = 
-            if v <> config.UseMidleScale then
-                config.UseMidleScale <- v
-
     override __.ToString() = ""
 
 
