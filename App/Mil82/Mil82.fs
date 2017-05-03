@@ -389,8 +389,6 @@ module Party =
                 TermoTemperature = Map.empty
                 PerformingJournal = Map.empty}
 
-    
-
     let ballonConc gas m =
         match Map.tryFind gas m with
         | Some x -> x

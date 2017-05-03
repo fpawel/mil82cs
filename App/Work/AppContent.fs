@@ -20,7 +20,7 @@ let party =
     let openedPartyHead,openedPartyData as openedPartyValue = 
         match r with
         | Err e -> 
-            Logging.error "íå óäàëîñü îòêğûòü ğàíåå ñîõğàí¸ííóş ïàğòèş : %s" e
+            Logging.error "Ğ½Ğµ ÑƒĞ´Ğ°Ğ»Ğ¾ÑÑŒ Ğ¾Ñ‚ĞºÑ€Ñ‹Ñ‚ÑŒ Ñ€Ğ°Ğ½ĞµĞµ ÑĞ¾Ñ…Ñ€Ğ°Ğ½Ñ‘Ğ½Ğ½ÑƒÑ Ğ¿Ğ°Ñ€Ñ‚Ğ¸Ñ : %s" e
             Alchemy.createNewParty()
         | Ok x -> x
     let party = 
@@ -62,7 +62,7 @@ let save<'a> (_ : 'a) =
     if isChanged.Value then
         let r = Party.save partyValue
         match r with
-        | Err e -> Logging.error "íå óäàëîñü ñîõğàíèòü ïàğòèş : %s" e
+        | Err e -> Logging.error "Ğ½Ğµ ÑƒĞ´Ğ°Ğ»Ğ¾ÑÑŒ ÑĞ¾Ñ…Ñ€Ğ°Ğ½Ğ¸Ñ‚ÑŒ Ğ¿Ğ°Ñ€Ñ‚Ğ¸Ñ : %s" e
         | Ok () -> setSaved ()
 
 let updateChartSeriesList () =

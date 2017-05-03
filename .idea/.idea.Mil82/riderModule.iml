@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/../../App" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../MyWinForms" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../NumericMethod" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Widgets" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../App/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../App/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../MyWinForms/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../MyWinForms/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../NumericMethod/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../NumericMethod/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Widgets/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Widgets/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../packages" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
