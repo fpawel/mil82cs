@@ -61,8 +61,8 @@ let initialize =
         let col = gridKefs.Columns.[e.ColumnIndex]
         let row = gridKefs.Rows.[e.RowIndex]
         let cell = row.Cells.[e.ColumnIndex]
-        let kef = Mil82.Coef.coefs.[e.RowIndex]
-        let product = col.Tag :?> Mil82.ViewModel.Product1
+        let kef = Coef.coefs.[e.RowIndex]
+        let product = col.Tag :?> ViewModel.Product1
         let value = if e.Value=null then "" else e.Value.ToString()
         product.setKefUi kef value
 

@@ -94,8 +94,11 @@ module private PivateComputeProduct =
             xs |> List.rev |> Seq.toStr ", " fmt     
             |> sprintf "точках %s"
 
-    let getTermoValues var gas p =
-        TermoPt.values
+    let termoPoints = 
+        [TermoLow; TermoNorm; TermoHigh]
+
+    let getTermoValues  var gas p =
+        termoPoints
         |> List.map( fun t ->  Termo, var, gas, t) |> getVarsValues p
 
     let getScaleValues p f =
@@ -136,7 +139,7 @@ module private PivateComputeProduct =
                 >> sprintf "нет значения TK в %s" )
             |> Result.bind(fun xs ->
                 let errs =
-                    xs |> List.zip TermoPt.values 
+                    xs |> List.zip termoPoints
                     |> List.map(fun (ptT,(_,var0,var)) ->  if var0 = var then Some ptT else None )
                     |> List.filter Option.isSome
                 if List.isEmpty errs then 
@@ -157,7 +160,10 @@ module private PivateComputeProduct =
                 let! [v_0_nku; v_s_nku; v_k_nku] = getScaleValues p  ( fun gas ->  Termo, Var1, gas, TermoNorm) 
                 let! [v_0_min; v_s_min; v_k_min] = getScaleValues p  ( fun gas ->  Termo, Var1, gas, TermoLow) 
                 let! [v_0_max; v_s_max; v_k_max] = getScaleValues p  ( fun gas ->  Termo, Var1, gas, TermoHigh) 
-                let! [t1; t2; t3] = TermoPt.values |> List.map( fun t ->  Termo, Temp, ScaleMid, t) |> getVarsValues p
+                let! [t1; t2; t3] = 
+                    termoPoints 
+                    |> List.map( fun t ->  Termo, Temp, ScaleMid, t) 
+                    |> getVarsValues p
 
                 let conc = pgs ScaleEnd
 
