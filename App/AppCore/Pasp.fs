@@ -55,18 +55,18 @@ let private product ((h,d):Party.Content) (p:Product) =
                 ]
             td [
                 %% "U"; sub [ %% "р" ]; %% "="
-                span[ value'; %% ur  ]
+                span[ value'; %% ur; %% "мВ"  ]
             ]
         ]
         tr[
             td [
                 %% "U"; sub [ %% "cр" ]; %% "="
-                span[ value'; %% us  ]
+                span[ value'; %% us; %% "мВ"  ]
             ]
         ]
         tr[
             td [%% "Полезный сигнал:"]
-            td [value'; %% up ]
+            td [value'; %% up; %% "%" ]
         ]
         tr[
             td [%% "Заводской номер:"]
@@ -87,12 +87,14 @@ let private product ((h,d):Party.Content) (p:Product) =
     [   div [ class' "header1"; %% "Паспорт"]
         div [ 
             class' "product-type"
-            %% "ИК датчик МИЛ-82"
-            span [ 
-                class' "product-type-1"
-                %% ("ИБЯЛ.418414.111-" + t.What) 
-            ] 
+            %% "ИК датчик МИЛ-82"             
         ]
+
+        div [ 
+            class' "product-type-1"
+            %% ("ИБЯЛ.418414.111-" + t.What) 
+        ]
+
         table [
             tbody trs 
         ]
@@ -108,7 +110,11 @@ let private css =
 let party ((h,d):Party.Content as party) = 
     let product = product party
     let trs = 
-        List.window 2 d.Products 
+        d.Products 
+        |> List.filter(fun p -> 
+            let i = p.ProductInfo
+            i.month <> 0 && i.year <> 0 && i.kind <> 0 )
+        |> List.window 2 
         |> List.map( function
             | [p1;p2] -> [p1;p2] |> List.map (product >> pasportBlock)
             | [p1] -> [ pasportBlock <| (colspan 2)::(product p1)  ]

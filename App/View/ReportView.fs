@@ -2,7 +2,6 @@
 
 open System
 open System.Windows.Forms
-open System.Drawing
 
 open Mil82
 open Mil82.View

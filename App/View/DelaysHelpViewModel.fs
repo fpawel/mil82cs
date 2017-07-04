@@ -12,6 +12,14 @@ type DelaysHelperViewModel() =
     override x.RaisePropertyChanged propertyName = 
         ViewModelBase.raisePropertyChanged x propertyName
 
+        
+    [<DisplayName("Продувка воздухом")>]    
+    [<Description("Продувка воздухом, длительность час:мин:сек")>]
+    [<TypeConverter(typeof<TimeSpanConverter>)>]
+    member x.BlowAirDelay 
+        with get() = x.GetDelay BlowAirDelay
+        and set value = x.SetDelay BlowAirDelay value  
+
     [<DisplayName("Продувка ПГС1")>]    
     [<Description("Продувка ПГС1, длительность час:мин:сек")>]
     [<TypeConverter(typeof<TimeSpanConverter>)>]

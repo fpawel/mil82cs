@@ -328,7 +328,7 @@ module private Helpers1 =
         let update _ =            
             Mil82.Chart.physVar <- x.SelectedItem :?> Mil82.PhysVar
             MainWindow.setActivePageTitle <| sprintf "График. %s" Mil82.Chart.physVar.Dscr 
-            Mil82.AppContent.updateChartSeriesList ()
+            Mil82.AppContent.updateChartSeriesList()
             let m = Mil82.Chart.axisScalingViewModel
             m.MaxDateTime <- None
             m.MinDateTime <- None

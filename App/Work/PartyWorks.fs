@@ -27,6 +27,7 @@ let doWithProducts f =
         if isKeepRunning() && p.IsChecked then 
             f p ) 
 
+
 type Mil82.ViewModel.Product1 with
     
     member x.WriteKef (kef,value) =         
@@ -108,7 +109,7 @@ type Mil82.ViewModel.Party with
                     f p
             Ok ()
 
-    member x.Interrogate() = Option.toResult <| maybeErr {
+    member x.Interrogate(f) = Option.toResult <| maybeErr {
         let xs = x.Products |> Seq.filter(fun p -> p.IsChecked)
         if Seq.isEmpty xs then
             return "приборы не отмечены"
@@ -116,7 +117,8 @@ type Mil82.ViewModel.Party with
             do! Comport.testPort appCfg.Hardware.ComportProducts
             for p in xs do 
                 if isKeepRunning() && p.IsChecked then                         
-                    do! p.Interrogate() }
+                    do! p.Interrogate() 
+                    f()}
 
     member x.WriteModbus(cmd,value) = maybeErr{
         do! Comport.testPort appCfg.Hardware.ComportProducts
@@ -144,6 +146,7 @@ module Delay =
     let onStart = Ref.Initializable<_>(sprintf "Delay.start %s:%s" __LINE__ __SOURCE_FILE__ )
     let onStop = Ref.Initializable<_>(sprintf "Delay.stop %s:%s" __LINE__ __SOURCE_FILE__ )
     let onUpdate = Ref.Initializable<_>(sprintf "Delay.stop %s:%s" __LINE__ __SOURCE_FILE__ )
+    
 
     let mutable private keepRunning = false
 
@@ -155,10 +158,12 @@ module Delay =
         let start'time = DateTime.Now
         let result = 
             maybeErr{
-                while keepRunning && Thread2.isKeepRunning() && (DateTime.Now - start'time < gettime()) do
+                let upd () = 
                     onUpdate.Value start'time gettime
+                while keepRunning && Thread2.isKeepRunning() && (DateTime.Now - start'time < gettime()) do
+                    upd()
                     if interrogate then
-                        do! party.Interrogate()
+                        do! party.Interrogate(upd)
                     else
                         Threading.Thread.Sleep 10 }
         keepRunning <- false
@@ -244,7 +249,11 @@ module private Helpers1 =
             if isKeepRunning() then
                 Logging.info "температура %M\"C установлена вручную" tempValue
         else 
-            do! Hardware.setupTermo tempValue Thread2.isKeepRunning party.Interrogate  
+            do! 
+                Hardware.setupTermo 
+                    tempValue 
+                    Thread2.isKeepRunning 
+                    ( fun () -> party.Interrogate ignore)
     }
 
     type TermoPt with
@@ -267,7 +276,6 @@ module private Helpers1 =
             do! switchPneumo <| Some gas
             do! Delay.perform (sprintf  "Продувка перед калибровкой %A" gas.What) gettime true
             do! party.WriteModbus( cmd, pgs ) 
-            do! Delay.perform (sprintf  "Выдержка после калибровки %A" gas.What) (fun () -> TimeSpan.FromSeconds 10.) true
             }
 
     let goNku = 
@@ -290,10 +298,11 @@ module private Helpers1 =
             | _ -> () ) }
 
 let blowAir() = 
-    "Продувка воздухом" <||> [   
-        blow 1 ScaleBeg "Продуть воздух"
-        "Закрыть пневмоблок" <|> fun () -> switchPneumo None
-    ]
+    ("Продувка воздухом", TimeSpan.FromMinutes 1., BlowAirDelay)  <-|-> fun gettime -> maybeErr{
+        do! switchPneumo <| Some ScaleBeg
+        do! Delay.perform "Продувка воздухом" gettime false
+        do! switchPneumo None
+    }
 let blowAndRead feat t =
     [   for gas in ScalePt.values ->
             let what = 
@@ -403,7 +412,7 @@ module private Helpers3 =
 let runInterrogate() = "Опрос" -->> fun () -> maybeErr{ 
     do! Comport.testPort appCfg.Hardware.ComportProducts
     while Thread2.isKeepRunning() do
-        do! party.Interrogate() }
+        do! party.Interrogate ignore }
 
 
 let setAddr addr = sprintf "Установка адреса %A" addr -->> fun () -> maybeErr{ 

@@ -167,6 +167,7 @@ type Var = Feature * PhysVar * ScalePt * TermoPt
 
 type DelayContext = 
     | BlowDelay of ScalePt 
+    | BlowAirDelay 
     | WarmDelay of TermoPt
     | TexprogonDelay
     | AdjustDelay of bool
@@ -179,6 +180,7 @@ type DelayContext =
 
     static member what = function
         | BlowDelay gas -> sprintf "Продувка %s" gas.What
+        | BlowAirDelay -> "Продувка воздухом"
         | WarmDelay t -> sprintf "Прогрев %s" t.What
         | TexprogonDelay -> "Выдержка, техпрогон"
         | AdjustDelay false -> "Продувка ПГС1, калибровка"
@@ -188,6 +190,7 @@ type DelayContext =
 
     static member prop = function
         | BlowDelay gas -> FSharpValue.unionCaseName gas 
+        | BlowAirDelay -> "BlowAirDelay"
         | WarmDelay t -> FSharpValue.unionCaseName t 
         | TexprogonDelay -> FSharpValue.unionCaseName TexprogonDelay 
         | AdjustDelay false -> "AdjustDelay_0" 

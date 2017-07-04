@@ -80,7 +80,7 @@ type ProductType =
 
     static member what x = 
         let d1,d2,_,_,_,_,_ = ProductType.ctx x in
-        sprintf "%d.%d" d1 d2
+        sprintf "0%d.0%d" d1 d2
 
 
     

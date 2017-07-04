@@ -6,7 +6,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    font-size: 20px;
+    font-size: 30px;
 }
 body{
     background-color:MintCream  ;
@@ -17,7 +17,8 @@ td{
 }
 
 .pasport-block{
-    padding: 10px 
+    padding: 10px;
+    border:solid 1px grey; 
 }
 
 .header1{
@@ -40,4 +41,21 @@ td{
 
 .value {
     font-weight: bold; 
+}
+
+table {
+    page-break-inside: auto
+}
+
+tr {
+    page-break-inside: avoid;
+    page-break-after: auto
+}
+
+thead {
+    display: table-header-group
+}
+
+tfoot {
+    display: table-footer-group
 }
