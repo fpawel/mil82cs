@@ -52,10 +52,6 @@ module WarmingBoard =
             | On ->  [3uy; 0xE8uy] 
             | Off -> [0uy; 0uy]
 
-        static member fromBool = function
-            | true ->  On
-            | _ -> Off
-
         member x.WhatShort = 
             match x with
             | On -> "вкл." 
@@ -84,28 +80,20 @@ module WarmingBoard =
 
         r
 
-    let private (|OvenStateFromBool|) = WarmingBoardState.fromBool
-
-
     let on() = switch On
     let off() = switch Off
 
-    let private (|LessOn|) t = t < cfg.Hardware.WarmDevice.TempOn 
-    let private (|GreatOff|) t = t > cfg.Hardware.WarmDevice.TempOff
-
-    let private (|InOnOff|) = function
-        | LessOn false & GreatOff false -> true
-        | _ -> false
-
     let update currentTemperature = 
-        match state.Value, currentTemperature with
-        | Some (Ok On), InOnOff true -> Ok ()
-        | Some (Ok Off), InOnOff false -> Ok ()
-        | _, InOnOff value -> 
-            value
-            |> not
-            |> WarmingBoardState.fromBool 
-            |> switch  
+        if currentTemperature <= cfg.Hardware.WarmDevice.TempOn then 
+            match state.Value with 
+            | Some (Ok On) -> Ok () 
+            | _ -> on()
+        else if currentTemperature >= cfg.Hardware.WarmDevice.TempOff then  
+            match state.Value with 
+            | Some (Ok Off) -> Ok () 
+            | _ -> off()
+        else 
+            Ok ()
 
 module Termo =   
 
