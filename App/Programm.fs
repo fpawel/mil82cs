@@ -24,7 +24,6 @@ let main () =
         Scenary.initialize()
         Thread2.initialize()
         ChartDataBindings.initialize()
-        Report.initialize()
         Menus.initialize()
         Ref.``check referencies was initialized``()
 

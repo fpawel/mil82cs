@@ -322,7 +322,7 @@ open AppConfig
 open AppConfig.View
 
 let initialize =
-    let get'grids() = 
+    let getAllGrids() = 
         form.enumControls
             (fun x -> 
                 if x.GetType()=  typeof<DataGridView>  then                     
@@ -331,7 +331,7 @@ let initialize =
             id
     form.FormClosing.Add <| fun _ -> 
         config.View.Grids <-
-            get'grids()
+            getAllGrids()
             |> Seq.map( fun g -> 
                 g.Name,
                     {   ColWidths = [for c in g.Columns -> c.Width]
@@ -342,7 +342,7 @@ let initialize =
     let rec h = EventHandler( fun _ _ -> 
         form.Activated.RemoveHandler h
         
-        for g in get'grids() do 
+        for g in getAllGrids() do 
             let dt = config.View.Grids.TryFind g.Name
             
             g.ColumnHeadersHeight <-

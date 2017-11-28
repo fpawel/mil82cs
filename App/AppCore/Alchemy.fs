@@ -123,8 +123,7 @@ module private PivateComputeProduct =
                 let! var = getTermoValues Var1 ScaleBeg p
                 return List.zip t ( List.map (fun var -> - var) var) }
             |> Result.mapErr( 
-                fmtErr (function V(_,var,_,t) -> 
-                        sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) )                
+                fmtErr (function V(_,var,_,t) -> sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) )                
                 >> sprintf "нет значения T0 в %s" )
 
         | KefTermo ScaleEnd -> 
@@ -134,8 +133,7 @@ module private PivateComputeProduct =
                 let! var0 = getTermoValues Var1 ScaleBeg p
                 return List.zip3 t var0 var}
             |> Result.mapErr( 
-                fmtErr (function V(_,var,_,t) -> 
-                    sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) )
+                fmtErr (function V(_,var,_,t) -> sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) )
                 >> sprintf "нет значения TK в %s" )
             |> Result.bind(fun xs ->
                 let errs =

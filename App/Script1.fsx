@@ -20,7 +20,8 @@ open System
 
 let party = Alchemy.createNewParty1("sdfsd",A31, 0m, 48m, 98m, 20uy)
 
-PaspPdf.newReport party
-PaspPdf.newStickers party
+//PaspPdf.newReport party
+//PaspPdf.stickerFontSize <- 7.f
+PaspPdf.report party
 
 IO.Path.appDir

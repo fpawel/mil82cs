@@ -28,6 +28,11 @@ let buttonReport =
     
 
 let initialize = 
+
+    buttonReport.Click.Add <| fun _ ->  
+        Mil82.PaspPdf.report Mil82.AppContent.party.Party
+        
+
     setTooltip buttonReport "индивидуальные паспорта"
 
     let buttonSave = new Button(Parent = thread1ButtonsBar, AutoSize = true, Dock = DockStyle.Left,
