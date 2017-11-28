@@ -70,6 +70,7 @@
     <Compile Include="Utils\Runtime.fs" />
     <Compile Include="Utils\Bin.fs" />
     <Compile Include="Utils\Hex.fs" />
+    <Compile Include="Utils\LoggingRichText.fs" />
     <Compile Include="WinForms\WinFormsControlUtils.fs" />
     <Compile Include="WinForms\WinFormsConverters.fs" />
     <Compile Include="WinForms\WinFormsUtils.fs" />
@@ -95,7 +96,8 @@
     <Compile Include="AppCore\PhysVarValues.fs" />
     <Compile Include="AppCore\Chart.fs" />
     <Compile Include="AppCore\Alchemy.fs" />
-    <Compile Include="AppCore\Pasp.fs" />
+    <Compile Include="AppCore\PaspHtml.fs" />
+    <Compile Include="AppCore\PaspPdf.fs" />
     <Compile Include="ViewModels\ViewModel.fs" />
     <Compile Include="ViewModels\ProductViewModel1.fs" />
     <Compile Include="ViewModels\ProductViewModel.fs" />
@@ -110,8 +112,6 @@
     <Compile Include="View\TopBar.fs" />
     <Compile Include="View\ViewProducts.fs" />
     <Compile Include="View\TabPages.fs" />
-    <Compile Include="View\DelaysHelpViewModel1.fs" />
-    <Compile Include="View\DelaysHelpViewModel.fs" />
     <Compile Include="View\ViewScenary.fs" />
     <Compile Include="View\Thread2Views.fs" />
     <Compile Include="View\ReportView.fs" />
@@ -142,6 +142,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="src_select_phys_vars_viewmodel.fsx" />
+    <None Include="Script1.fsx" />
     <None Include="src_viewmodels.fsx" />
     <None Include="src_kefs.fsx" />
     <None Include="App.config" />
@@ -161,6 +162,16 @@
       <Project>{e482afd5-9fb2-4d1c-a54f-64f797c198cd}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\ObjectListView\ObjectListView2012.csproj">
+      <Name>ObjectListView2012</Name>
+      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SysText\SysText.csproj">
+      <Name>SysText</Name>
+      <Project>{f20e1fa3-c1a6-4137-866e-45e2f39ae2ac}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Widgets\Widgets.csproj">
       <Name>Widgets</Name>
       <Project>{258d6e94-185b-487f-b9e2-70f45e7ecbad}</Project>
@@ -177,6 +188,9 @@
     <Reference Include="FsPickler">
       <HintPath>..\packages\FsPickler.2.3.0\lib\net40\FsPickler.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

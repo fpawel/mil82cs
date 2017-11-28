@@ -4,7 +4,21 @@ module PathUtils
 open System
 open System.IO
 
+module private Private = 
+    let appDir = 
+        let appDataDir = 
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        let exeName =
+            Path.GetFileNameWithoutExtension(AppDomain.CurrentDomain.FriendlyName) 
+        let dir = Path.Combine(appDataDir, exeName)
+        if not <| Directory.Exists dir then
+            let x = Directory.CreateDirectory dir
+            assert x.Exists
+        dir
+
 type Path with
+
+    static member appDir = Private.appDir
 
     static member ofExe =     
         try
@@ -16,7 +30,7 @@ type Path with
         let (~%%) = sprintf "%d"
 
         let year year = 
-            Path.Combine(Path.ofExe, root, %% year )
+            Path.Combine(Path.appDir, root, %% year )
 
         let month y month = 
         

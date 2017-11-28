@@ -13,12 +13,12 @@ let private retDummy<'a> (filename, dummy  : unit -> 'a) errorText =
     dummy(), Some (sprintf "ошибка файла конфигурации json \"%s\": %s" filename errorText ) 
 
 let read filename dummy =    
-    let path =  IO.Path.Combine( IO.Path.ofExe, filename)
+    let filename =  IO.Path.Combine( IO.Path.appDir, filename)
     let retDummy = retDummy (filename, dummy)
     let x, e = 
-        if IO.File.Exists path then 
+        if IO.File.Exists filename then 
             try
-                match parse (IO.File.ReadAllText(path)) with
+                match parse (IO.File.ReadAllText(filename)) with
                 | Ok x -> x, None
                 | Err x -> retDummy x
             with e -> retDummy <| sprintf "%A" e
@@ -30,7 +30,7 @@ let read filename dummy =
     x
 
 let write filename x' = 
-    let path =  IO.Path.Combine( IO.Path.ofExe, filename)
+    //let path =  IO.Path.Combine( IO.Path.ofExe, filename)
     let x = stringify x'
     let r =
         try

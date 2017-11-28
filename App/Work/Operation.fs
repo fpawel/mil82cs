@@ -40,6 +40,11 @@ and Operation =
 
     member x.Name2 (root) = Operation.GetName2 root x
 
+    member x.Children  = 
+        match x with
+        | Scenary(_,xs) ->  xs             
+        | _ -> []
+
     static member GetName x = (Operation.info x).Name
 
     static member GetRunInfo x = (Operation.info x).GetRunInfo()
@@ -49,40 +54,46 @@ and Operation =
         | Timed (x,_,_) -> x 
         | Scenary (x,_) -> x 
 
-    static member private DoPerform (x:Operation) (do'beg) f = 
-        
-        
+    static member private DoPerform (x:Operation) doWhenBegin isOperationUncheckedByUser work = 
         x.RunInfo.SetStart()
-        let do'end = do'beg x
+        let doWhenEnd = doWhenBegin x
         let opName = Operation.GetFullName x
         Logging.info "Начало %A" opName
         let r = 
             if party.HasNotOneCheckedProduct() then Some "не отмечено ни одного прибора" else
-            try 
-                
-                f() 
-            with e -> 
-                Logging.error "Исключительная ситуация при выполнении %A - %A" x e
-                Some e.Message
+            if isOperationUncheckedByUser x then 
+                Logging.warn "снят флажок, разрешающий выполнение операции" 
+                None
+            else
+                try                 
+                    work() 
+                with e -> 
+                    Logging.error "Исключительная ситуация при выполнении %A - %A" x e
+                    Some e.Message
         Logging.write (match r with None -> Logging.Info | _ -> Logging.Error) "Окончание %A" opName
-        do'end()
+        doWhenEnd()
         x.RunInfo.SetEnd()
         r
 
-    static member Perform do'beg isKeepRunning = function
-        | _ when not (isKeepRunning()) -> None
-        | Single (_,f) as x-> Operation.DoPerform x do'beg f
-        | Timed (_, time, f) as x -> 
-            Operation.DoPerform x do'beg ( fun () -> f ( fun () -> time.Time ) )
-        | Scenary (_,items) as x -> 
+    static member Perform doWhenBegin isKeepRunning isOperationUncheckedByUser operation = 
+        if not (isKeepRunning()) then None else
+        let doWork = Operation.DoPerform operation doWhenBegin isOperationUncheckedByUser
+
+        match operation with
+        | Single (_,work) -> 
+            doWork work
+        | Timed (_, time, work)  -> 
+            doWork ( fun () -> work ( fun () -> time.Time ) )
+        | Scenary (_,items) -> 
             let rec loop = function
                 | _ when not (isKeepRunning()) -> None
                 | [] -> None
                 | operation::rest -> 
-                    match Operation.Perform do'beg isKeepRunning operation with 
-                    | Some _ as failed -> failed
-                    | _ -> loop rest
-            Operation.DoPerform x do'beg ( fun () -> loop items)
+                    let result = Operation.Perform doWhenBegin isKeepRunning isOperationUncheckedByUser operation
+                    match result with 
+                    | None -> loop rest
+                    | Some _ -> result
+            doWork ( fun () -> loop items)
 
     static member getDelay = function
         | Timed (_,t,_) -> Some t.Time

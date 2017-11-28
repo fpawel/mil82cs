@@ -149,4 +149,7 @@ type ApplicatioConfig =
         View = View.Config.create()
         Hardware = Hardware.create() }
 
-let config, save = Json.Config.create "app.config.json" ApplicatioConfig.create
+let config, save = 
+    Json.Config.create 
+        "app.config.json"
+        ApplicatioConfig.create

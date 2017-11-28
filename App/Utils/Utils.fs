@@ -195,3 +195,7 @@ type Double with
         | None -> Double.NaN
         | Some x -> x
 
+module Seq =
+    let tryHead x = 
+        if Seq.isEmpty x then None else
+            Some ( Seq.head x)

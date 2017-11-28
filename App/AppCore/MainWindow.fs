@@ -134,36 +134,83 @@ type Tabsheet with
             x.RightTab.Visible <- v)
 
     
+let loggingJournal = 
+    new RichTextBox(Parent = TabsheetScenary.RightTab, BackColor = TabsheetScenary.RightTab.BackColor, 
+                        Dock = DockStyle.Fill, ReadOnly = true)
+
+//let webbJournal =    
+//    let x =  
+//        new WebBrowser(Parent = TabsheetScenary.RightTab, BackColor = TabsheetScenary.RightTab.BackColor, 
+//                       Dock = DockStyle.Fill, AllowNavigation = false, Url = null,
+//                       IsWebBrowserContextMenuEnabled = false, AllowWebBrowserDrop = false )
+//    x.DocumentCompleted.Add <| fun _ ->
+//        x.AllowNavigation <- false
+//        if  x.Document <> null && x.Document.Body <> null then 
+//            x.Document.Body.ScrollIntoView(false)
+//    x
+
+//let gridScenary = 
+//    let splt = new Splitter(Parent = TabsheetScenary.RightTab, Dock = DockStyle.Left, Width = 3, BackColor = Color.LightGray)
+//    let x = 
+//        new DataGridView( Parent = TabsheetScenary.RightTab, AutoGenerateColumns = false, 
+//                            Name = "ScenaryGridView", 
+//                            Dock = DockStyle.Left, 
+//                            Width = AppConfig.config.View.ScnDetailTextSplitterDistance,
+//                            MinimumSize = Size(200,0), MaximumSize = Size(1000,0),
+//                            ColumnHeadersHeight = 40, 
+//                            //DataSource = Thread2.operations, 
+//                            RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
+//                            RowHeadersWidth = 30,
+//                            AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
+//                            AllowUserToResizeRows = false,
+//                            BorderStyle = BorderStyle.None, BackgroundColor = TabsheetScenary.RightTab.BackColor  )
+//    form.FormClosing.Add <| fun _ ->
+//        AppConfig.config.View.ScnDetailTextSplitterDistance <- x.Width
+//    x
+
+module ScenaryColumn =
+    let name = 
+        let x = 
+            new BrightIdeasSoftware.OLVColumn(Text = "Операция", MinimumWidth = 200, Width = 350, 
+                                                    IsEditable = false,
+                                                    WordWrap = true, Sortable = false)
+        x
+
+    let time = 
+        let x = new BrightIdeasSoftware.OLVColumn(Text = "Задержка", MinimumWidth = 90, Sortable = false )
+        x.CellEditUseWholeCell <- Nullable false
+        x
+
+    let status = new BrightIdeasSoftware.OLVColumn(Text = "Статус", MinimumWidth = 90, Sortable = false, IsEditable = false)
 
 
-let webbJournal =    
-    let x =  
-        new WebBrowser(Parent = TabsheetScenary.RightTab, BackColor = TabsheetScenary.RightTab.BackColor, 
-                       Dock = DockStyle.Fill, AllowNavigation = false, Url = null,
-                       IsWebBrowserContextMenuEnabled = false, AllowWebBrowserDrop = false )
-    x.DocumentCompleted.Add <| fun _ ->
-        x.AllowNavigation <- false
-        if  x.Document <> null && x.Document.Body <> null then 
-            x.Document.Body.ScrollIntoView(false)
-    x
-
-let gridScenary = 
+let treeListViewScenary = 
     let splt = new Splitter(Parent = TabsheetScenary.RightTab, Dock = DockStyle.Left, Width = 3, BackColor = Color.LightGray)
-    let x = 
-        new DataGridView( Parent = TabsheetScenary.RightTab, AutoGenerateColumns = false, 
-                            Name = "ScenaryGridView", 
-                            Dock = DockStyle.Left, 
-                            Width = AppConfig.config.View.ScnDetailTextSplitterDistance,
-                            MinimumSize = Size(200,0), MaximumSize = Size(1000,0),
-                            ColumnHeadersHeight = 40, 
-                            //DataSource = Thread2.operations, 
-                            RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
-                            RowHeadersWidth = 30,
-                            AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
-                            AllowUserToResizeRows = false,
-                            BorderStyle = BorderStyle.None, BackgroundColor = TabsheetScenary.RightTab.BackColor  )
+    
+    let pan = new Panel (Parent = TabsheetScenary.RightTab, Dock = DockStyle.Left,
+                            MinimumSize = Size(300,0), MaximumSize = Size(1000,0),
+                            Width = AppConfig.config.View.ScnDetailTextSplitterDistance)
+    let x = new BrightIdeasSoftware.TreeListView()
+    x.Parent <- pan
+    x.Dock <- DockStyle.Fill
+    x.UseNotifyPropertyChanged <- true
+    x.CellEditActivation <- BrightIdeasSoftware.ObjectListView.CellEditActivateMode.SingleClick
+    let eddec = new BrightIdeasSoftware.EditingCellBorderDecoration ( UseLightbox = true )
+    
+    x.AddDecoration( eddec )
+    
+
     form.FormClosing.Add <| fun _ ->
         AppConfig.config.View.ScnDetailTextSplitterDistance <- x.Width
+
+    x.Columns.Clear()
+    x.Columns.Add ScenaryColumn.name |> ignore
+    x.Columns.Add ScenaryColumn.time |> ignore
+    x.Columns.Add ScenaryColumn.status |> ignore
+
+    x.HierarchicalCheckboxes <- true
+
+
     x
 
 let gridProducts = 

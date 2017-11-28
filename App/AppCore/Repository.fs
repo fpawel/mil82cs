@@ -10,7 +10,7 @@ module Path =
     let rootFolder = "ProductionData"
 
     let root = 
-        let x = Path.Combine(IO.Path.ofExe, rootFolder)
+        let x = Path.Combine(Path.appDir, rootFolder)
         createDirectory x
         x
 
@@ -72,7 +72,7 @@ module private Helpers =
             Err e.Message    
         
     let pathToCorruptedFiles = lazy (                
-        let x = Path.Combine( IO.Path.ofExe, "__CORRUPTED__" ) 
+        let x = Path.Combine( IO.Path.appDir, "__CORRUPTED__" ) 
         if Directory.Exists x |> not then 
             Directory.CreateDirectory x |> ignore
         x )

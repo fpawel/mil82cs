@@ -166,36 +166,20 @@ type ReadContext =
 type Var = Feature * PhysVar * ScalePt * TermoPt
 
 type DelayContext = 
-    | BlowDelay of ScalePt 
+    | BlowDelay  
     | BlowAirDelay 
-    | WarmDelay of TermoPt
+    | WarmDelay 
     | TexprogonDelay
-    | AdjustDelay of bool
-    static member values = 
-        [   yield! List.map BlowDelay ScalePt.values
-            yield! List.map WarmDelay TermoPt.values
-            yield TexprogonDelay
-            yield AdjustDelay false
-            yield AdjustDelay true ]
-
     static member what = function
-        | BlowDelay gas -> sprintf "Продувка %s" gas.What
+        | BlowDelay -> "Продувка газом"
         | BlowAirDelay -> "Продувка воздухом"
-        | WarmDelay t -> sprintf "Прогрев %s" t.What
+        | WarmDelay -> "Прогрев"
         | TexprogonDelay -> "Выдержка, техпрогон"
-        | AdjustDelay false -> "Продувка ПГС1, калибровка"
-        | AdjustDelay true -> "Продувка ПГС4, калибровка"
+        
     member x.What = DelayContext.what x
-    member x.Prop = DelayContext.prop x
+    
 
-    static member prop = function
-        | BlowDelay gas -> FSharpValue.unionCaseName gas 
-        | BlowAirDelay -> "BlowAirDelay"
-        | WarmDelay t -> FSharpValue.unionCaseName t 
-        | TexprogonDelay -> FSharpValue.unionCaseName TexprogonDelay 
-        | AdjustDelay false -> "AdjustDelay_0" 
-        | AdjustDelay true -> "AdjustDelay_1" 
-
+    
 
 module Vars = 
     let what ( (f,v,s,t) as x : Var ) = 

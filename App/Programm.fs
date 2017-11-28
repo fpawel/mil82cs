@@ -27,6 +27,8 @@ let main () =
         Report.initialize()
         Menus.initialize()
         Ref.``check referencies was initialized``()
+
+        Diagnostics.Process.Start(IO.Path.appDir)
         
         Application.Run MainWindow.form 
         Mil82.AppContent.save()

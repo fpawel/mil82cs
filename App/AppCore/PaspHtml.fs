@@ -1,4 +1,4 @@
-﻿module Mil82.Pasp
+﻿module Mil82.PaspHtml
 
 open System
 

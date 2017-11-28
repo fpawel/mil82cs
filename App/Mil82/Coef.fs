@@ -146,6 +146,7 @@ module private Helpers2 =
         | x -> (attr1 x).N
 
     let customCoefs1 = 
+        if File.Exists filename |> not then  [||] else
         File.ReadAllLines filename 
         |> Array.choose (fun s -> 
             let m = Regex.Match(s, @"^(\d+)\s+(\w+)\s*([^$]*)$")

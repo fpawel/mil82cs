@@ -234,7 +234,7 @@ module private Helpers1 =
         let s = ScalePt.what gas
         let title, text = "Продувка " + s, "Подайте " + s
 
-        (what, TimeSpan.FromMinutes (float minutes), BlowDelay gas ) <-|-> fun gettime -> maybeErr{        
+        (what, TimeSpan.FromMinutes (float minutes), BlowDelay  ) <-|-> fun gettime -> maybeErr{        
             do! switchPneumo <| Some gas
             do! Delay.perform title gettime true }
 
@@ -270,7 +270,7 @@ module private Helpers1 =
                 AdjustEnd, ScaleEnd, "конец"
         let whatOperation = sprintf "Калибровка %s шкалы" wht
         let defaultDelayTime = TimeSpan.FromMinutes 3.
-        (whatOperation, defaultDelayTime, AdjustDelay isScaleEnd)  <-|-> fun gettime -> maybeErr{
+        (whatOperation, defaultDelayTime, BlowDelay)  <-|-> fun gettime -> maybeErr{
             let pgs = party.GetPgs gas
             Logging.info  "Калибровка %s шкалы, %M" wht  pgs
             do! switchPneumo <| Some gas
@@ -279,7 +279,7 @@ module private Helpers1 =
             }
 
     let goNku = 
-        ("Установка НКУ", TimeSpan.FromHours 1., WarmDelay TermoNorm) 
+        ("Установка НКУ", TimeSpan.FromHours 1., WarmDelay) 
             <-|-> fun gettime -> 
                 maybeErr{    
                     do! switchPneumo None    
@@ -317,7 +317,7 @@ let blowAndRead feat t =
 
 let processTermoPoint feat t =
     let what = sprintf "Выдержка термокамеры %A" (TermoPt.what t)
-    let opHoldOn = "Выдержка", TimeSpan.FromHours 1., WarmDelay t
+    let opHoldOn = "Выдержка", TimeSpan.FromHours 1., WarmDelay
     sprintf "%s %s" (Feature.what1 feat) (TermoPt.what t) <||> 
         [   yield sprintf "Перевод термокамеры %s" t.What <||> [
                 yield "Установка"  <|> t.Setup
@@ -382,25 +382,9 @@ let mil82 =
                     |> ignore )
                 |> Result.someErr
             texprogon ]
-    |> Operation.ApplyRootConfig
-    // Thread2.scenary.Set mil82    
+    |> Operation.ApplyRootConfig    
 
-module Works =
-    let all = Op.MapReduce Some mil82 
-
-    let blow = 
-        all |> List.choose ( function 
-            | (Op.Timed (_, ({DelayContext = BlowDelay gas} as delay),_) as op) -> 
-                Some (op,delay,gas)
-            | _ -> None)
-
-    let warm = 
-        all |> List.choose ( function 
-            | (Op.Timed (_, ({DelayContext = WarmDelay t} as delay),_) as op) -> 
-                Some (op,delay,t)
-            | _ -> None)
-
-
+let allWorks = Op.MapReduce Some mil82 
 
 [<AutoOpen>]
 module private Helpers3 =

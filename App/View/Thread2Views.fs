@@ -121,7 +121,7 @@ let initialize =
 
     Delay.initialize()
 
-    Thread2.add'keep'running <| function
+    Thread2.addKeepRunningChanged <| function
         | _, false ->                 
             form.PerformThreadSafeAction <| fun () ->
                 panelModalMessage.Visible <- false
@@ -180,10 +180,10 @@ let initialize =
         panelClosing.DoUpdate <| fun () ->
             panelClosing.Title <- Thread2.scenary.Value.Name
         
-    Thread2.add'keep'running <| fun (_,keep'running) ->
+    Thread2.addKeepRunningChanged <| fun (_,keepRunning) ->
         form.PerformThreadSafeAction <| fun () ->
-            btnStop.Visible <- keep'running 
-            if not keep'running then
+            btnStop.Visible <- keepRunning 
+            if not keepRunning then
                 Mil82.PartyWorks.Delay.cancel()
                 panelDelay.Visible <- false
 

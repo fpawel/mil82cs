@@ -41,9 +41,10 @@ let initialize =
 
 
     TopBar.buttonReport.Click.Add <| fun _ ->  
+        Mil82.PaspPdf.newReport AppContent.party.Party
         
         webBrowser.DocumentText <- 
-            Mil82.Pasp.party AppContent.party.Party
+            Mil82.PaspHtml.party AppContent.party.Party
         MainWindow.mainLayer.Visible <- false
         TopBar.placeHolder.Visible <- false
         placeHolder.Parent <- MainWindow.form
