@@ -1,4 +1,4 @@
-﻿module Mil82.View.ChartDataBindings
+﻿module Mil82.View.Chart
 
 open System
 open System.Windows.Forms
@@ -340,6 +340,8 @@ module private Helpers1 =
         x
 
 let initialize =
+
+    let chart = Mil82.Chart.chart
         
     let placeholder = new Panel( Height = 90)
     let separator() = addtop TabsheetChart.BottomTab <| new Panel( Height = 3)
@@ -366,7 +368,7 @@ let initialize =
         (floatEditBox "MaxY" "scaleMaxY")
     |> addctrl placeholder
 
-    let chart = Mil82.Chart.chart
+    
     
 
     imgbtn 89 3 "clean" "Удалить все видимые точки графика" <| fun _ ->
@@ -374,6 +376,7 @@ let initialize =
     |> addctrl placeholder
 
     addctrl placeholder OrigZoomStore.button 
+
     imgbtn 3 46 "list" "Выбор видимых графиков" <| fun b -> 
         let pan = new Panel (Font = MainWindow.form.Font, BorderStyle = BorderStyle.FixedSingle)
         
@@ -401,6 +404,77 @@ let initialize =
 
         pan.Height <- x
         pan.Width  <- y + 10
+        let popup = new MyWinForms.Popup(pan)
+        popup.Show(b)
+
+    |> addctrl placeholder
+
+    imgbtn 46 46 "list" "Выбор видимых графиков" <| fun b -> 
+        let pan = new Panel (Font = new Font("Consolas", 12.f), BorderStyle = BorderStyle.FixedSingle,
+                                 Width = 200)
+        let rowHeight = 20
+        pan.Height <- rowHeight * chart.Series.Count + 50
+        chart.ApplyPaletteColors()
+        let g = 
+            new DataGridView
+                (   AutoGenerateColumns = false, 
+                    Dock = DockStyle.Fill,
+                    Parent = pan,
+                    BackgroundColor = form.BackColor,
+                    Name = "KefsChartSeriaes",
+                    ColumnHeadersVisible = false,
+                    RowHeadersVisible = false,
+                    RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
+                    RowHeadersWidth = 30,
+                    AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
+                    AllowUserToResizeColumns = false,
+                    AllowUserToResizeRows = false,
+                    AllowUserToAddRows = false,
+                    AllowUserToDeleteRows = false,                                
+                    BorderStyle = BorderStyle.None  )        
+
+        g.Columns.Add( new DataGridViewCheckBoxColumn( Width = 30) ) |> ignore
+        g.Columns.Add( new  DataGridViewTextBoxColumn( ReadOnly = true, Width = 100 ) ) |> ignore         
+        g.Columns.Add( new  DataGridViewTextBoxColumn( ReadOnly = true, Width = 20 ) ) |> ignore
+        let mutable f = DataGridViewCellEventHandler ( fun _ e -> () )
+        let upd rowIndex =
+            let value = g.Rows.[rowIndex].Cells.[0].Value :?> bool  
+            let cells =  [  for cell in g.SelectedCells -> cell.RowIndex ]
+            cells
+            |> Set.ofList
+            |> Set.iter(fun n ->  
+                g.Rows.[n].Cells.[0].Value <- value
+                chart.Series.[n].Enabled <- value )
+            
+        let f  = DataGridViewCellEventHandler ( fun _ e ->
+            g.CellValueChanged.RemoveHandler(f)
+            upd e.RowIndex 
+            g.CellValueChanged.AddHandler(f)
+            )                
+        g.CellValueChanged.AddHandler f
+
+        g.KeyDown.Add(fun e -> 
+            if e.KeyCode = Keys.Space && g.SelectedCells.Count > 0 then
+                let row = g.Rows.[ g.SelectedCells.[0].RowIndex ]
+                let cell = row.Cells.[0]
+                let v = cell.Value :?> bool
+                g.CellValueChanged.RemoveHandler(f)
+                cell.Value <- not v
+                upd cell.RowIndex
+                g.CellValueChanged.AddHandler(f) 
+            )
+
+        g.Rows.Clear()
+        for series in chart.Series do
+            g.Rows.Add() |> ignore
+            let row = g.Rows.[g.Rows.Count-1]
+            row.Height <- 20
+            row.Cells.[0].Value <- series.Enabled
+            row.Cells.[1].Value <- series.LegendText 
+            row.Cells.[1].Style.ForeColor <- series.Color
+            row.Cells.[2].Style.BackColor <- series.Color
+        
+
         let popup = new MyWinForms.Popup(pan)
         popup.Show(b)
 

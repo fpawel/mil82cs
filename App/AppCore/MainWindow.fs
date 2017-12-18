@@ -10,11 +10,8 @@ open MyWinForms.Utils
 [<AutoOpen>]
 module private Helpers =
 
-    //type C = DataGridViewColumn
-    type CheckBoxColumn = MyWinForms.GridViewCheckBoxColumn
     type TextColumn = DataGridViewTextBoxColumn
-    let (~%%) x = x :> DataGridViewColumn
-
+    
     let tooltip = new ToolTip(AutoPopDelay = 5000, InitialDelay = 1000,  ReshowDelay = 500, ShowAlways = true)
 
 let form =     
@@ -25,7 +22,6 @@ let form =
         x.Icon <- customIcon
     with e ->
         Logging.error "fail to set icon.ico from %A : %A" path e
-    let mutable isClosed = false    
     x
 
 let setTooltip<'a when 'a :> Control > (x:'a) text = 
@@ -137,36 +133,6 @@ type Tabsheet with
 let loggingJournal = 
     new RichTextBox(Parent = TabsheetScenary.RightTab, BackColor = TabsheetScenary.RightTab.BackColor, 
                         Dock = DockStyle.Fill, ReadOnly = true)
-
-//let webbJournal =    
-//    let x =  
-//        new WebBrowser(Parent = TabsheetScenary.RightTab, BackColor = TabsheetScenary.RightTab.BackColor, 
-//                       Dock = DockStyle.Fill, AllowNavigation = false, Url = null,
-//                       IsWebBrowserContextMenuEnabled = false, AllowWebBrowserDrop = false )
-//    x.DocumentCompleted.Add <| fun _ ->
-//        x.AllowNavigation <- false
-//        if  x.Document <> null && x.Document.Body <> null then 
-//            x.Document.Body.ScrollIntoView(false)
-//    x
-
-//let gridScenary = 
-//    let splt = new Splitter(Parent = TabsheetScenary.RightTab, Dock = DockStyle.Left, Width = 3, BackColor = Color.LightGray)
-//    let x = 
-//        new DataGridView( Parent = TabsheetScenary.RightTab, AutoGenerateColumns = false, 
-//                            Name = "ScenaryGridView", 
-//                            Dock = DockStyle.Left, 
-//                            Width = AppConfig.config.View.ScnDetailTextSplitterDistance,
-//                            MinimumSize = Size(200,0), MaximumSize = Size(1000,0),
-//                            ColumnHeadersHeight = 40, 
-//                            //DataSource = Thread2.operations, 
-//                            RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
-//                            RowHeadersWidth = 30,
-//                            AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None,
-//                            AllowUserToResizeRows = false,
-//                            BorderStyle = BorderStyle.None, BackgroundColor = TabsheetScenary.RightTab.BackColor  )
-//    form.FormClosing.Add <| fun _ ->
-//        AppConfig.config.View.ScnDetailTextSplitterDistance <- x.Width
-//    x
 
 module ScenaryColumn =
     let name = 

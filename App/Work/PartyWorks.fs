@@ -210,7 +210,6 @@ module private Helpers1 =
                 |> List.map(fun x -> x, None)
                 |> party.WriteKefs ]
 
-    type OpConfig = Config
     type Op = Operation
 
     let switchPneumo gas = maybeErr{
@@ -495,14 +494,10 @@ let testConnect _ =
 
 let reworkTermo() = 
     "Перевод климатики" <||>
-        [   "Переcчёт" <|> fun () ->
-                party.DoForEachProduct(fun p -> 
-                    p.Product <- snd <| runState Alchemy.translateTermo p.Product )
-                |> Result.someErr
-            
-            "Термокомпенсация" <||> [
-                "Начало шкалы" <||> computeAndWriteGroup (KefTermo ScaleBeg)
-                "Конец шкалы" <||> computeAndWriteGroup (KefTermo ScaleEnd) ]
+        [   "Термокомпенсация" <||> [
+                yield "Начало шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleBeg)
+                yield "Середина шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleMid)
+                yield "Конец шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleEnd) ]
             test ]
     |> Thread2.run true     
     

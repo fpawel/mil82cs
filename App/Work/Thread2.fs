@@ -215,7 +215,7 @@ let run stopHardware (x : Operation) =
     scenaryKeepRunning.Value <- true
     isRrunning.Set true   
     Logging.info "Начало выполнения сценария %A" x.FullName 
-    let dostart, dostop = MyWinForms.Utils.timer 10000 AppContent.save
+    let dostart, dostop = MyWinForms.Utils.timer 10000 ( fun _ -> AppContent.save() )
     dostart()
 
     MainWindow.treeListViewScenary.SelectObject x

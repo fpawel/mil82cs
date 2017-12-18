@@ -3,6 +3,7 @@ open System
 open Mil82
 
 open Repository
+open System.Windows.Forms
 
 [<AutoOpen>]
 module private Helpers =
@@ -56,14 +57,13 @@ module private Helpers1 =
     type PSr = Chart.ProductSeriesInfo
     
 
-let save<'a> (_ : 'a) =
-    let ( partyHead,_) as partyValue = party.Party    
+let save () =
+    match Party.save ( party.Party) with
+    | Ok () -> ()
+    | Err s -> 
+           MessageBox.Show(s, "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error) |> ignore
     PhysVarValues.save()
-    if isChanged.Value then
-        let r = Party.save partyValue
-        match r with
-        | Err e -> Logging.error "не удалось сохранить партию : %s" e
-        | Ok () -> setSaved ()
+    setSaved ()
 
 let updateChartSeriesList () =
     Chart.clear()        

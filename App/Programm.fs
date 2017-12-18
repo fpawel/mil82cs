@@ -23,14 +23,12 @@ let main () =
         Products.initialize()        
         Scenary.initialize()
         Thread2.initialize()
-        ChartDataBindings.initialize()
+        Chart.initialize()
         Menus.initialize()
         Ref.``check referencies was initialized``()
-
-        Diagnostics.Process.Start(IO.Path.appDir)
-        
         Application.Run MainWindow.form 
         Mil82.AppContent.save()
+        
         
         
     with e ->

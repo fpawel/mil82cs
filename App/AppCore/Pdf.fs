@@ -1,4 +1,4 @@
-﻿module Mil82.PaspPdf
+﻿module Mil82.Pdf
 
 open System
 open System.IO
@@ -127,18 +127,18 @@ let sticker ((h,d):Party.Content) (p:Product) =
     let pi = p.ProductInfo
     let strMonth = 
         let s = string pi.month in
-        if pi.month < 10 then s else "0"+ s
+        if pi.month < 10 then "0" + s else  s
 
     let t = h.ProductType
     let tempLow = Party.getTermoTemperature d TermoLow
     let tempHigh = Party.getTermoTemperature d TermoHigh
 
     let str1 = 
-        sprintf "МИЛ-82 Зав. №%d; сет. адр. %d; %s мес. %d" 
+        sprintf "МИЛ-82 Зав.№%d сет.адр.%d %s мес.%d" 
             pi.serial p.Addr strMonth (2000 + pi.year)
 
     let str2 = 
-        sprintf "%s 0-%M %s; 418414.111-%s;%+M %+M *С" 
+        sprintf "%s 0-%M %s 418414.111-%s %+M %+M*С" 
             t.Gas.What t.Scale.Value t.Gas.Units t.What tempLow tempHigh
 
     cell.CellEvent <- 
@@ -179,7 +179,7 @@ let stickers ((h,d):Party.Content as party) =
 
 let report ((h,d):Party.Content as party) =
     let (~%%) = ignore
-    let filename = IO.Path.GetTempFileName() + Guid.NewGuid().ToString() + ".pdf"; 
+    let filename = IO.Path.Combine(IO.Path.GetTempPath(), Guid.NewGuid().ToString() + ".pdf")
 
     let document = new Document(PageSize.A4, 30.f, 30.f, 20.f, 20.f);
     let writer = PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create))
@@ -195,6 +195,4 @@ let report ((h,d):Party.Content as party) =
     writer.Close()
     %% Diagnostics.Process.Start("explorer.exe", "/select, \"" + filename + "\"")
     %% Diagnostics.Process.Start filename 
-
-
-
+    

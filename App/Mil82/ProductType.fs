@@ -11,9 +11,9 @@ type Gas =
         | CH4 -> 5, 14 
         | C3H8 -> 7, 14
     static member what = function
-        | CO2 -> "CO₂"
-        | CH4 -> "CH₄"
-        | C3H8 -> "C₃H₈"
+        | CO2 -> "CO2"
+        | CH4 -> "CH4"
+        | C3H8 -> "C3H8"
 
     static member units = function
         | CO2 -> "% об.д."

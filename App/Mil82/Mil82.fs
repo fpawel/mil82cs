@@ -103,6 +103,7 @@ type Id = string
 type KefGroup = 
     | KefLin
     | KefTermo of ScalePt 
+    | KefTermo2 of ScalePt 
 
     static member ctx = function
         | KefLin -> 
@@ -114,6 +115,16 @@ type KefGroup =
             "TM", "Комп. вл. темп. на середину шк.",
                 [CoefKChtMid0; CoefKChtMid1; CoefKChtMid2]
         | KefTermo ScaleEnd -> 
+            "TK","Комп. влиян. темп-ры на чувст.",
+                [CoefKChtSens0; CoefKChtSens1; CoefKChtSens2]
+
+        | KefTermo2 ScaleBeg -> 
+            "T0", "Комп. вл. темп. на нулев. показ.",
+                [CoefChtNull0; CoefChtNull1; CoefChtNull2]
+        | KefTermo2 ScaleMid -> 
+            "TM", "Комп. вл. темп. на середину шк.",
+                [CoefKChtMid0; CoefKChtMid1; CoefKChtMid2]
+        | KefTermo2 ScaleEnd -> 
             "TK","Комп. влиян. темп-ры на чувст.",
                 [CoefKChtSens0; CoefKChtSens1; CoefKChtSens2]
 

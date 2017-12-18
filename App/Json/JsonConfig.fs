@@ -30,7 +30,7 @@ let read filename dummy =
     x
 
 let write filename x' = 
-    //let path =  IO.Path.Combine( IO.Path.ofExe, filename)
+    let filename =  IO.Path.Combine( IO.Path.appDir, filename)
     let x = stringify x'
     let r =
         try

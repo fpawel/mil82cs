@@ -17,23 +17,35 @@ let right = new Panel(Parent = placeHolder, Dock = DockStyle.Right, AutoSize = t
 let thread1ButtonsBar = new Panel(Parent = placeHolder, Dock = DockStyle.Left, AutoSize = true)
     
 
-let buttonReport = 
-    let x =
-        new Button( Parent = right, Height = 40, Width = 40, Visible = true,
-                    ImageList = Widgets.Icons.instance.imageList1,
-                    FlatStyle = FlatStyle.Flat,
-                    Dock = DockStyle.Right, ImageKey = "doc")
-    right.Controls.Add <| new Panel(Dock = DockStyle.Right, Width = 3)
-    x
+
     
 
 let initialize = 
 
-    buttonReport.Click.Add <| fun _ ->  
-        Mil82.PaspPdf.report Mil82.AppContent.party.Party
-        
+    let buttonShowAppDir =
+        new Button( Parent = right, Height = 40, Width = 40, Visible = true,
+                    ImageList = Widgets.Icons.instance.imageList1,
+                    FlatStyle = FlatStyle.Flat,
+                    Dock = DockStyle.Right, ImageKey = "folder")
 
-    setTooltip buttonReport "индивидуальные паспорта"
+    right.Controls.Add <| new Panel(Dock = DockStyle.Right, Width = 3)
+    buttonShowAppDir.Click.Add <| fun _ ->  
+        Diagnostics.Process.Start(IO.Path.appDir) 
+        |> ignore
+
+    setTooltip buttonShowAppDir "Перейти к каталогу приложения"
+    
+    let buttonReport =
+        new Button( Parent = right, Height = 40, Width = 40, Visible = true,
+                    ImageList = Widgets.Icons.instance.imageList1,
+                    FlatStyle = FlatStyle.Flat,
+                    Dock = DockStyle.Right, ImageKey = "pdf")
+
+    right.Controls.Add <| new Panel(Dock = DockStyle.Right, Width = 3)
+    buttonReport.Click.Add <| fun _ ->  
+        Mil82.Pdf.report Mil82.AppContent.party.Party
+
+    setTooltip buttonReport "паспорта и этикетки"
 
     let buttonSave = new Button(Parent = thread1ButtonsBar, AutoSize = true, Dock = DockStyle.Left,
                                 FlatStyle = FlatStyle.Flat,

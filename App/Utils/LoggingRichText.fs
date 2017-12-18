@@ -4,11 +4,6 @@ open System
 open System.Windows.Forms
 open System.Drawing
 
-open Tree
-open Html
-
-open Logging
-
 let private appendText (r:RichTextBox) (text,color) = 
     r.SelectionStart <- r.TextLength
     r.SelectionLength <- 0
