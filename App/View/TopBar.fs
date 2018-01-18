@@ -62,8 +62,4 @@ let initialize =
     buttonSave.Click.Add <| fun _ -> 
         Mil82.AppContent.save()
     
-    
-        
-    
-    
     fun () -> ()
