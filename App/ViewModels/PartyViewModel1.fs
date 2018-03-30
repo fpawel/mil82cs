@@ -163,6 +163,20 @@ type Party1
         |> Seq.exists( fun p -> p.IsChecked )
         |> not
 
+    member x.DuplicationOfAddr() =
+        let xs = HashSet<byte>()
+        for p in products do
+            let mutable n = 0
+            for pp in products do   
+                if p.Addr = pp.Addr then 
+                    n <- n + 1
+                    if n > 1 then
+                        xs.Add(p.Addr) |> ignore
+        if xs.Count = 0 then None else 
+        Seq.toStr ", " string xs 
+        |> sprintf "дублирование адресов: %s"
+        |> Some
+
 
     member x.SetPgs (gas,value) =
         if Some value <>  partyData.BallonConc.TryFind gas then

@@ -54,12 +54,20 @@ type PartyInfo =
         [<DisplayName("ПГС1")>]    
         [<Description("Концентрация ПГС1, начало шкалы")>]
         mutable Pgs1  : decimal
-        [<DisplayName("ПГС2")>]    
+        [<DisplayName("ПГС3")>]    
         [<Description("Концентрация ПГС3, середина шкалы")>]
         mutable Pgs2  : decimal
-        [<DisplayName("ПГС2")>]    
+        [<DisplayName("ПГС4")>]    
         [<Description("Концентрация ПГС4, конец шкалы")>]
         mutable Pgs3  : decimal 
+
+        [<DisplayName("T-")>]    
+        [<Description("Тепература на минусе,\"С")>]
+        mutable TempMinus  : decimal
+
+        [<DisplayName("T+")>]    
+        [<Description("Тепература на плюсе,\"С")>]
+        mutable TempPlus  : decimal
 
         [<DisplayName("Количество приборов")>]    
         [<Description("Количество приборов в партии")>]
@@ -134,7 +142,9 @@ let createNewParty (b:Button) =
             Pgs1 = 0m
             Pgs2 = 49m
             Pgs3 = 98m 
-            Count = 1uy}
+            Count = 1uy
+            TempMinus = -40M
+            TempPlus = 60M}
     let g = new PropertyGrid(SelectedObject = d, 
                                 ToolbarVisible = false, Height = 250,
                                 PropertySort = PropertySort.Alphabetical)
@@ -152,8 +162,10 @@ let createNewParty (b:Button) =
                     ProductType.values 
                     |> List.tryFind ( ProductType.what >> (=) d.ProductType)
                     |> Option.withDefault A00
-                let b = Alchemy.createNewParty1 (d.Name, prodType, d.Pgs1, d.Pgs2, d.Pgs3, d.Count)
+                let b = Alchemy.createNewParty1 (d.Name, prodType, d.Pgs1, d.Pgs2, d.Pgs3, d.Count)                
                 party.Party <- b
+                party.TermoLow <- d.TempMinus
+                party.TermoHigh <- d.TempPlus
                 AppContent.save()
                 AppContent.updateChartSeriesList() )
     popup1.Closing.Add <| fun e ->

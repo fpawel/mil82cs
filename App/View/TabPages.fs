@@ -152,7 +152,8 @@ module TabsheetErrors =
         let decToStr = Decimal.toStr "0.###"
         let what = sprintf "%s, %s" p.What s
         
-        ve |> Option.map( fun (ve : VE) ->  
+        ve |> Option.bind( fun (ve : VE) ->  
+            if ve.Limit = 0M then None else
             
             let foreColor, backColor = if ve.IsError then Color.Red, Color.LightGray else Color.Navy, Color.Azure 
             let toolTip = 
@@ -163,7 +164,7 @@ module TabsheetErrors =
                 |> fun v -> String.Join("\n", v)   
             let value = 100m * ( ve.Nominal - ve.Value ) / ve.Limit 
                              
-            value, foreColor, backColor, toolTip  )
+            Some(value, foreColor, backColor, toolTip)  )
         |> function
         | None -> cell.ToolTipText <- sprintf "%s - нет данных" what
         | Some (value, foreColor, backColor, text) ->

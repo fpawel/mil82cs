@@ -208,6 +208,7 @@ let private isOperationUncheckedByUser operation =
             n <- n + 1
         result 
         )
+
 let run stopHardware (x : Operation) =
     if scenary.Value.FullName <> x.FullName then 
         scenary.Set x

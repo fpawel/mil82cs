@@ -76,7 +76,7 @@ module private Popup =
     let clearLoggigng() =             
         fst <| popupDialog
             { Dlg.def() with 
-                Dlg.Text = Some  "Пожалуйста, подтвердите необходимость очистки журнала выполнения сценария." 
+                Dlg.Text = Some  "Подтвердите необходимость очистки журнала выполнения сценария." 
                 Dlg.ButtonAcceptText = "Очистить" 
                 Dlg.Title = "Очистка журнала"
                 Width = 300 }

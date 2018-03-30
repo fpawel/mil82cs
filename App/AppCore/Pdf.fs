@@ -72,18 +72,18 @@ let product  ((h,d):Party.Content) (p:Product)  =
     add font12 "Сигнал рабочего канала"
     kefsf [Coef21; CoefKw ] ( function
         | [_;0m] -> Err "K43=0"
-        | [k21; k43]  -> Ok ( Decimal.toStr6 (k21/k43) + ", мВ")
+        | [k21; k43]  -> Ok ( Decimal.toStr "0,#" (k21/k43) + " мВ")
         | _ -> failwith "?")
 
     add font12 "Сигнал сравнительного канала"
     kefsf [Coef20; CoefKr] ( function
         | [ _; 0m ] -> Err "k44=0"
-        | [ k20; k44 ] -> Ok (Decimal.toStr6 (k20/k44) + ", мВ")
+        | [ k20; k44 ] -> Ok (Decimal.toStr "0,#" (k20/k44) + " мВ")
         | _ -> failwith "?" )        
 
     add font12 "Полезный сигнал"
     kefsf [Coef22] ( function 
-        | [k22] -> Ok ( Decimal.toStr6 (k22 / 100m) + "%") 
+        | [k22] -> Ok ( Decimal.toStr "0,#"  (k22 / 100m) + " %") 
         | _ -> failwith "?" )
 
     add font12 "Заводской номер:" 
@@ -93,7 +93,7 @@ let product  ((h,d):Party.Content) (p:Product)  =
     add font12bold (string p.Addr)
 
     add font12 "Дата изготовления"
-    add font12bold (DateTime.Now.ToString("dd.MM.yyyy"))
+    add font12bold (DateTime.Now.ToString("dd.MMMM.yyyy"))
 
     cell.AddElement innerTable
 
@@ -112,7 +112,11 @@ let product  ((h,d):Party.Content) (p:Product)  =
 let party ((h,d):Party.Content as party) = 
     let table = PdfPTable(2)    
     table.WidthPercentage <- 100.f    
-    List.iter (product party >> table.AddCell >> ignore ) d.Products
+    d.Products
+    |> List.filter (fun p -> 
+        let i = p.ProductInfo 
+        i.month <> 0 && i.year <> 0 && i.kind <> 0)
+    |> List.iter (product party >> table.AddCell >> ignore ) 
     table
 
 let stickerFont = SysText.iTextHlp.FontSysGet("GOST Type A")
@@ -181,7 +185,7 @@ let report ((h,d):Party.Content as party) =
     let (~%%) = ignore
     let filename = IO.Path.Combine(IO.Path.GetTempPath(), Guid.NewGuid().ToString() + ".pdf")
 
-    let document = new Document(PageSize.A4, 30.f, 30.f, 20.f, 20.f);
+    let document = new Document(PageSize.A4.Rotate(), 30.f, 30.f, 20.f, 20.f);
     let writer = PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create))
     document.Open()
     

@@ -61,15 +61,19 @@ and Operation =
         Logging.info "Начало %A" opName
         let r = 
             if party.HasNotOneCheckedProduct() then Some "не отмечено ни одного прибора" else
-            if isOperationUncheckedByUser x then 
-                Logging.warn "снят флажок, разрешающий выполнение операции" 
-                None
-            else
-                try                 
-                    work() 
-                with e -> 
-                    Logging.error "Исключительная ситуация при выполнении %A - %A" x e
-                    Some e.Message
+            match party.DuplicationOfAddr() with
+            | None ->
+                if isOperationUncheckedByUser x then 
+                    Logging.warn "снят флажок, разрешающий выполнение операции" 
+                    None
+                else
+                    try                 
+                        work() 
+                    with e -> 
+                        Logging.error "Исключительная ситуация при выполнении %A - %A" x e
+                        Some e.Message
+            | a -> a 
+            
         Logging.write (match r with None -> Logging.Info | _ -> Logging.Error) "Окончание %A" opName
         doWhenEnd()
         x.RunInfo.SetEnd()

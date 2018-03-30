@@ -378,38 +378,6 @@ let initialize =
     addctrl placeholder OrigZoomStore.button 
 
     imgbtn 3 46 "list" "Выбор видимых графиков" <| fun b -> 
-        let pan = new Panel (Font = MainWindow.form.Font, BorderStyle = BorderStyle.FixedSingle)
-        
-        chart.ApplyPaletteColors()
-        let mutable x = 3
-        let mutable y = 0
-        for series in chart.Series do
-            let add (c:Control) = 
-                c.Parent <- pan
-                c.Top <- x
-            
-            let cb = new CheckBox(Left = 10, Width = 20, Height = 20  )
-            add cb
-            let p = new Panel(Parent = pan, BackColor = series.Color, Left = cb.Width + cb.Left + 5, 
-                                Top = x + 8, Width = 20, Height = 3)            
-            
-            let l = new Label(Left = p.Width + p.Left + 5, AutoSize = true, Text = series.LegendText)
-            add l
-            x <- x + cb.Height + 3
-            let rtxt = TextRenderer.MeasureText( series.LegendText, pan.Font )
-            y <- max y (l.Left + rtxt.Width)
-            cb.Checked <- series.Enabled
-            cb.CheckedChanged.Add( fun _ -> 
-                series.Enabled <- cb.Checked )
-
-        pan.Height <- x
-        pan.Width  <- y + 10
-        let popup = new MyWinForms.Popup(pan)
-        popup.Show(b)
-
-    |> addctrl placeholder
-
-    imgbtn 46 46 "list" "Выбор видимых графиков" <| fun b -> 
         let pan = new Panel (Font = new Font("Consolas", 12.f), BorderStyle = BorderStyle.FixedSingle,
                                  Width = 200)
         let rowHeight = 20
