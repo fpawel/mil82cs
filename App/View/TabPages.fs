@@ -162,7 +162,7 @@ module TabsheetErrors =
                     yield "Предел погрешности", decToStr ve.Limit  |]
                 |> Array.map( fun (p,v) -> sprintf "%s : %s" p v)
                 |> fun v -> String.Join("\n", v)   
-            let value = 100m * ( ve.Nominal - ve.Value ) / ve.Limit 
+            let value = 100m * ( ve.Value - ve.Nominal ) / ve.Limit 
                              
             Some(value, foreColor, backColor, toolTip)  )
         |> function

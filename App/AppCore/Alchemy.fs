@@ -331,7 +331,7 @@ type ValueError =
         Nominal : decimal
         Limit : decimal }
     member x.IsError = abs x.Error >= abs x.Limit 
-    member x.Error = x.Nominal - x.Value
+    member x.Error = x.Value - x.Nominal
     static member error = function 
         | Some (x : ValueError ) -> Decimal.toStr ".###" x.Error
         | _ -> ""

@@ -494,11 +494,9 @@ let testConnect _ =
 
 let reworkTermo() = 
     "Перевод климатики" <||>
-        [   "Термокомпенсация" <||> [
-                yield "Начало шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleBeg)
-                yield "Середина шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleMid)
-                yield "Конец шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleEnd) ]
-            test ]
+        [   "Начало шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleBeg)
+            "Середина шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleMid)
+            "Конец шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleEnd) ]
     |> Thread2.run true     
     
 

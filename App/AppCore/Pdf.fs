@@ -36,7 +36,7 @@ let product  ((h,d):Party.Content) (p:Product)  =
     par.Alignment <- Element.ALIGN_CENTER
     %% cell.AddElement(par)
 
-    let par = Paragraph("ИК-датчик МИЛ-82 ИБЯЛ.418414.111-" + t.What, Font(baseTimes, 12.f, Font.ITALIC))
+    let par = Paragraph("ИК датчик МИЛ-82 ИБЯЛ.418414.111-" + t.What, Font(baseTimes, 12.f, Font.ITALIC))
     par.Alignment <- Element.ALIGN_CENTER
     %% cell.AddElement(par)
 
@@ -82,8 +82,11 @@ let product  ((h,d):Party.Content) (p:Product)  =
         | _ -> failwith "?" )        
 
     add font12 "Полезный сигнал"
+
+    let kk22 = if h.ProductType.Gas = CO2 then 1000M else 100m
+    
     kefsf [Coef22] ( function 
-        | [k22] -> Ok ( Decimal.toStr "0,#"  (k22 / 100m) + " %") 
+        | [k22] -> Ok ( Decimal.toStr "0,#"  (k22 / kk22) + " %") 
         | _ -> failwith "?" )
 
     add font12 "Заводской номер:" 
@@ -93,7 +96,7 @@ let product  ((h,d):Party.Content) (p:Product)  =
     add font12bold (string p.Addr)
 
     add font12 "Дата изготовления"
-    add font12bold (DateTime.Now.ToString("dd.MMMM.yyyy"))
+    add font12bold (DateTime.Now.ToString("dd.MM.yyyy"))
 
     cell.AddElement innerTable
 
@@ -111,15 +114,17 @@ let product  ((h,d):Party.Content) (p:Product)  =
         
 let party ((h,d):Party.Content as party) = 
     let table = PdfPTable(2)    
-    table.WidthPercentage <- 100.f    
-    d.Products
-    |> List.filter (fun p -> 
-        let i = p.ProductInfo 
-        i.month <> 0 && i.year <> 0 && i.kind <> 0)
-    |> List.iter (product party >> table.AddCell >> ignore ) 
+    table.WidthPercentage <- 100.f   
+    let products = 
+        d.Products
+        |> List.filter (fun p -> 
+            let i = p.ProductInfo 
+            i.month <> 0 && i.year <> 0 && i.kind <> 0)
+    products |> List.iter (product party >> table.AddCell >> ignore ) 
     table
 
-let stickerFont = SysText.iTextHlp.FontSysGet("GOST Type A")
+//let stickerFont = SysText.iTextHlp.FontSysGet("GOST Type A")
+let stickerFont = SysText.iTextHlp.FontSysGet("Arial")
 
 let sticker ((h,d):Party.Content) (p:Product) = 
     let cell = PdfPCell()
@@ -176,7 +181,12 @@ let stickers ((h,d):Party.Content as party) =
     let table = PdfPTable(4)    
     table.WidthPercentage <- 100.f
     table.SetWidthPercentage( Array.init 4 (fun _ -> 140.f), PageSize.A4)
-    List.iter (sticker party >> table.AddCell >> ignore ) d.Products
+
+    d.Products 
+        |> List.filter (fun p -> 
+            let i = p.ProductInfo 
+            i.month <> 0 && i.year <> 0 && i.kind <> 0)
+        |> List.iter (sticker party >> table.AddCell >> ignore ) 
     table
     
 
@@ -191,7 +201,15 @@ let report ((h,d):Party.Content as party) =
     
     let table = PdfPTable(2)    
     table.WidthPercentage <- 100.f    
-    List.iter (product party >> table.AddCell >> ignore ) d.Products    
+
+    let products = 
+        d.Products 
+        |> List.filter (fun p -> 
+            let i = p.ProductInfo 
+            i.month <> 0 && i.year <> 0 && i.kind <> 0)
+
+
+    products |> List.iter (product party >> table.AddCell >> ignore ) 
     %% document.Add(table)
     %% document.NewPage()
     %% document.Add(stickers party)
