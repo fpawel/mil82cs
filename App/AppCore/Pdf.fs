@@ -72,13 +72,13 @@ let product  ((h,d):Party.Content) (p:Product)  =
     add font12 "Сигнал рабочего канала"
     kefsf [Coef21; CoefKw ] ( function
         | [_;0m] -> Err "K43=0"
-        | [k21; k43]  -> Ok ( Decimal.toStr "0,#" (k21/k43) + " мВ")
+        | [k21; k43]  -> Ok ( Decimal.toStr "0.#" (k21/k43) + " мВ")
         | _ -> failwith "?")
 
     add font12 "Сигнал сравнительного канала"
     kefsf [Coef20; CoefKr] ( function
         | [ _; 0m ] -> Err "k44=0"
-        | [ k20; k44 ] -> Ok (Decimal.toStr "0,#" (k20/k44) + " мВ")
+        | [ k20; k44 ] -> Ok (Decimal.toStr "0.#" (k20/k44) + " мВ")
         | _ -> failwith "?" )        
 
     add font12 "Полезный сигнал"
@@ -86,7 +86,7 @@ let product  ((h,d):Party.Content) (p:Product)  =
     let kk22 = if h.ProductType.Gas = CO2 then 1000M else 100m
     
     kefsf [Coef22] ( function 
-        | [k22] -> Ok ( Decimal.toStr "0,#"  (k22 / kk22) + " %") 
+        | [k22] -> Ok ( Decimal.toStr "0.#"  (k22 / kk22) + " %") 
         | _ -> failwith "?" )
 
     add font12 "Заводской номер:" 
