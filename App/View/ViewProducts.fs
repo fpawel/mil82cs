@@ -28,7 +28,9 @@ module Columns =
         %% new TextColumn(DataPropertyName = "KindMonthYear", HeaderText = "Дата", Width = 80)  ]
         
 
-    let physVars = PhysVar.values|> List.map(fun physvar -> 
+    let physVars = 
+        let xs = PhysVar.values
+        xs |> List.map(fun physvar -> 
         %% new TextColumn
                 (   DataPropertyName = PhysVar.name physvar, 
                     HeaderText = PhysVar.what physvar,

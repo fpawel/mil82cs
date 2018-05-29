@@ -82,11 +82,15 @@ type PhysVar =
     | Temp
     | Workk 
     | Refk
+    | Var8
+    | Var10
     static member context = function
         | Conc  -> 0,  ("C", "Концентрация")
         | Temp  -> 2,  ("Т",  "Температура")
         | Curr  -> 4,  ("I",  "Ток излучателя")
         | Var1  -> 16, ("Var1",  "Var1")
+        | Var8  -> 8, ("Var8",  "Var8")
+        | Var10  -> 10, ("Var10",  "Var10")
         | Workk -> 12, ("Work",  "Рабочий канал")
         | Refk  -> 14, ("Ref",   "Опорный канал")
     static member code = PhysVar.context >> fst

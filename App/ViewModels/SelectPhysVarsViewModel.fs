@@ -74,6 +74,26 @@ type SelectPhysVars() =
         and set value =
             cfg.VisiblePhysVars <- 
                 (if value then Set.add else Set.remove) Refk cfg.VisiblePhysVars            
+
+    [<DisplayName("Var8")>]
+    [<Description("Var8")>]
+    [<TypeConverter (typeof<InterrogateConverter>) >]
+    member x.Var8
+        with get() =
+            Set.contains Var8 cfg.VisiblePhysVars 
+        and set value =
+            cfg.VisiblePhysVars <- 
+                (if value then Set.add else Set.remove) Var8 cfg.VisiblePhysVars
+
+    [<DisplayName("Var10")>]
+    [<Description("Var10")>]
+    [<TypeConverter (typeof<InterrogateConverter>) >]
+    member x.Var10
+        with get() =
+            Set.contains Var10 cfg.VisiblePhysVars 
+        and set value =
+            cfg.VisiblePhysVars <- 
+                (if value then Set.add else Set.remove) Var10 cfg.VisiblePhysVars
             
 
     override x.ToString() = cfg.VisiblePhysVars |> Seq.toStr ", " PhysVar.what

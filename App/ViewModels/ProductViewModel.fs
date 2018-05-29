@@ -1795,3 +1795,7 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Workk = x.getPhysVarValueUi PhysVar.Workk 
 
     member x.Refk = x.getPhysVarValueUi PhysVar.Refk 
+
+    member x.Var8 = x.getPhysVarValueUi PhysVar.Var8 
+
+    member x.Var10 = x.getPhysVarValueUi PhysVar.Var10

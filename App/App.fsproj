@@ -148,6 +148,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="packages.config" />
+    <None Include="Script2.fsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyWinForms\MyWinForms.csproj">
