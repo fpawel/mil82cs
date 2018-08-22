@@ -15,19 +15,25 @@ type PgsConfigView() =
 
     [<DisplayName("ПГС1")>]    
     [<Description("ПГС1, начало шкалы, концентрация ")>]
-    member x.PgsGas0
+    member x.PgsGas1
         with get() = party.GetPgs(ScaleBeg)
         and set v = party.SetPgs ( (ScaleBeg), v) 
 
     [<DisplayName("ПГС2")>]    
     [<Description("ПГС2, середина шкалы, концентрация ")>]
-    member x.PgsGas1
+    member x.PgsGas2
+        with get() = party.GetPgs(ScaleMid2)
+        and set v = party.SetPgs ( (ScaleMid2), v) 
+
+    [<DisplayName("ПГС3")>]    
+    [<Description("ПГС3, середина шкалы, концентрация ")>]
+    member x.PgsGas3
         with get() = party.GetPgs(ScaleMid)
         and set v = party.SetPgs ( (ScaleMid), v) 
 
-    [<DisplayName("ПГС3")>]    
-    [<Description("ПГС3, конец шкалы, концентрация ")>]
-    member x.PgsGas5
+    [<DisplayName("ПГС4")>]    
+    [<Description("ПГС4, конец шкалы, концентрация ")>]
+    member x.PgsGas4
         with get() = party.GetPgs(ScaleEnd)
         and set v = party.SetPgs ( (ScaleEnd), v) 
 

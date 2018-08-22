@@ -304,12 +304,7 @@ let blowAir() =
     }
 let blowAndRead feat t =
     [   for gas in ScalePt.values ->
-            let what = 
-                match gas with
-                | ScaleBeg -> "Компенсация нуля"
-                | ScaleMid -> "Компенсация середины"
-                | ScaleEnd -> "Компенсация чувствительности"
-            what <||> [
+            ScalePt.what gas <||> [
                 yield blow 3 gas "Продувка"
                 yield "Считывание" <|> readVarsValues feat gas t  ] 
         yield blowAir() ]

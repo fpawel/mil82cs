@@ -54,12 +54,18 @@ type PartyInfo =
         [<DisplayName("ПГС1")>]    
         [<Description("Концентрация ПГС1, начало шкалы")>]
         mutable Pgs1  : decimal
-        [<DisplayName("ПГС3")>]    
-        [<Description("Концентрация ПГС3, середина шкалы")>]
+        
+        [<DisplayName("ПГС2")>]    
+        [<Description("Концентрация ПГС2, середина шкалы")>]
         mutable Pgs2  : decimal
+        
+        [<DisplayName("ПГС3")>]    
+        [<Description("Концентрация ПГС3, конец шкалы")>]
+        mutable Pgs3  : decimal 
+
         [<DisplayName("ПГС4")>]    
         [<Description("Концентрация ПГС4, конец шкалы")>]
-        mutable Pgs3  : decimal 
+        mutable Pgs4  : decimal 
 
         [<DisplayName("T-")>]    
         [<Description("Тепература на минусе,\"С")>]
@@ -140,8 +146,9 @@ let createNewParty (b:Button) =
         {   Name = "-"
             ProductType = Mil82.A00.What
             Pgs1 = 0m
-            Pgs2 = 49m
-            Pgs3 = 98m 
+            Pgs2 = 0m
+            Pgs3 = 49m
+            Pgs4 = 98m 
             Count = 1uy
             TempMinus = -40M
             TempPlus = 60M}
@@ -162,7 +169,7 @@ let createNewParty (b:Button) =
                     ProductType.values 
                     |> List.tryFind ( ProductType.what >> (=) d.ProductType)
                     |> Option.withDefault A00
-                let b = Alchemy.createNewParty1 (d.Name, prodType, d.Pgs1, d.Pgs2, d.Pgs3, d.Count)                
+                let b = Alchemy.createNewParty1 (d.Name, prodType, d.Pgs1, d.Pgs2, d.Pgs3, d.Pgs4, d.Count)                
                 party.Party <- b
                 party.TermoLow <- d.TempMinus
                 party.TermoHigh <- d.TempPlus

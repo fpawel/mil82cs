@@ -242,7 +242,7 @@ module private PivateComputeProduct =
             
             result{
                     
-                let! [k16; k17; k18] = getKefsValues p [CoefCchlin0; CoefCchlin1; CoefCchlin2]
+                let! [k16; k17; k18; k19] = getKefsValues p [CoefCchlin0; CoefCchlin1; CoefCchlin2; CoefCchlin3]
                 let! [v_0_nku; v_s_nku; v_k_nku] = getScaleValues p  ( fun gas ->  RetNku, Var1, gas, TermoNorm) 
                 let! [v_0_min; v_s_min; v_k_min] = getScaleValues p  ( fun gas ->  Test, Var1, gas, TermoLow) 
                 let! [v_0_max; v_s_max; v_k_max] = getScaleValues p  ( fun gas ->  Test, Var1, gas, TermoHigh) 
@@ -257,13 +257,13 @@ module private PivateComputeProduct =
                 let yLo =
                     let x1 = conc * (v_0_nku-v_s_nku) / (v_0_nku-v_k_nku)
                     let x2 = conc * (v_0_min-v_s_min)/(v_0_min-v_k_min)
-                    (k16 + k17*x1 + k18*x1*x1 - x2) / 
-                    (k16 + k17*x2 + k18*x2*x2 - x2) 
+                    (k16 + k17*x1 + k18*x1*x1 + k19*x1*x1*x1 - x2) / 
+                    (k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2) 
                 let yHi = 
                     let x1 = conc * (v_0_nku-v_s_nku)/(v_0_nku-v_k_nku)
                     let x2 = conc * (v_0_max-v_s_max)/(v_0_max-v_k_max)
-                    (k16 + k17*x1 + k18*x1*x1 - x2) / 
-                    (k16 + k17*x2 + k18*x2*x2 - x2) 
+                    (k16 + k17*x1 + k18*x1*x1 + k19*x1*x1*x1 - x2) / 
+                    (k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2) 
                         
                 return [ t1, yLo; t2, 1m; t3, yHi ] }
             |> Result.mapErr( 
@@ -386,8 +386,8 @@ let createNewParty() =
     let products = [ product ]
     {h with ProductInfo = [product.ProductInfo] }, { d with Products = products }
 
-let createNewParty1( name, productType, pgs1, pgs2, pgs3, count) : Party.Content = 
-        let pgs = Map.ofList <| List.zip ScalePt.values [pgs1; pgs2; pgs3]
+let createNewParty1( name, productType, pgs1, pgs2, pgs3, pgs4, count) : Party.Content = 
+        let pgs = Map.ofList <| List.zip ScalePt.values [pgs1; pgs2; pgs3; pgs4]
         let getPgs = pgs.TryFind >> Option.withDefault 0m
         let products = 
             [1uy..count] 

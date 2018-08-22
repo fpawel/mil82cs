@@ -24,6 +24,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Lin_Conc_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Conc_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Conc_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Conc_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Lin_Conc_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Conc, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -71,6 +87,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Lin_Curr_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Lin_Curr_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Curr_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Curr_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Curr_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Lin_Curr_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Lin, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -120,6 +152,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Lin_Var1_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var1_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var1_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var1_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Lin_Var1_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Var1, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -167,6 +215,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Lin_Temp_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Lin_Temp_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Temp_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Temp_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Temp_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Lin_Temp_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Lin, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -216,6 +280,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Lin_Workk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Workk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Workk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Workk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Lin_Workk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Workk, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -264,6 +344,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Lin_Refk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Refk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Refk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Refk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Lin_Refk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -296,6 +392,134 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Lin, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90) value
 
+    member x.Var_Lin_Var8_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var8_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var8_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var8_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Lin_Var8_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var8_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var8_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var8_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Lin_Var8_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var8_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var8_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var8_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Lin_Var8_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var8_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var8_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var8_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
+    member x.Var_Lin_Var10_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var10_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var10_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var10_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Lin_Var10_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var10_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var10_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var10_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Lin_Var10_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var10_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var10_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var10_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Lin_Var10_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Lin_Var10_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Lin_Var10_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Lin_Var10_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Lin, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
     member x.Var_Termo_Conc_ScaleBeg_TermoNorm
         with get () = x.getVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
@@ -311,6 +535,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Termo_Conc_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Termo_Conc_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Conc_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Conc_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Conc_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Termo_Conc_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Termo, PhysVar.Conc, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -360,6 +600,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Termo_Curr_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Curr_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Curr_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Curr_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Termo_Curr_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -407,6 +663,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Termo_Var1_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var1_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var1_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var1_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var1_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Termo_Var1_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Termo, PhysVar.Var1, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -456,6 +728,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Termo_Temp_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Temp_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Temp_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Temp_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Termo_Temp_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -503,6 +791,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Termo_Workk_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Termo_Workk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Workk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Workk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Workk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Termo_Workk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Termo, PhysVar.Workk, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -552,6 +856,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Termo_Refk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Refk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Refk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Refk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Termo_Refk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -584,6 +904,134 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Termo, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90) value
 
+    member x.Var_Termo_Var8_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var8_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var8_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var8_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var8_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var8_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var8_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var8_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var8_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var8_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var8_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var8_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var8_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var8_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var8_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var8_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var10_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var10_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var10_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var10_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var10_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var10_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var10_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var10_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var10_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var10_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var10_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var10_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Termo_Var10_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Termo_Var10_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Termo_Var10_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Termo_Var10_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Termo, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
     member x.Var_Test_Conc_ScaleBeg_TermoNorm
         with get () = x.getVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
@@ -599,6 +1047,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Test_Conc_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Test_Conc_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Conc_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Conc_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Conc_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Test_Conc_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Test, PhysVar.Conc, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -648,6 +1112,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Test_Curr_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Curr_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Curr_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Curr_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Test_Curr_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Test, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -695,6 +1175,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Test_Var1_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Test_Var1_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var1_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var1_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var1_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Test_Var1_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Test, PhysVar.Var1, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -744,6 +1240,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Test_Temp_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Temp_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Temp_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Temp_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Test_Temp_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Test, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -791,6 +1303,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Test_Workk_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Test_Workk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Workk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Workk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Workk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Test_Workk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Test, PhysVar.Workk, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -840,6 +1368,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Test_Refk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Refk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Refk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Refk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Test_Refk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -872,6 +1416,134 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Test, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90) value
 
+    member x.Var_Test_Var8_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var8_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var8_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var8_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Test_Var8_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var8_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var8_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var8_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Test_Var8_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var8_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var8_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var8_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Test_Var8_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var8_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var8_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var8_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
+    member x.Var_Test_Var10_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var10_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var10_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var10_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Test_Var10_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var10_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var10_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var10_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Test_Var10_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var10_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var10_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var10_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Test_Var10_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Test_Var10_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Test_Var10_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Test_Var10_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Test, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
     member x.Var_RetNku_Conc_ScaleBeg_TermoNorm
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
@@ -887,6 +1559,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_RetNku_Conc_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Conc_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Conc_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Conc_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Conc_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_RetNku_Conc_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Conc, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -936,6 +1624,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_RetNku_Curr_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Curr_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Curr_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Curr_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_RetNku_Curr_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -983,6 +1687,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_RetNku_Var1_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var1_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var1_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var1_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var1_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_RetNku_Var1_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Var1, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1032,6 +1752,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_RetNku_Temp_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Temp_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Temp_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Temp_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_RetNku_Temp_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1079,6 +1815,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_RetNku_Workk_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Workk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Workk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Workk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Workk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_RetNku_Workk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Workk, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1128,6 +1880,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_RetNku_Refk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Refk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Refk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Refk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_RetNku_Refk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1160,6 +1928,134 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.RetNku, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90) value
 
+    member x.Var_RetNku_Var8_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var8_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var8_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var8_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var8_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var8_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var8_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var8_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var8_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var8_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var8_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var8_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var8_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var8_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var8_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var8_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var10_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var10_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var10_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var10_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var10_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var10_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var10_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var10_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var10_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var10_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var10_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var10_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_RetNku_Var10_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_RetNku_Var10_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_RetNku_Var10_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_RetNku_Var10_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.RetNku, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
     member x.Var_Tex1_Conc_ScaleBeg_TermoNorm
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
@@ -1175,6 +2071,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Tex1_Conc_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Conc_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Conc_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Conc_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Conc_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Tex1_Conc_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Conc, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1224,6 +2136,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Tex1_Curr_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Curr_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Curr_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Curr_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Tex1_Curr_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1271,6 +2199,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Tex1_Var1_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var1_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var1_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var1_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var1_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Tex1_Var1_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Var1, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1320,6 +2264,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Tex1_Temp_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Temp_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Temp_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Temp_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Tex1_Temp_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1367,6 +2327,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Tex1_Workk_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Workk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Workk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Workk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Workk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Tex1_Workk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Workk, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1416,6 +2392,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Tex1_Refk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Refk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Refk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Refk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Tex1_Refk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1448,6 +2440,134 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex1, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90) value
 
+    member x.Var_Tex1_Var8_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var8_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var8_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var8_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var8_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var8_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var8_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var8_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var8_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var8_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var8_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var8_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var8_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var8_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var8_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var8_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var10_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var10_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var10_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var10_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var10_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var10_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var10_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var10_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var10_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var10_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var10_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var10_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Tex1_Var10_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Tex1_Var10_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Tex1_Var10_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Tex1_Var10_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex1, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
     member x.Var_Tex2_Conc_ScaleBeg_TermoNorm
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
@@ -1463,6 +2583,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Tex2_Conc_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Conc_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Conc_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Conc_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Conc_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Tex2_Conc_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Conc, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1512,6 +2648,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Tex2_Curr_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Curr_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Curr_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Curr_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Tex2_Curr_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Curr, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1559,6 +2711,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Tex2_Var1_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var1_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var1_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var1_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var1_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Tex2_Var1_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Var1, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1608,6 +2776,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Tex2_Temp_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Temp_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Temp_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Temp_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Tex2_Temp_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Temp, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1655,6 +2839,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var_Tex2_Workk_ScaleBeg_Termo90
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Workk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Workk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Workk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Workk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid2, TermoPt.Termo90) value
 
     member x.Var_Tex2_Workk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Workk, ScalePt.ScaleMid, TermoPt.TermoNorm)
@@ -1704,6 +2904,22 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleBeg, TermoPt.Termo90) value
 
+    member x.Var_Tex2_Refk_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Refk_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Refk_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Refk_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
     member x.Var_Tex2_Refk_ScaleMid_TermoNorm
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleMid, TermoPt.TermoNorm) value
@@ -1736,6 +2952,134 @@ type Product(p, getProdType, getPgs, partyId) =
         with get () = x.getVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90)
         and set value = x.setVarUi (Feature.Tex2, PhysVar.Refk, ScalePt.ScaleEnd, TermoPt.Termo90) value
 
+    member x.Var_Tex2_Var8_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var8_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var8_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var8_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var8_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var8_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var8_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var8_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var8_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var8_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var8_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var8_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var8_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var8_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var8_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var8_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var8, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var10_ScaleBeg_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var10_ScaleBeg_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var10_ScaleBeg_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var10_ScaleBeg_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleBeg, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var10_ScaleMid2_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var10_ScaleMid2_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var10_ScaleMid2_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var10_ScaleMid2_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid2, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var10_ScaleMid_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var10_ScaleMid_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var10_ScaleMid_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var10_ScaleMid_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleMid, TermoPt.Termo90) value
+
+    member x.Var_Tex2_Var10_ScaleEnd_TermoNorm
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoNorm) value
+
+    member x.Var_Tex2_Var10_ScaleEnd_TermoLow
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoLow) value
+
+    member x.Var_Tex2_Var10_ScaleEnd_TermoHigh
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.TermoHigh) value
+
+    member x.Var_Tex2_Var10_ScaleEnd_Termo90
+        with get () = x.getVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90)
+        and set value = x.setVarUi (Feature.Tex2, PhysVar.Var10, ScalePt.ScaleEnd, TermoPt.Termo90) value
+
     member x.ConcError_ScaleBeg = x.GetConcError ScalePt.ScaleBeg 
 
     member x.RetNkuError_ScaleBeg = x.GetRetNkuError ScalePt.ScaleBeg 
@@ -1751,6 +3095,22 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.TermoError_ScaleBeg_TermoHigh = x.GetTermoError (ScalePt.ScaleBeg, TermoPt.TermoHigh) 
 
     member x.TermoError_ScaleBeg_Termo90 = x.GetTermoError (ScalePt.ScaleBeg, TermoPt.Termo90) 
+
+    member x.ConcError_ScaleMid2 = x.GetConcError ScalePt.ScaleMid2 
+
+    member x.RetNkuError_ScaleMid2 = x.GetRetNkuError ScalePt.ScaleMid2 
+
+    member x.Tex1Error_ScaleMid2 = x.GetTex1Error ScalePt.ScaleMid2 
+
+    member x.Tex2Error_ScaleMid2 = x.GetTex2Error ScalePt.ScaleMid2 
+
+    member x.TermoError_ScaleMid2_TermoNorm = x.GetTermoError (ScalePt.ScaleMid2, TermoPt.TermoNorm) 
+
+    member x.TermoError_ScaleMid2_TermoLow = x.GetTermoError (ScalePt.ScaleMid2, TermoPt.TermoLow) 
+
+    member x.TermoError_ScaleMid2_TermoHigh = x.GetTermoError (ScalePt.ScaleMid2, TermoPt.TermoHigh) 
+
+    member x.TermoError_ScaleMid2_Termo90 = x.GetTermoError (ScalePt.ScaleMid2, TermoPt.Termo90) 
 
     member x.ConcError_ScaleMid = x.GetConcError ScalePt.ScaleMid 
 
@@ -1798,4 +3158,4 @@ type Product(p, getProdType, getPgs, partyId) =
 
     member x.Var8 = x.getPhysVarValueUi PhysVar.Var8 
 
-    member x.Var10 = x.getPhysVarValueUi PhysVar.Var10
+    member x.Var10 = x.getPhysVarValueUi PhysVar.Var10 

@@ -9,8 +9,6 @@
 #load "Mil82/ProductType.fs"
 #load "Mil82/Mil82.fs"
 
-open System
-
 open Mil82
 
 let createSourcefile path (source : string []) = 
@@ -118,32 +116,5 @@ type Party(partyHeader, partyData) =
 
 createSourceFile_ProductViewModel()
 createSourceFile_PartyViewModel()
-
-
-
-[|    yield """namespace Mil82.ViewModel
-open System
-open System.ComponentModel
-open Mil82
-open Operations
-open PartyWorks
-
-open MyWinForms.Converters
-
-type DelaysHelperViewModel() =
-    inherit DelaysHelperViewModel1()
-    override x.RaisePropertyChanged propertyName = 
-        ViewModelBase.raisePropertyChanged x propertyName"""
-      for ctx in DelayContext.values do
-            
-            yield sprintf """
-    [<DisplayName("%s")>]    
-    [<Description("%s, длительность час:мин:сек")>]
-    [<TypeConverter(typeof<TimeSpanConverter>)>]
-    member x.%s 
-        with get() = x.GetDelay (%A)
-        and set value = x.SetDelay (%A) value  """ ctx.What ctx.What ctx.Prop ctx ctx
-  |]
-|> createSourcefile "View/DelaysHelpViewModel.fs" 
 
 

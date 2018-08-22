@@ -31,6 +31,7 @@ type TermoPt =
 
 type ScalePt = 
     | ScaleBeg
+    | ScaleMid2
     | ScaleMid
     | ScaleEnd
     member x.What = ScalePt.what x
@@ -38,18 +39,22 @@ type ScalePt =
     static member values = FSharpType.unionCasesList<ScalePt>
     static member what = function
         | ScaleBeg -> "ПГС1"
+        | ScaleMid2 -> "ПГС2"
         | ScaleMid -> "ПГС3"
         | ScaleEnd -> "ПГС4"
     static member whatScale = function
         | ScaleBeg -> "начало шкалы"
+        | ScaleMid2 -> "середина шкалы 2"
         | ScaleMid -> "середина шкалы"
         | ScaleEnd -> "конец шкалы"
     static member code = function
         | ScaleBeg -> 1
+        | ScaleMid2 -> 2
         | ScaleMid -> 3
         | ScaleEnd -> 4
     static member defaultBallonConc = function
         | ScaleBeg -> 0m
+        | ScaleMid2 -> 25m
         | ScaleMid -> 50m
         | ScaleEnd -> 100m
     static member name (x:ScalePt) = FSharpValue.unionCaseName x
@@ -111,7 +116,7 @@ type KefGroup =
 
     static member ctx = function
         | KefLin -> 
-            "LIN", "Линеаризация", [CoefCchlin0; CoefCchlin1; CoefCchlin2]            
+            "LIN", "Линеаризация", [CoefCchlin0; CoefCchlin1; CoefCchlin2; CoefCchlin3]            
         | KefTermo ScaleBeg -> 
             "T0", "Комп. вл. темп. на нулев. показ.",
                 [CoefChtNull0; CoefChtNull1; CoefChtNull2]
@@ -192,6 +197,8 @@ type DelayContext =
         | TexprogonDelay -> "Выдержка, техпрогон"
         
     member x.What = DelayContext.what x
+    static member values = 
+        [ BlowDelay, BlowAirDelay, WarmDelay, TexprogonDelay ]
     
 
     

@@ -17,6 +17,13 @@ type Party(partyHeader, partyData) =
         and set v = x.SetPgs (ScalePt.ScaleBeg, v) 
 
     [<Category("Концентрация ПГС")>] 
+    [<DisplayName("ПГС2")>]    
+    [<Description("Концентрация ПГС2, середина шкалы 2")>]
+    member x.ScaleMid2
+        with get() = x.GetPgs ScalePt.ScaleMid2
+        and set v = x.SetPgs (ScalePt.ScaleMid2, v) 
+
+    [<Category("Концентрация ПГС")>] 
     [<DisplayName("ПГС3")>]    
     [<Description("Концентрация ПГС3, середина шкалы")>]
     member x.ScaleMid
