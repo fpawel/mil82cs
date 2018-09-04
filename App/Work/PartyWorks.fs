@@ -367,8 +367,10 @@ let mil82 =
             processTermoPoint Termo TermoHigh 
             processTermoPoint Termo TermoNorm 
             "Термокомпенсация"  <||> [
-                for gas in ScalePt.values ->
-                     gas.What <||> computeAndWriteGroup  (KefTermo gas) ]
+                "Начало шкалы" <||> computeAndWriteGroup  KefT0
+                "Середина шкалы" <||> computeAndWriteGroup  KefTM
+                "Конец шкалы" <||> computeAndWriteGroup  KefTK
+            ]
             test
             "Сигналы каналов"  <|> fun () -> 
                 party.DoForEachProduct (fun p -> 
@@ -489,9 +491,9 @@ let testConnect _ =
 
 let reworkTermo() = 
     "Перевод климатики" <||>
-        [   "Начало шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleBeg)
-            "Середина шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleMid)
-            "Конец шкалы" <||> computeAndWriteGroup (KefTermo2 ScaleEnd) ]
+        [   "Начало шкалы" <||> computeAndWriteGroup KefT0
+            "Середина шкалы" <||> computeAndWriteGroup KefTM
+            "Конец шкалы" <||> computeAndWriteGroup KefTK ]
     |> Thread2.run true     
     
 

@@ -111,31 +111,26 @@ type Id = string
 
 type KefGroup = 
     | KefLin
-    | KefTermo of ScalePt 
-    | KefTermo2 of ScalePt 
+    | KefT0 
+    | KefTM
+    | KefTK
 
-    static member ctx = function
+
+    static member ctx v = 
+        match v with
         | KefLin -> 
             "LIN", "Линеаризация", [CoefCchlin0; CoefCchlin1; CoefCchlin2; CoefCchlin3]            
-        | KefTermo ScaleBeg -> 
+        | KefT0 -> 
             "T0", "Комп. вл. темп. на нулев. показ.",
                 [CoefChtNull0; CoefChtNull1; CoefChtNull2]
-        | KefTermo ScaleMid -> 
+        | KefTM -> 
             "TM", "Комп. вл. темп. на середину шк.",
                 [CoefKChtMid0; CoefKChtMid1; CoefKChtMid2]
-        | KefTermo ScaleEnd -> 
+        | KefTK -> 
             "TK","Комп. влиян. темп-ры на чувст.",
                 [CoefKChtSens0; CoefKChtSens1; CoefKChtSens2]
 
-        | KefTermo2 ScaleBeg -> 
-            "T0", "Комп. вл. темп. на нулев. показ.",
-                [CoefChtNull0; CoefChtNull1; CoefChtNull2]
-        | KefTermo2 ScaleMid -> 
-            "TM", "Комп. вл. темп. на середину шк.",
-                [CoefKChtMid0; CoefKChtMid1; CoefKChtMid2]
-        | KefTermo2 ScaleEnd -> 
-            "TK","Комп. влиян. темп-ры на чувст.",
-                [CoefKChtSens0; CoefKChtSens1; CoefKChtSens2]
+        
 
     member x.What = KefGroup.what x
     member x.Dscr = KefGroup.dscr x

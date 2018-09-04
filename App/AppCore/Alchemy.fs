@@ -111,10 +111,7 @@ module private PivateComputeProduct =
             in group, var, gas, t ) 
         |> getVarsValues p
 
-    let getScaleValues p f =
-        ScalePt.values
-        |> List.map f
-        |> getVarsValues p
+    
 
     
     let getGaussXY p pgs  = function
@@ -129,7 +126,7 @@ module private PivateComputeProduct =
                             | V(_,_,gas,_) -> sprintf "%A" gas 
                             | x -> failwithf "%A" x )
                 >> sprintf "нет значения LIN в %s" )
-        | KefTermo ScaleBeg -> 
+        | KefT0 -> 
             result {
                 let! t = getTermoValues Temp ScaleBeg p
                 let! var = getTermoValues Var1 ScaleBeg p
@@ -140,7 +137,7 @@ module private PivateComputeProduct =
                             | x -> failwithf "%A" x )
                 >> sprintf "нет значения T0 в %s" )
 
-        | KefTermo ScaleEnd -> 
+        | KefTK -> 
             result {
                 let! t = getTermoValues Temp ScaleEnd p
                 let! var = getTermoValues Var1 ScaleEnd p
@@ -166,90 +163,21 @@ module private PivateComputeProduct =
                     |> fmtErr TermoPt.what 
                     |> sprintf "при расчёте TK деление на ноль в %s"
                     |> Err )
-        | KefTermo ScaleMid ->
+        | KefTM ->
             
             result{
-                    
-                let! [k16; k17; k18] = getKefsValues p [CoefCchlin0; CoefCchlin1; CoefCchlin2]
-                let! [v_0_nku; v_s_nku; v_k_nku] = getScaleValues p  ( fun gas ->  Termo, Var1, gas, TermoNorm) 
-                let! [v_0_min; v_s_min; v_k_min] = getScaleValues p  ( fun gas ->  Termo, Var1, gas, TermoLow) 
-                let! [v_0_max; v_s_max; v_k_max] = getScaleValues p  ( fun gas ->  Termo, Var1, gas, TermoHigh) 
-                let! [t1; t2; t3] = 
-                    termoPoints 
-                    |> List.map( fun t ->  Termo, Temp, ScaleMid, t) 
+
+                let getValues f =
+                    [ScaleBeg; ScaleMid; ScaleEnd]
+                    |> List.map f
                     |> getVarsValues p
-
-                let conc = pgs ScaleEnd
-
-                let yLo =
-                    let x1 = conc * (v_0_nku-v_s_nku) / (v_0_nku-v_k_nku)
-                    let x2 = conc * (v_0_min-v_s_min)/(v_0_min-v_k_min)
-                    (k16 + k17*x1 + k18*x1*x1 - x2) / 
-                    (k16 + k17*x2 + k18*x2*x2 - x2) 
-                let yHi = 
-                    let x1 = conc * (v_0_nku-v_s_nku)/(v_0_nku-v_k_nku)
-                    let x2 = conc * (v_0_max-v_s_max)/(v_0_max-v_k_max)
-                    (k16 + k17*x1 + k18*x1*x1 - x2) / 
-                    (k16 + k17*x2 + k18*x2*x2 - x2) 
-                        
-                return [ t1, yLo; t2, 1m; t3, yHi ] }
-            |> Result.mapErr( 
-                fmtErr ( function
-                    | K kef -> sprintf "коэф.%d" kef.Order
-                    | V (_,var, gas,t) -> sprintf "%A.%A.%A" (PhysVar.what var) (ScalePt.what gas) (TermoPt.what t) )
-                >> sprintf "нет значения TM в %s" )
-
-
-
-        | KefTermo2 ScaleBeg -> 
-            result {
-                let! t = getTermoValues2 Temp ScaleBeg p
-                let! var = getTermoValues2 Var1 ScaleBeg p
-                return List.zip t ( List.map (fun var -> - var) var) }
-            |> Result.mapErr( 
-                fmtErr (function  
-                            | V(_,var,_,t) -> sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) 
-                            | x -> failwithf "%A" x )
-                >> sprintf "нет значения T0 в %s" )
-
-        | KefTermo2 ScaleEnd -> 
-            result {
-                let! t = getTermoValues2 Temp ScaleEnd p
-                let! var = getTermoValues2 Var1 ScaleEnd p
-                let! var0 = getTermoValues2 Var1 ScaleBeg p
-                return List.zip3 t var0 var}
-            |> Result.mapErr( 
-                fmtErr (function 
-                            | V(_,var,_,t) -> sprintf "%s.%s" (PhysVar.what var) (TermoPt.what t) 
-                            | x -> failwithf "%A" x )
-                >> sprintf "нет значения TK в %s" )
-            |> Result.bind(fun xs ->
-                let errs =
-                    xs |> List.zip termoPoints
-                    |> List.map(fun (ptT,(_,var0,var)) ->  if var0 = var then Some ptT else None )
-                    |> List.filter Option.isSome
-                if List.isEmpty errs then 
-                    let vk = xs |> List.map( fun (t,var0,var) -> t, var - var0)
-                    vk |> List.map(fun (t,x) -> t, snd vk.[1] / x)
-                    |> Ok
-                else
-                    errs 
-                    |> List.map Option.get
-                    |> fmtErr TermoPt.what 
-                    |> sprintf "при расчёте TK деление на ноль в %s"
-                    |> Err )
-        | KefTermo2 ScaleMid ->
-            
-            result{
                     
                 let! [k16; k17; k18; k19] = getKefsValues p [CoefCchlin0; CoefCchlin1; CoefCchlin2; CoefCchlin3]
-                let! [v_0_nku; v_s_nku; v_k_nku] = getScaleValues p  ( fun gas ->  RetNku, Var1, gas, TermoNorm) 
-                let! [v_0_min; v_s_min; v_k_min] = getScaleValues p  ( fun gas ->  Test, Var1, gas, TermoLow) 
-                let! [v_0_max; v_s_max; v_k_max] = getScaleValues p  ( fun gas ->  Test, Var1, gas, TermoHigh) 
+                let! [v_0_nku; v_s_nku; v_k_nku] = getValues ( fun gas ->  Termo, Var1, gas, TermoNorm) 
+                let! [v_0_min; v_s_min; v_k_min] = getValues ( fun gas ->  Termo, Var1, gas, TermoLow) 
+                let! [v_0_max; v_s_max; v_k_max] = getValues ( fun gas ->  Termo, Var1, gas, TermoHigh) 
                 let! [t1; t2; t3] = termoPoints 
-                                    |> List.map( function
-                                        | TermoNorm -> RetNku, Temp, ScaleMid, TermoNorm
-                                        | t -> Test, Temp, ScaleMid, t  ) 
+                                    |> List.map( fun t -> Termo, Temp, ScaleMid, t  ) 
                                     |> getVarsValues p
 
                 let conc = pgs ScaleEnd
@@ -295,8 +223,8 @@ let compute group pgs productType = state {
     | Ok xy ->
         let x,y = List.toArray xy |> Array.unzip
         let result =  NumericMethod.GaussInterpolation.calculate(x,y) 
-        let ff = Seq.toStr ", " string
-        Logging.info "метод Гаусса X=%s Y=%s ==> %s=%s" (ff x) (ff y) skefs (ff result)
+        let val6 = Seq.toStr ", " Decimal.toStr6
+        Logging.info "метод Гаусса X=%s Y=%s ==> %s=%s" (val6 x) (val6 y) skefs (val6 result)
         do! result |> Array.toList |> List.zip kefs |> Product.setKefs   }
 
 let concErrorlimit productType concValue =        
