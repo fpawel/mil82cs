@@ -215,7 +215,7 @@ type Product1(p : P, getProductType, getPgs, partyId) =
         | _ -> ()
 
     member x.getVar var = P.getVar var p
-    member x.setVar ( (feat, physVar, scalePt, termoPt) as var) value =
+    member x.setVar ( (_, _, scalePt, termoPt) as var) value =
         if P.getVar var p = value then () else
         let prevConcError = getConcError scalePt
         let prevTermoError = getTermoError (scalePt,termoPt)
@@ -276,3 +276,17 @@ type Product1(p : P, getProductType, getPgs, partyId) =
 
     member x.ComputeKefGroup kefGroup = 
         x.Product <- snd <| runState (Alchemy.compute kefGroup getPgs (getProductType())) p
+
+
+    member x.``перевод климатики``() = 
+        Logging.info "перевод климатики %s" p.What
+        for var in [Var1; Temp] do
+            for scalePt in ScalePt.values do  
+                let k1 = Termo, var, scalePt, TermoNorm
+                let k2 = RetNku, var, scalePt, TermoNorm
+                let oldValue = x.getVar k1
+                let newValue = x.getVar k2
+                Logging.info "%s %s.%s = %A := "  p.What var.What scalePt.What oldValue 
+                x.setVar k1 newValue
+
+        

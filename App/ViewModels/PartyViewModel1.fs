@@ -195,7 +195,7 @@ type Party1
     member __.GetTermoTemperature t = 
         Party.getTermoTemperature partyData t
 
-    member x.ComputeKefGroup (kefGroup) = 
+    member x.ComputeKefGroup kefGroup = 
         products 
         |> Seq.filter(fun p -> p.IsChecked)
         |> Seq.iter( fun p ->
@@ -204,6 +204,10 @@ type Party1
                 |> snd )
 
     member __.getProductType() = partyHeader.ProductType
+
+    member x.``перевод климатики``() = 
+        for p in x.Products do
+            p.``перевод климатики``()
 
     [<Category("Партия")>]
     [<DisplayName("Исполнение")>]    

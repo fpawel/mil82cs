@@ -115,11 +115,11 @@ type KefGroup =
     | KefTM
     | KefTK
 
-
     static member ctx v = 
         match v with
         | KefLin -> 
             "LIN", "Линеаризация", [CoefCchlin0; CoefCchlin1; CoefCchlin2; CoefCchlin3]            
+        
         | KefT0 -> 
             "T0", "Комп. вл. темп. на нулев. показ.",
                 [CoefChtNull0; CoefChtNull1; CoefChtNull2]
@@ -129,8 +129,7 @@ type KefGroup =
         | KefTK -> 
             "TK","Комп. влиян. темп-ры на чувст.",
                 [CoefKChtSens0; CoefKChtSens1; CoefKChtSens2]
-
-        
+                
 
     member x.What = KefGroup.what x
     member x.Dscr = KefGroup.dscr x

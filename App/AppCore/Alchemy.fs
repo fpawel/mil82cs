@@ -267,6 +267,7 @@ type ValueError =
 type Product with
 
     static member concError productType pgs gas product = 
+
         Product.getVar (Test,Conc, gas, TermoNorm) product 
         |> Option.map(fun conc ->                 
             { Value = conc; Nominal = pgs; Limit = concErrorlimit productType pgs } ) 

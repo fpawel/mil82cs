@@ -109,14 +109,14 @@ type Mil82.ViewModel.Party with
                     f p
             Ok ()
 
-    member x.Interrogate(f) = Option.toResult <| maybeErr {
+    member x.Interrogate f canDo = Option.toResult <| maybeErr {
         let xs = x.Products |> Seq.filter(fun p -> p.IsChecked)
         if Seq.isEmpty xs then
             return "приборы не отмечены"
         else
             do! Comport.testPort appCfg.Hardware.ComportProducts
             for p in xs do 
-                if isKeepRunning() && p.IsChecked then                         
+                if canDo() && isKeepRunning() && p.IsChecked then                         
                     do! p.Interrogate() 
                     f()}
 
@@ -160,10 +160,12 @@ module Delay =
             maybeErr{
                 let upd () = 
                     onUpdate.Value start'time gettime
-                while keepRunning && Thread2.isKeepRunning() && (DateTime.Now - start'time < gettime()) do
+                let canDo () =
+                    DateTime.Now - start'time < gettime()
+                while keepRunning && Thread2.isKeepRunning() && (canDo()) do
                     upd()
                     if interrogate then
-                        do! party.Interrogate(upd)
+                        do! party.Interrogate upd canDo
                     else
                         Threading.Thread.Sleep 10 }
         keepRunning <- false
@@ -201,18 +203,21 @@ module private Helpers1 =
             |> List.map(fun x -> x, None)
             |> party.WriteKefs 
 
+    let writeGroupOp kefGroup = 
+        "Запись" <|> fun () ->  
+            KefGroup.kefs kefGroup
+            |> List.map(fun x -> x, None)
+            |> party.WriteKefs
+
     let computeAndWriteGroup kefGroup = 
         [   "Расчёт" <|> fun () -> 
                 party.ComputeKefGroup kefGroup
                 None
-            "Запись" <|> fun () ->  
-                KefGroup.kefs kefGroup
-                |> List.map(fun x -> x, None)
-                |> party.WriteKefs ]
+            writeGroupOp kefGroup ]
 
     type Op = Operation
 
-    let switchPneumo gas = maybeErr{
+    let switchPneumo gas = maybeErr {
         let code, title, text = 
             match gas with
             | Some gas -> 
@@ -227,7 +232,8 @@ module private Helpers1 =
             if isKeepRunning() then
                 match gas with
                 | Some gas -> Logging.info "газ %s подан вручную" gas.What
-                | _ -> Logging.info "пневмоблок закрыт вручную" }
+                | _ -> Logging.info "пневмоблок закрыт вручную" 
+        }
 
     let blow minutes gas what = 
         let s = ScalePt.what gas
@@ -252,7 +258,7 @@ module private Helpers1 =
                 Hardware.setupTermo 
                     tempValue 
                     Thread2.isKeepRunning 
-                    ( fun () -> party.Interrogate ignore)
+                    ( fun () -> party.Interrogate ignore (fun() -> true) )
     }
 
     type TermoPt with
@@ -299,7 +305,7 @@ module private Helpers1 =
 let blowAir() = 
     ("Продувка воздухом", TimeSpan.FromMinutes 1., BlowAirDelay)  <-|-> fun gettime -> maybeErr{
         do! switchPneumo <| Some ScaleBeg
-        do! Delay.perform "Продувка воздухом" gettime false
+        do! Delay.perform "Продувка воздухом" gettime true
         do! switchPneumo None
     }
 let blowAndRead feat t =
@@ -392,7 +398,7 @@ module private Helpers3 =
 let runInterrogate() = "Опрос" -->> fun () -> maybeErr{ 
     do! Comport.testPort appCfg.Hardware.ComportProducts
     while Thread2.isKeepRunning() do
-        do! party.Interrogate ignore }
+        do! party.Interrogate ignore (fun () -> true) }
 
 
 let setAddr addr = sprintf "Установка адреса %A" addr -->> fun () -> maybeErr{ 
@@ -490,8 +496,11 @@ let testConnect _ =
 
 
 let reworkTermo() = 
-    "Перевод климатики" <||>
-        [   "Начало шкалы" <||> computeAndWriteGroup KefT0
+    "Перевод климатики" <||> 
+        [   "Изменение данных" <|> fun () ->
+                party.``перевод климатики``()
+                None
+            "Начало шкалы" <||> computeAndWriteGroup KefT0
             "Середина шкалы" <||> computeAndWriteGroup KefTM
             "Конец шкалы" <||> computeAndWriteGroup KefTK ]
     |> Thread2.run true     
