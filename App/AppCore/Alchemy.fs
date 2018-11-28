@@ -175,25 +175,36 @@ module private PivateComputeProduct =
                 let! [k16; k17; k18; k19] = getKefsValues p [CoefCchlin0; CoefCchlin1; CoefCchlin2; CoefCchlin3]
                 let! [v_0_nku; v_s_nku; v_k_nku] = getValues ( fun gas ->  Termo, Var1, gas, TermoNorm) 
                 let! [v_0_min; v_s_min; v_k_min] = getValues ( fun gas ->  Termo, Var1, gas, TermoLow) 
-                let! [v_0_max; v_s_max; v_k_max] = getValues ( fun gas ->  Termo, Var1, gas, TermoHigh) 
+                let! [v_0_max; v_s_max; v_k_max] = getValues ( fun gas ->  Termo, Var1, gas, TermoHigh)                 
                 let! [t1; t2; t3] = termoPoints 
                                     |> List.map( fun t -> Termo, Temp, ScaleMid, t  ) 
                                     |> getVarsValues p
 
-                let conc = pgs ScaleEnd
-
-                let yLo =
-                    let x1 = conc * (v_0_nku-v_s_nku) / (v_0_nku-v_k_nku)
-                    let x2 = conc * (v_0_min-v_s_min)/(v_0_min-v_k_min)
-                    (k16 + k17*x1 + k18*x1*x1 + k19*x1*x1*x1 - x2) / 
-                    (k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2) 
-                let yHi = 
-                    let x1 = conc * (v_0_nku-v_s_nku)/(v_0_nku-v_k_nku)
-                    let x2 = conc * (v_0_max-v_s_max)/(v_0_max-v_k_max)
-                    (k16 + k17*x1 + k18*x1*x1 + k19*x1*x1*x1 - x2) / 
-                    (k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2) 
-                        
-                return [ t1, yLo; t2, 1m; t3, yHi ] }
+                let r = 
+                    if v_0_nku = v_k_nku then Err (sprintf " v_0_nku:%M = v_k_nku:%M" v_0_nku v_k_nku) 
+                    elif v_0_min = v_k_min then Err (sprintf "v_0_min:%M = v_k_nku:%M" v_0_min v_k_min) 
+                    elif v_0_max = v_k_max then Err (sprintf "v_0_min:%M = v_k_nku:%M" v_0_max v_k_max)
+                    else 
+                        let conc = pgs ScaleEnd
+                        let x1 = conc * (v_0_nku-v_s_nku) / (v_0_nku-v_k_nku)
+                        let x2 = conc * (v_0_min-v_s_min)/(v_0_min-v_k_min)
+                        let d = k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2
+                        if d = 0M then Err (sprintf "k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2 = 0") 
+                        else 
+                            let yLo = (k16 + k17*x1 + k18*x1*x1 + k19*x1*x1*x1 - x2) / d
+                            let x1 = conc * (v_0_nku-v_s_nku)/(v_0_nku-v_k_nku)
+                            let x2 = conc * (v_0_max-v_s_max)/(v_0_max-v_k_max)
+                            let d = k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2
+                            if d = 0M then Err (sprintf "k16 + k17*x2 + k18*x2*x2 + k19*x2*x2*x2 - x2 = 0") 
+                            else 
+                                let yHi = (k16 + k17*x1 + k18*x1*x1 + k19*x1*x1*x1 - x2) / d
+                                Ok [ t1, yLo; t2, 1m; t3, yHi ] 
+                match r with
+                | Ok r -> return r
+                | Err err -> 
+                    Logging.error "%s" err
+                    return []
+                }
             |> Result.mapErr( 
                 fmtErr ( function
                     | K kef -> sprintf "коэф.%d" kef.Order
