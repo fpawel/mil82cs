@@ -65,7 +65,7 @@ let product  ((h,d):Party.Content) (p:Product)  =
     add font12 "Поверочный компонент:" 
     add font12bold t.Gas.What
     add font12 "Диапазон измерений:"
-    add font12bold (sprintf "0-%M %s" t.Scale.Value t.Gas.Units)
+    add font12bold (sprintf "%M-%M %s" t.Scale.Begin t.Scale.End t.Gas.Units)
     add font12 "Температурный диапазон:"
     add font12bold (sprintf "%+M %+M*C" tempLow tempHigh)
 
@@ -136,8 +136,8 @@ let sticker ((h,d):Party.Content) (p:Product) =
             pi.serial p.Addr strMonth (2000 + pi.year)
 
     let str2 = 
-        sprintf "%s 0-%M %s 418414.111-%s %+M %+M*С" 
-            t.Gas.What t.Scale.Value t.Gas.Units t.What tempLow tempHigh
+        sprintf "%s %M-%M %s 418414.111-%s %+M %+M*С" 
+            t.Gas.What t.Scale.Begin t.Scale.End t.Gas.Units t.What tempLow tempHigh
 
     cell.CellEvent <- 
         {   new IPdfPCellEvent with 

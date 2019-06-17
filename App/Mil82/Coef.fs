@@ -117,6 +117,9 @@ type Coef =
     | [<Coef(47, "Номер исполнения (1-ые 4 цифры) и месяц изготовления (последние 2 цифры) МИЛ-82")>]
       CoefPriborTypeMonthMil82
 
+    | [<Coef(50, "Коэффициент 50")>]
+      Coef50
+
     | CoefCustom of int * string * (string option)
 
     

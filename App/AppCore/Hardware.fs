@@ -1,8 +1,5 @@
 ﻿module Hardware 
 open System
-open System.Text
-
-open WinFormsControlUtils
 
 type private R = Mdbs.Request
 let private cfg = AppConfig.config

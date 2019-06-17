@@ -219,7 +219,7 @@ type Party1
             if v <> x.ProductType then
                 let t = 
                     ProductType.values 
-                    |> List.tryFind( ProductType.what >> (=) v)
+                    |> List.tryFind( fun t -> t.What = v)
                     |> Option.withDefault A00
                 partyHeader <- { partyHeader with ProductType = t}
                 x.RaisePropertyChanged "ProductType"

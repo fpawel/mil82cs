@@ -32,8 +32,8 @@ module TabsheetVars =
 
         static member values = 
             [   yield SheetLin
-                yield! List.map SheetT TermoPt.values
-                yield! List.map SheetTest [TermoLow; TermoNorm; TermoHigh]
+                yield! List.map SheetT [ TermoNorm; TermoLow;  TermoHigh;  ] 
+                yield! List.map SheetTest [TermoLow; TermoNorm; TermoHigh; Termo90]
                 yield SheetTex
             ]
 

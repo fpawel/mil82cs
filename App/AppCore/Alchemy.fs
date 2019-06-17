@@ -19,20 +19,21 @@ let encodeDate (date : DateTime) =
     let day = decimal date.Day
     year * 10000m + month * 100m + day
 
-let initKefsValues pgs productType = 
-    let _,_, gas, scale, kef4, kef14, kef45 = ProductType.ctx productType
+let initKefsValues pgs (t : ProductType) = 
     let now = DateTime.Now
     [   CoefYear, decimal now.Year
         CoefPgsChNull, pgs ScaleBeg
         CoefPgsChSens, pgs ScaleEnd 
-        CoefShkala1  , decimal ( Scale.code scale)
-        CoefPredelLo1, 0m
-        CoefPredelHi1, Scale.value scale
-        CoefEdIzmer1 , decimal ( Gas.unitsCode gas)
-        CoefGasType1 , decimal ( Gas.code gas)
-        CoefMaxCountReg, kef4
-        CoefKyskch, kef14
-        CoefCb, kef45  
+        CoefShkala1  , decimal t.Scale.Code
+        CoefPredelLo1, t.Scale.Begin
+        CoefPredelHi1, t.Scale.End
+        CoefEdIzmer1 , decimal ( t.Gas.UnitsCode)
+        CoefGasType1 , decimal ( t.Gas.Code)
+        CoefMaxCountReg, t.K4
+        CoefKyskch, t.K14
+        CoefCb, t.K45
+        CoefMadSafe, t.K35
+        Coef50, t.K50
 
         CoefCchlin0, 0m
         CoefCchlin1, 1m
@@ -238,16 +239,16 @@ let compute group pgs productType = state {
         Logging.info "метод Гаусса X=%s Y=%s ==> %s=%s" (val6 x) (val6 y) skefs (val6 result)
         do! result |> Array.toList |> List.zip kefs |> Product.setKefs   }
 
-let concErrorlimit productType concValue =        
-    let scale = ProductType.scale productType        
-    if ProductType.isCH productType then 2.5m+0.05m * concValue
+let concErrorlimit (t:ProductType) concValue =        
+    let scale = t.Scale
+    if t.IsCH then 2.5m+0.05m * concValue
     elif scale=Sc4 then 0.2m + 0.05m * concValue
     elif scale=Sc10 then 0.5m
     elif scale=Sc20 then 1.0m else 0.m
 
 
-let termoErrorlimit productType pgs (gas,termoPt) product =
-    if ProductType.isCH productType |> not then 
+let termoErrorlimit (prodType:ProductType) pgs (gas,termoPt) product =
+    if not prodType.IsCH  then 
         let t0 = 
             match termoPt with
             | Termo90 -> 80m
@@ -256,7 +257,7 @@ let termoErrorlimit productType pgs (gas,termoPt) product =
             Product.getVar (Test, Temp, gas, termoPt) product) 
         |> Option.map2(fun(c,t) ->             
             let dt = t - t0     
-            let maxc = concErrorlimit productType pgs
+            let maxc = concErrorlimit prodType pgs
             0.5m * abs( maxc*dt ) / 10.0m )
     else
         match gas with

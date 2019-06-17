@@ -317,7 +317,7 @@ type Product =
         for var,value in varsValues do
             do! Product.setVar var (Some value)    }
 
-    static member setKefs kefsVals = state{            
+    static member setKefs kefsVals = state{ 
         for kef,value in kefsVals do
             do! Product.setKef kef (Some value)  }
 
