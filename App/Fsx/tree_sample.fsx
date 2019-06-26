@@ -238,9 +238,10 @@ open System
 let tabs n = String('\t',n)
 //let ln n x = sprintf "%s%s" (tabs n) x
 
-let Seq.toStr<'T> delimString conv (collection : 'T seq )  =
-    collection |> Seq.fold( fun acc x ->
-        acc + (if acc |> String.IsNullOrEmpty then acc else delimString) + (conv x) ) ""
+module Seq =
+    let toStr<'T> delimString conv (collection : 'T seq )  =
+        collection |> Seq.fold( fun acc x ->
+            acc + (if acc |> String.IsNullOrEmpty then acc else delimString) + (conv x) ) ""
 
 let stringify =
     let rec loop n = function

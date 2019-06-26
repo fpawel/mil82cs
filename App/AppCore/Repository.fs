@@ -24,9 +24,6 @@ type PartyPath =
         Date : DateTime }
     static member getFolderPath (canCreate,h:PartyPath)  = 
         //getPartyFolderPath canCreate h.Date h.Id
-
-        let (~%%) = string
-        let month = h.Date.Date.ToString("MMM", System.Globalization.CultureInfo.InvariantCulture)
         let path = Path.Combine(Path.batch false h.Date.Date, h.Id )
         if canCreate then
             createDirectory path

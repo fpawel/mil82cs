@@ -1,5 +1,269 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\fpawel\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\fpawel\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_Mil82.-325904053.00" t="ExcludeRecursive" />
+    <e p="C:\Users\fpawel\Documents\Visual Studio 2015\Projects\Analit\Mil82" t="IncludeFlat">
+      <e p="App" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="App.fsproj" t="IncludeRecursive" />
+        <e p="AppCore" t="Include">
+          <e p="Alchemy.fs" t="Include" />
+          <e p="AppConfig.fs" t="Include" />
+          <e p="Chart.fs" t="Include" />
+          <e p="Comport.fs" t="Include" />
+          <e p="ComportConfig.fs" t="Include" />
+          <e p="Hardware.fs" t="Include" />
+          <e p="MainWindow.fs" t="Include" />
+          <e p="Mdbs.fs" t="Include" />
+          <e p="Pdf.fs" t="Include" />
+          <e p="PhysVarValues.fs" t="Include" />
+          <e p="Repository.fs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="coefs.config" t="Include" />
+        <e p="Content" t="Include">
+          <e p="logging.css" t="Include" />
+          <e p="logging.js" t="Include" />
+          <e p="report.css" t="Include" />
+        </e>
+        <e p="Fsx" t="Include">
+          <e p="diap.fsx" t="Include" />
+          <e p="emit_sample.fsx" t="Include" />
+          <e p="tree_sample.fsx" t="Include" />
+          <e p="untune.fsx" t="Include" />
+        </e>
+        <e p="icon.ico" t="Include" />
+        <e p="Json" t="Include">
+          <e p="Json.fs" t="Include" />
+          <e p="JsonConfig.fs" t="Include" />
+          <e p="JsonSerialization.fs" t="Include" />
+        </e>
+        <e p="Mil82" t="Include">
+          <e p="Coef.fs" t="Include" />
+          <e p="Mil82.fs" t="Include" />
+          <e p="ProductType.fs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Programm.fs" t="Include" />
+        <e p="Script2.fsx" t="Include" />
+        <e p="src_kefs.fsx" t="Include" />
+        <e p="src_select_phys_vars_viewmodel.fsx" t="Include" />
+        <e p="src_viewmodels.fsx" t="Include" />
+        <e p="Utils" t="Include">
+          <e p="Bin.fs" t="Include" />
+          <e p="DateTimeUtils.fs" t="Include" />
+          <e p="FsharpRuntime.fs" t="Include" />
+          <e p="Hex.fs" t="Include" />
+          <e p="Html.fs" t="Include" />
+          <e p="IntRanges.fs" t="Include" />
+          <e p="Logging.fs" t="Include" />
+          <e p="LoggingRichText.fs" t="Include" />
+          <e p="PathUtils.fs" t="Include" />
+          <e p="Ref.fs" t="Include" />
+          <e p="Runtime.fs" t="Include" />
+          <e p="State.fs" t="Include" />
+          <e p="StrUtils.fs" t="Include" />
+          <e p="Tree.fs" t="Include" />
+          <e p="Utils.fs" t="Include" />
+        </e>
+        <e p="View" t="Include">
+          <e p="AppConfigView.fs" t="Include" />
+          <e p="LoggingHtml.fs" t="Include" />
+          <e p="Menus.fs" t="Include" />
+          <e p="OpenPartyDialog.fs" t="Include" />
+          <e p="PartyProductsDialogs.fs" t="Include" />
+          <e p="SelectScenaryDialog.fs" t="Include" />
+          <e p="TabPages.fs" t="Include" />
+          <e p="Thread2Views.fs" t="Include" />
+          <e p="TopBar.fs" t="Include" />
+          <e p="ViewChart.fs" t="Include" />
+          <e p="ViewProducts.fs" t="Include" />
+          <e p="ViewScenary.fs" t="Include" />
+        </e>
+        <e p="ViewModels" t="Include">
+          <e p="PartyViewModel.fs" t="Include" />
+          <e p="PartyViewModel1.fs" t="Include" />
+          <e p="ProductViewModel.fs" t="Include" />
+          <e p="ProductViewModel1.fs" t="Include" />
+          <e p="SelectPhysVarsViewModel.fs" t="Include" />
+          <e p="ViewModel.fs" t="Include" />
+        </e>
+        <e p="WinForms" t="Include">
+          <e p="ChartUtils.fs" t="Include" />
+          <e p="Components" t="Include">
+            <e p="ChartAxisScalingViewModel.fs" t="Include" />
+            <e p="LeftInfoBlock.fs" t="Include" />
+            <e p="PopupDialog.fs" t="Include" />
+            <e p="TopDialog.fs" t="Include" />
+            <e p="TriStateCheckTreeView.fs" t="Include" />
+          </e>
+          <e p="WinFormsControlUtils.fs" t="Include" />
+          <e p="WinFormsConverters.fs" t="Include" />
+          <e p="WinFormsUtils.fs" t="Include" />
+        </e>
+        <e p="Work" t="Include">
+          <e p="AppContent.fs" t="Include" />
+          <e p="Operation.fs" t="Include" />
+          <e p="PartyWorks.fs" t="Include" />
+          <e p="Thread2.fs" t="Include" />
+        </e>
+      </e>
+      <e p="Mil82.sln" t="IncludeFlat" />
+      <e p="MyWinForms" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CheckBoxColumn.cs" t="Include" />
+        <e p="ComboBox.cs" t="Include" />
+        <e p="ComboBox.Designer.cs" t="Include" />
+        <e p="FlatComboBox.cs" t="Include" />
+        <e p="GripBounds.cs" t="Include" />
+        <e p="MyWinForms.csproj" t="IncludeRecursive" />
+        <e p="NativeMethods.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Popup.cs" t="Include" />
+        <e p="Popup.Designer.cs" t="Include" />
+        <e p="PopupAnimations.cs" t="Include" />
+        <e p="PopupComboBox.cs" t="Include" />
+        <e p="PopupComboBox.Designer.cs" t="Include" />
+        <e p="PopupControl.snk" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="TabPadding.cs" t="Include" />
+      </e>
+      <e p="NumericMethod" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="NumericMethod.cs" t="Include" />
+        <e p="NumericMethod.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="ObjectListView" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CellEditing" t="Include">
+          <e p="CellEditKeyEngine.cs" t="Include" />
+          <e p="CellEditors.cs" t="Include" />
+          <e p="EditorRegistry.cs" t="Include" />
+        </e>
+        <e p="CustomDictionary.xml" t="Include" />
+        <e p="DataListView.cs" t="Include" />
+        <e p="DataTreeListView.cs" t="Include" />
+        <e p="DragDrop" t="Include">
+          <e p="DragSource.cs" t="Include" />
+          <e p="DropSink.cs" t="Include" />
+          <e p="OLVDataObject.cs" t="Include" />
+        </e>
+        <e p="FastDataListView.cs" t="Include" />
+        <e p="FastObjectListView.cs" t="Include" />
+        <e p="Filtering" t="Include">
+          <e p="Cluster.cs" t="Include" />
+          <e p="ClusteringStrategy.cs" t="Include" />
+          <e p="ClustersFromGroupsStrategy.cs" t="Include" />
+          <e p="DateTimeClusteringStrategy.cs" t="Include" />
+          <e p="FilterMenuBuilder.cs" t="Include" />
+          <e p="Filters.cs" t="Include" />
+          <e p="FlagClusteringStrategy.cs" t="Include" />
+          <e p="ICluster.cs" t="Include" />
+          <e p="IClusteringStrategy.cs" t="Include" />
+          <e p="TextMatchFilter.cs" t="Include" />
+        </e>
+        <e p="FullClassDiagram.cd" t="Include" />
+        <e p="Implementation" t="Include">
+          <e p="Attributes.cs" t="Include" />
+          <e p="Comparers.cs" t="Include" />
+          <e p="DataSourceAdapter.cs" t="Include" />
+          <e p="Delegates.cs" t="Include" />
+          <e p="Enums.cs" t="Include" />
+          <e p="Events.cs" t="Include" />
+          <e p="GroupingParameters.cs" t="Include" />
+          <e p="Groups.cs" t="Include" />
+          <e p="Munger.cs" t="Include" />
+          <e p="NativeMethods.cs" t="Include" />
+          <e p="NullableDictionary.cs" t="Include" />
+          <e p="OLVListItem.cs" t="Include" />
+          <e p="OLVListSubItem.cs" t="Include" />
+          <e p="OlvListViewHitTestInfo.cs" t="Include" />
+          <e p="TreeDataSourceAdapter.cs" t="Include" />
+          <e p="VirtualGroups.cs" t="Include" />
+          <e p="VirtualListDataSource.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="ObjectListView.cs" t="Include" />
+        <e p="ObjectListView.DesignTime.cs" t="Include" />
+        <e p="ObjectListView2012.csproj" t="IncludeRecursive" />
+        <e p="ObjectListView2012.nuspec" t="Include" />
+        <e p="olv-keyfile.snk" t="Include" />
+        <e p="OLVColumn.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+        </e>
+        <e p="Rendering" t="Include">
+          <e p="Adornments.cs" t="Include" />
+          <e p="Decorations.cs" t="Include" />
+          <e p="Overlays.cs" t="Include" />
+          <e p="Renderers.cs" t="Include" />
+          <e p="Styles.cs" t="Include" />
+          <e p="TreeRenderer.cs" t="Include" />
+        </e>
+        <e p="Resources" t="Include">
+          <e p="clear-filter.png" t="Include" />
+          <e p="filter-icons3.png" t="Include" />
+          <e p="filter.png" t="Include" />
+          <e p="sort-ascending.png" t="Include" />
+          <e p="sort-descending.png" t="Include" />
+        </e>
+        <e p="SubControls" t="Include">
+          <e p="GlassPanelForm.cs" t="Include" />
+          <e p="HeaderControl.cs" t="Include" />
+          <e p="ToolStripCheckedListBox.cs" t="Include" />
+          <e p="ToolTipControl.cs" t="Include" />
+        </e>
+        <e p="TreeListView.cs" t="Include" />
+        <e p="Utilities" t="Include">
+          <e p="ColumnSelectionForm.cs" t="Include" />
+          <e p="ColumnSelectionForm.Designer.cs" t="Include" />
+          <e p="ColumnSelectionForm.resx" t="Include" />
+          <e p="Generator.cs" t="Include" />
+          <e p="OLVExporter.cs" t="Include" />
+          <e p="TypedObjectListView.cs" t="Include" />
+        </e>
+        <e p="VirtualObjectListView.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="SysText" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CellcpacingEvent.cs" t="Include" />
+        <e p="Metrics.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="SysText.cs" t="Include" />
+        <e p="SysText.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="Widgets" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Icons.cs" t="Include" />
+        <e p="Icons.Designer.cs" t="Include" />
+        <e p="Icons.resx" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="Widgets.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+  </component>
   <component name="RiderRiderContentModelStore">
     <excludedPaths />
   </component>

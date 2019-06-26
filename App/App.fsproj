@@ -122,10 +122,7 @@
     <Compile Include="Programm.fs" />
     <None Include="Fsx\untune.fsx" />
     <None Include="Fsx\tree_sample.fsx" />
-    <None Include="Fsx\state_calculator.fsx" />
     <None Include="Fsx\emit_sample.fsx" />
-    <None Include="Fsx\fsharp_code_dom.fsx" />
-    <None Include="Fsx\appl.fsx" />
     <None Include="Fsx\diap.fsx" />
     <Content Include="coefs.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -140,7 +137,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="src_select_phys_vars_viewmodel.fsx" />
-    <None Include="Script1.fsx" />
     <None Include="src_viewmodels.fsx" />
     <None Include="src_kefs.fsx" />
     <None Include="App.config" />
@@ -192,11 +188,11 @@
       <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core"> 
-      <Name>FSharp.Core</Name> 
-      <AssemblyName>FSharp.Core.dll</AssemblyName> 
+    <Reference Include="FSharp.Core">
+      <Name>FSharp.Core</Name>
+      <AssemblyName>FSharp.Core.dll</AssemblyName>
       <HintPath>$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\FSharp\.NETFramework\v4.0\$(TargetFSharpCoreVersion)\FSharp.Core.dll</HintPath>
-    </Reference> 
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
