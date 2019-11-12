@@ -145,6 +145,7 @@
     </Content>
     <Content Include="packages.config" />
     <None Include="Script2.fsx" />
+    <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyWinForms\MyWinForms.csproj">

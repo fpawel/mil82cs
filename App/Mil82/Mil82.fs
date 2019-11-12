@@ -105,6 +105,7 @@ type PhysVar =
     static member name (x:PhysVar) = FSharpValue.unionCaseName x
     member x.Dscr = PhysVar.dscr x
     member x.What = PhysVar.what x
+    member x.Code = PhysVar.code x
     
 type Id = string
 
