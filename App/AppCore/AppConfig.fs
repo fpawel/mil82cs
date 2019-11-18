@@ -95,12 +95,21 @@ type WarmDevice =
         }
     override __.ToString() = ""
 
+
+type FloatFormat =
+    | FloatBCD
+    | FloatIEEE754
+
 [<TypeConverter(typeof<ExpandableObjectConverter>)>]
 type Hardware =
     {   
         [<DisplayName("СОМ порт приборов")>]
         [<Description("Настройка параметров приёмопередачи СОМ порта, к которому подключены настраиваемые приборы по RS 485")>]
         mutable ComportProducts : ComportConfig.Config        
+
+        [<DisplayName("Формат значений с плавающей точкой")>]
+        [<Description("Выбор формата значений с плавающей точкой")>]
+        mutable FloatFormat : FloatFormat
         
         [<DisplayName("Термокамера")>]
         [<Description("Настройка параметров термокамеры")>]
@@ -115,6 +124,8 @@ type Hardware =
         mutable WarmDevice : WarmDevice
         }
     static member create() = {   
+
+        FloatFormat = FloatBCD
         
         Pneumoblock = 
             {   Comport = ComportConfig.Config.withDescr "пневмоблок"

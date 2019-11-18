@@ -191,7 +191,14 @@ module private Helpers1 =
 [<CLIEvent>]
 let NotifyEvent = notify.Publish
 
-let write port addy cmd what value =
+let write32float port addy cmd what value =
+    let what = sprintf "%s <-- %s" what ( System.Decimal.toStr6 value)
+    [|  yield byte (cmd >>> 8)
+        yield byte cmd
+        yield! System.BitConverter.GetBytes(single value) |]
+    |> write16 port what addy 32
+
+let write32bcd port addy cmd what value =
     let what = sprintf "%s <-- %s" what ( System.Decimal.toStr6 value)
     [|  yield byte (cmd >>> 8)
         yield byte cmd
@@ -207,10 +214,18 @@ let read3bytes port addy registerNumber registersCount  =
         bytesToStr
         Ok
 
-let read3decimal port addy registerNumber what =
+let read3bcd port addy registerNumber what =
     read3 port what addy registerNumber 2 (sprintf "%M") <| function
         | Bin.AnalitBCD6 v -> Ok v
         | BytesToStr x -> Err <| sprintf "Ошибка преобразования BCD %s" x
+
+let read3float port addy registerNumber what =
+    read3 port what addy registerNumber 2 (sprintf "%M") (
+        List.toArray
+        >> fun x -> System.BitConverter.ToSingle(x,0)
+        >> decimal
+        >> Ok )
+
 
 
 let private (|ConvList|) f = List.map f

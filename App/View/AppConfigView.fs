@@ -96,10 +96,31 @@ type PartyConfigView() =
     override __.ToString() = ""
 
 
+type FloatFormatConverter() = 
+    inherit  StringConverter()
+    override this.GetStandardValuesSupported _ = true
+    override this.GetStandardValuesExclusive _ = true
+    override this.GetStandardValues _ =         
+        [|"BCD"; "IEEE-754"|]
+        |> TypeConverter.StandardValuesCollection
+
+
 type AppConfigView() = 
-    
+
     [<DisplayName("Партия")>]    
     member val  Party = PartyConfigView() with get,set
+
+    
+    [<DisplayName("Формат float")>]
+    [<Description("Внктренне представление чисел с плавающей точкой, используемое в протоколе приёмопередачи прибора")>]
+    [<TypeConverter (typeof<FloatFormatConverter>) >]
+    member x.FormatFloat
+        with get() = 
+            match config.Hardware.FloatFormat with
+            | FloatIEEE754 -> "IEEE-754"
+            | FloatBCD -> "BCD"
+        and set v = 
+            config.Hardware.FloatFormat <- if v = "IEEE-754" then FloatIEEE754 else FloatBCD
 
     [<DisplayName("СОМ приборы")>]
     [<Description("Имя СОМ порта, к которому подключены настраиваемые приборы")>]

@@ -402,9 +402,18 @@ let runInterrogate() = "Опрос" -->> fun () -> maybeErr{
 
 
 let setAddr addr = sprintf "Установка адреса %A" addr -->> fun () -> maybeErr{ 
+
+    let writeFun = 
+        match appCfg.Hardware.FloatFormat with
+        | AppConfig.FloatIEEE754 -> Mdbs.write32float
+        | AppConfig.FloatBCD -> Mdbs.write32bcd
+    let readFun = 
+        match appCfg.Hardware.FloatFormat with
+        | AppConfig.FloatIEEE754 -> Mdbs.read3float
+        | AppConfig.FloatBCD -> Mdbs.read3bcd
     
-    do! Mdbs.write appCfg.Hardware.ComportProducts 0uy ResetAddy.Code "установка адреса" addr
-    let! _ =  Mdbs.read3decimal appCfg.Hardware.ComportProducts (byte addr) 0 "проверка установки адреса"
+    do! writeFun appCfg.Hardware.ComportProducts 0uy ResetAddy.Code "установка адреса" addr
+    let! _ =  readFun appCfg.Hardware.ComportProducts (byte addr) 0 "проверка установки адреса"
     () }
 
 let sendCommand (cmd,value as x) = 

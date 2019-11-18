@@ -252,7 +252,12 @@ type Product1(p : P, getProductType, getPgs, partyId) =
 
     
     member x.ReadModbus(ctx) = 
-        let r = Mdbs.read3decimal appCfg.Hardware.ComportProducts x.Addr (ReadContext.code ctx) (ReadContext.what ctx)
+        let readFun = 
+            match appCfg.Hardware.FloatFormat with
+            | AppConfig.FloatIEEE754 -> Mdbs.read3float
+            | AppConfig.FloatBCD -> Mdbs.read3bcd
+
+        let r = readFun appCfg.Hardware.ComportProducts x.Addr (ReadContext.code ctx) (ReadContext.what ctx)
         match r, ctx with
         | Ok value, ReadVar var -> 
             x.setPhysVarValue var value
@@ -267,7 +272,11 @@ type Product1(p : P, getProductType, getPgs, partyId) =
 
     member x.WriteModbus (ctx,value) = 
         let what = WriteContext.what ctx
-        let r = Mdbs.write appCfg.Hardware.ComportProducts x.Addr (WriteContext.code ctx) what value
+        let writeFun = 
+            match appCfg.Hardware.FloatFormat with
+            | AppConfig.FloatIEEE754 -> Mdbs.write32float
+            | AppConfig.FloatBCD -> Mdbs.write32bcd
+        let r = writeFun appCfg.Hardware.ComportProducts x.Addr (WriteContext.code ctx) what value
         x.Connection <- 
             r 
             |> Result.map(fun v -> sprintf "%s <-- %s" (WriteContext.what ctx) (Decimal.toStr6 value))

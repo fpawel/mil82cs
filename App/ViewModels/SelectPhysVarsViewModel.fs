@@ -94,6 +94,16 @@ type SelectPhysVars() =
         and set value =
             cfg.VisiblePhysVars <- 
                 (if value then Set.add else Set.remove) Var10 cfg.VisiblePhysVars
+
+    [<DisplayName("Var200")>]
+    [<Description("Var200")>]
+    [<TypeConverter (typeof<InterrogateConverter>) >]
+    member x.Var200
+        with get() =
+            Set.contains Var200 cfg.VisiblePhysVars 
+        and set value =
+            cfg.VisiblePhysVars <- 
+                (if value then Set.add else Set.remove) Var200 cfg.VisiblePhysVars
             
 
     override x.ToString() = cfg.VisiblePhysVars |> Seq.toStr ", " PhysVar.what
