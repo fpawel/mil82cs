@@ -3159,3 +3159,5 @@ type Product(p, getProdType, getPgs, partyId) =
     member x.Var8 = x.getPhysVarValueUi PhysVar.Var8 
 
     member x.Var10 = x.getPhysVarValueUi PhysVar.Var10 
+
+    member x.Var200 = x.getPhysVarValueUi PhysVar.Var200
