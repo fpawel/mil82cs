@@ -191,11 +191,24 @@ module private Helpers1 =
 [<CLIEvent>]
 let NotifyEvent = notify.Publish
 
+let convertBytesToBigEndian (data : byte []) = 
+    let mutable tmp = data.[0]
+    data.[0] <- data.[3]
+    data.[3] <- tmp
+    tmp <- data.[1]
+    data.[1] <- data.[2]
+    data.[2] <- tmp
+
+
 let write32float port addy cmd what value =
+    
+    let xs = System.BitConverter.GetBytes(single value)
+    convertBytesToBigEndian(xs)
+
     let what = sprintf "%s <-- %s" what ( System.Decimal.toStr6 value)
     [|  yield byte (cmd >>> 8)
         yield byte cmd
-        yield! System.BitConverter.GetBytes(single value) |]
+        yield! xs |]
     |> write16 port what addy 32
 
 let write32bcd port addy cmd what value =
@@ -222,11 +235,12 @@ let read3bcd port addy registerNumber what =
 let read3float port addy registerNumber what =
     read3 port what addy registerNumber 2 (sprintf "%M") (
         List.toArray
-        >> fun x -> System.BitConverter.ToSingle(x,0)
+        >> fun x -> 
+            let xs = Seq.toArray x
+            convertBytesToBigEndian xs
+            System.BitConverter.ToSingle(xs,0)            
         >> decimal
         >> Ok )
-
-
 
 let private (|ConvList|) f = List.map f
 let private (|NIn|) xs n = 
