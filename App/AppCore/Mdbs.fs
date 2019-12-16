@@ -238,8 +238,8 @@ let read3float port addy registerNumber what =
         >> fun x -> 
             let xs = Seq.toArray x
             convertBytesToBigEndian xs
-            System.BitConverter.ToSingle(xs,0)            
-        >> decimal
+            let x = System.BitConverter.ToSingle(xs,0)
+            if System.Single.IsNaN(x) then System.Decimal.MinValue else decimal(x)
         >> Ok )
 
 let private (|ConvList|) f = List.map f

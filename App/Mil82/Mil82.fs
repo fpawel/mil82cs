@@ -300,7 +300,9 @@ type Product =
         do! setState { p with VarValue = m p.VarValue   } }
 
 
-    static member getKef k p =p.CoefValue.TryFind k 
+    static member getKef k p =        
+        p.CoefValue.TryFind k 
+        
 
     static member getKefs kefs p =
         kefs 

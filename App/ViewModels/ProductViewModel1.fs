@@ -254,8 +254,9 @@ type Product1(p : P, getProductType, getPgs, partyId) =
     member x.ReadModbus(ctx) = 
         let readFun = 
             match appCfg.Hardware.FloatFormat with
-            | AppConfig.FloatIEEE754 -> Mdbs.read3float
             | AppConfig.FloatBCD -> Mdbs.read3bcd
+            | AppConfig.FloatIEEE754 -> Mdbs.read3float
+            
 
         let r = readFun appCfg.Hardware.ComportProducts x.Addr (ReadContext.code ctx) (ReadContext.what ctx)
         match r, ctx with
