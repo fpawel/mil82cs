@@ -187,10 +187,30 @@ let getResponse port requestBytes : Result<byte[], string>=
     with e ->
         formatError port.CanLog port.PortName e.Message requestBytes |> Err
 
-let getProtocolResponse port requestBytes checkResp parseResp =
+
+
+let rec private tryGetProtResp attempt port requestBytes checkResp parseResp =
     match getResponse port requestBytes with
     | Err error -> None, Err error
     | Ok responsedBytes -> 
-        Some responsedBytes, 
-            checkResp responsedBytes  
-            |> Result.bind parseResp
+        let r = Some responsedBytes
+        match Result.bind parseResp (checkResp responsedBytes) with
+        | Ok x -> r, Ok x
+        | Err e1 when attempt < port.RepeatCount ->
+            match tryApplyPort port with 
+            | Err e2 ->
+                r, Err( e1 + ": "+ e2)
+            | Ok p ->
+                try 
+                    discardBuffers(p)
+                    p.Close()
+                    sleep (port.Timeout)
+                    p.Open()
+                    tryGetProtResp (attempt + 1) port requestBytes checkResp parseResp                
+                with e2 ->
+                    r, Err( e1 + ": "+ e2.Message)
+        | p ->
+            r, p
+
+let getProtocolResponse port requestBytes checkResp parseResp =
+    tryGetProtResp 0 port requestBytes checkResp parseResp

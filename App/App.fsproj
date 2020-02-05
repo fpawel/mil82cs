@@ -97,6 +97,7 @@
     <Compile Include="AppCore\Chart.fs" />
     <Compile Include="AppCore\Alchemy.fs" />
     <Compile Include="AppCore\Pdf.fs" />
+    <Compile Include="AppCore\atool\atool.fs" />
     <Compile Include="ViewModels\ViewModel.fs" />
     <Compile Include="ViewModels\ProductViewModel1.fs" />
     <Compile Include="ViewModels\ProductViewModel.fs" />
@@ -146,6 +147,7 @@
     <Content Include="packages.config" />
     <None Include="Script2.fsx" />
     <None Include="Script1.fsx" />
+    <None Include="Script3.fsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyWinForms\MyWinForms.csproj">

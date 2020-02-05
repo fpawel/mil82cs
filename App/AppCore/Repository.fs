@@ -53,11 +53,9 @@ type Party.Head with
 
 [<AutoOpen>]
 module private Helpers = 
-    let binarySerializer = FsPickler.CreateBinarySerializer()
-
     
-
-
+    let binarySerializer = FsPickler.CreateBinarySerializer()
+    
     let doWithFile<'a> pathToFile (x:FileMode) (f : FileStream -> 'a) = 
         try
             let file = new FileStream( pathToFile, x ) 
