@@ -97,7 +97,7 @@
     <Compile Include="AppCore\Chart.fs" />
     <Compile Include="AppCore\Alchemy.fs" />
     <Compile Include="AppCore\Pdf.fs" />
-    <Compile Include="AppCore\atool\atool.fs" />
+    <Compile Include="AppCore\atool.fs" />
     <Compile Include="ViewModels\ViewModel.fs" />
     <Compile Include="ViewModels\ProductViewModel1.fs" />
     <Compile Include="ViewModels\ProductViewModel.fs" />

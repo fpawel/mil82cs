@@ -13,6 +13,7 @@ open Mil82.View
 
 [<AutoOpen>]
 module private Helpers =
+    
     type P = Mil82.ViewModel.Product     
     let party = AppContent.party
     let popupDialog = MyWinForms.PopupDialog.create
@@ -131,6 +132,19 @@ let productToolsPopup =
         yield "Выпуск в эксплуатацию", fun _ popup -> 
             popup.Close()
             PartyWorks.sendProduction() 
+
+        yield "Сохранить для atool", fun _ popup -> 
+            popup.Close()
+            let s = 
+                party.Party
+                |> atool.Party.New
+                |> Json.Serialization.stringify  
+            let dlg = new System.Windows.Forms.SaveFileDialog()
+            dlg.Filter <- "файл json (*.json)|*.json"  ;
+            dlg.RestoreDirectory <- true 
+            if dlg.ShowDialog() = DialogResult.OK then 
+                IO.File.WriteAllText(dlg.FileName, s)
+            
     
     ]
     |> simpleMenu

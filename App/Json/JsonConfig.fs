@@ -5,10 +5,6 @@ open System.IO
 
 open Json.Serialization
 
-
-    
-
-
 let private retDummy<'a> (filename, dummy  : unit -> 'a) errorText =    
     dummy(), Some (sprintf "ошибка файла конфигурации json \"%s\": %s" filename errorText ) 
 

@@ -1,6 +1,7 @@
 ﻿module atool
 
 open Mil82
+open System
 
 type ProductKey =
     | V of Mil82.Var
@@ -52,10 +53,10 @@ module private Help1 =
             for gas in gases do
                 for v in PhysVar.values do  
                     let key x = sprintf "%s_%s_%s" x (termoPtStr t) (keyGasVar gas v)
-                    xs.Add(V(Test, v, gas, t), key "test1")
-                    xs.Add(V(RetNku, v, gas, t), key "test2" )
+                    xs.Add(V(Test, v, gas, t), key "test")
+                    xs.Add(V(RetNku, v, gas, t), sprintf "test2_%s" (keyGasVar gas v) )
                     xs.Add(V(Tex1, v, gas, t), key "tex1" )
-                    xs.Add(V(Tex2, v, gas, t), key "tex1" )
+                    xs.Add(V(Tex2, v, gas, t), key "tex2" )
 
         for k in Coef.coefs do
             xs.Add(K k, coefToStr k)
@@ -66,6 +67,15 @@ module private Help1 =
     let prodKeyToStr, strToProdKey = 
         convFuncs prodKeys
 
+    let unixEpoch = DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+
+    //let datetimeFromUnixTime(unixTime) =     
+    //    unixEpoch.AddSeconds(unixTime)
+    
+    
+    //let datetimeToUnixTime(date:DateTime) =     
+    //    Convert.ToInt64((date - unixEpoch).TotalSeconds)
+    
 
 type Product = 
     {   Addr : byte
@@ -91,24 +101,21 @@ type Product =
         }
 
 type Party = 
-    {   Date : System.DateTime
-        ProductType : string
+    {   ProductType : string
         Name : string
         Values : StrFloatMap
         Products : Product list
     }
 
-    static member New( (h,d):Mil82.Party.Content) = 
-        
-        {   Date = h.Date
-            ProductType = h.ProductType.What
+    static member New( (h,d):Mil82.Party.Content) =
+        {   ProductType = h.ProductType.What
             Name = h.Name
             Values = 
                 ScalePt.values
-                |> List.choose(fun gas -> 
+                |> List.choose( fun gas -> 
                     d.BallonConc.TryFind gas
-                    |> Option.map(fun v -> sprintf "c%d" gas.Code, toFloat v)
-                    )
+                    |> Option.map(fun v -> sprintf "c%d" gas.Code, toFloat v))
                 |> Map.ofList
             Products = List.map Product.Export d.Products
         }
+
