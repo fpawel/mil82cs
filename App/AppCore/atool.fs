@@ -80,6 +80,7 @@ module private Help1 =
 type Product = 
     {   Addr : byte
         Serial : int
+        Device : string
         Values : StrFloatMap
     }
     static member Export(x:Mil82.Product) = 
@@ -95,6 +96,7 @@ type Product =
                
         {   Addr = x.Addr
             Serial = n.serial
+            Device = "МИЛ-82"
             Values = xs
                 |> Seq.map (|KeyValue|)
                 |> Map.ofSeq
